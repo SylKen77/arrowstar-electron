@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
+  "name": "arrowstar-electron",
   "version": "3.0.0",
   "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "homepage": "https://github.com/SylKen77/arrowstar-electron",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Maarten De Cock",
+    "email": "mr.decock@gmail.com"
   },
   "keywords": [
     "angular",
@@ -34,7 +34,9 @@
     "pree2e:protractor": "wait-on http-get://localhost:4200/ && protractor ./protractor.conf.js",
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
-  "dependencies": {},
+  "dependencies": {
+    "line-by-line": "^0.1.6"
+  },
   "devDependencies": {
     "@angular/cli": "1.7.1",
     "@angular/common": "5.2.5",
