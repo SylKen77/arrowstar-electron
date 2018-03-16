@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ElectronService} from '../../providers/electron.service';
+import {KlantService} from '../../services/klant-service';
+import {CommandService} from '../../services/command-service';
+import {ProductService} from '../../services/product-service';
+import {KassaService} from '../../services/kassa-service';
 
 @Component({
   selector: 'app-home',
@@ -8,19 +11,13 @@ import {ElectronService} from '../../providers/electron.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private electronService: ElectronService) {
+  constructor(public klantService: KlantService, public productService: ProductService, private commandService: CommandService, public kassaService: KassaService) {
   }
 
   ngOnInit() {
   }
 
-  public writeLine() {
-    console.log('HomeComponent.writeLine');
-    this.electronService.writeLine({naam: 'Maarten'});
-  }
-
-  public readLines() {
-    console.log('HomeComponent.readLines');
-    this.electronService.readLines();
+  klantAanmaken() {
+    this.commandService.voegKlantToe('De Cock', 'Maarten', 'LID');
   }
 }

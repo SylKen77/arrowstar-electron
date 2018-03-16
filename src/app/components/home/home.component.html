@@ -3,6 +3,23 @@
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
 
-  <input type="button" (click)="writeLine()" value="write">
-  <input type="button" (click)="readLines()" value="read">
+  <input type="button" (click)="klantAanmaken()" value="klant aanmaken">
+
+  <div class="json">
+  <pre>
+  {{kassaService.state | json}}
+  </pre>
+  </div>
+
+  <div class="json">
+  <pre>
+  {{klantService.state | json}}
+  </pre>
+  </div>
+
+  <div class="json">
+  <pre>
+  {{productService.state | json}}
+  </pre>
+  </div>
 </div>

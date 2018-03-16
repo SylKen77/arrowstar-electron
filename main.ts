@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import {app, BrowserWindow, screen} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -26,8 +26,7 @@ function createWindow() {
   });
 
   if (serve) {
-    require('electron-reload')(__dirname, {
-    });
+    require('electron-reload')(__dirname, {});
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
@@ -46,6 +45,17 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+}
+
+function createBackup() {
+  const log = require('electron-log');
+  log.warn('Creating backup');
+  const fs = require('fs-extra');
+  const date = new Date();
+  const day = date.getDate() > 9 ? '' + date.getDate() : '0' + date.getDate();
+  const month = (date.getUTCMonth() + 1) > 9 ? '' + (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
+  fs.copySync('data/commands.txt', 'data/backup/' + date.getFullYear() + month + day + '.txt');
+  log.warn('Backup created');
 }
 
 try {
@@ -71,6 +81,8 @@ try {
       createWindow();
     }
   });
+
+  app.on('quit', () => createBackup());
 
 } catch (e) {
   // Catch Error
