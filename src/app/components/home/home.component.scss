@@ -1,17 +1,29 @@
-.container {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  // background: url(../../../assets/background.jpg) no-repeat center fixed;
-  // -webkit-background-size: cover; /* for older versions of Chrome and Safari */
-  // background-size: cover;
+.grid {
+  margin-top: 10px;
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 5px;
+  grid-auto-rows: minmax(100px, auto);
+}
 
-  .title {
-    color: white;
-    margin:0;
-    padding:50px 20px;
-  }
+.grid > div {
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+  color: #807f7c;
+}
+
+.logo {
+  grid-column: 3 / 5;
+  grid-row: 1 / 4;
+}
+
+
+.debugInfo {
 
 }

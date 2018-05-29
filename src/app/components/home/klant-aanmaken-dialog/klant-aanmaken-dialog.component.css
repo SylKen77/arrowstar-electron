@@ -1,0 +1,15 @@
+.klantTypeSelectie {
+}
+
+.radioButton {
+  margin-left: 10px;
+}
+
+.createKlantForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.createKlantForm > * {
+  width: 100%;
+}

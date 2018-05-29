@@ -1,9 +1,19 @@
-<div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
+<div class="grid">
 
-  <input type="button" (click)="klantAanmaken()" value="klant aanmaken">
+  <div class="logo">one</div>
+
+  <ng-container *ngFor="let klant of klantService.state$ | async">
+    <div (click)="openKlantDialog(klant)">{{klant.voornaam}}</div>
+  </ng-container>
+
+  <div class="persoon" (click)="openKlantAanmakenDialog()">
+    <mat-icon class="accountIcon" >account_circle</mat-icon> klant toevoegen
+  </div>
+
+
+</div>
+
+<div class="debugInfo">
 
   <div class="json">
   <pre>

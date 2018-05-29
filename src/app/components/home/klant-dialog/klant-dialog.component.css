@@ -1,0 +1,8 @@
+.klantAankopenForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.klantAankopenForm > * {
+  width: 100%;
+}

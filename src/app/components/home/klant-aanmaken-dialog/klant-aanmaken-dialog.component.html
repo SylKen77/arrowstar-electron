@@ -1,0 +1,29 @@
+<h1 mat-dialog-title class="mat-headline">Klant toevoegen</h1>
+
+<mat-dialog-content style="height: 200px">
+
+  <div class="createKlantForm">
+    <mat-form-field>
+      <input matInput [(ngModel)]="voornaam" placeholder="voornaam">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="naam" placeholder="naam">
+    </mat-form-field>
+
+    <div>
+      <label class="mat-body-1">Type: </label>
+      <mat-radio-group class="klantTypeSelectie" [(ngModel)]="klantType" required="true">
+        <mat-radio-button class="radioButton" [value]="klantTypeEnum.GAST" [checked]="true">gast</mat-radio-button>
+        <mat-radio-button class="radioButton" [value]="klantTypeEnum.LID">lid</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="ok()">ok</button>
+  <button mat-button [mat-dialog-close]="cancel">cancel</button>
+</mat-dialog-actions>

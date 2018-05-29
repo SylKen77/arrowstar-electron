@@ -2,14 +2,16 @@
 {"_index":1,"_timestamp":"2018-03-06T10:43:53.149Z","_commandName":"ProductToevoegenCommand","_productId":1,"_productOmschrijving":"Koude dranken","_prijsLid":1.2,"_prijsGast":1.5}
 {"_index":2,"_timestamp":"2018-03-06T10:43:53.149Z","_commandName":"ProductToevoegenCommand","_productId":2,"_productOmschrijving":"Warme dranken","_prijsLid":1.2,"_prijsGast":1.5}
 {"_index":3,"_timestamp":"2018-03-06T10:43:53.149Z","_commandName":"ProductToevoegenCommand","_productId":3,"_productOmschrijving":"Snack","_prijsLid":1.0,"_prijsGast":1.2}
-{"_index":4,"_timestamp":"2018-03-13T10:30:37.123Z","_commandName":"AankoopToevoegenCommand","_aankoopId":4,"_klantId":0,"_productId":1}
-{"_index":5,"_timestamp":"2018-03-13T10:30:39.370Z","_commandName":"AankoopVerwijderenCommand","_klantId":0,"_productId":1}
-{"_index":6,"_timestamp":"2018-03-13T10:30:37.123Z","_commandName":"AankoopToevoegenCommand","_aankoopId":5,"_klantId":0,"_productId":1}
-{"_index":7,"_timestamp":"2018-03-13T10:30:37.123Z","_commandName":"AankoopToevoegenCommand","_aankoopId":6,"_klantId":0,"_productId":2}
-{"_index":8,"_timestamp":"2018-03-13T10:30:37.123Z","_commandName":"KlantAfrekenenCommand","_klantId":0}
-{"_index":9,"_timestamp":"2018-03-14T10:30:37.123Z","_commandName":"KassaTellenCommand","_saldo":152.4}
-{"_index":10,"_timestamp":"2018-03-13T10:30:37.123Z","_commandName":"AankoopToevoegenCommand","_aankoopId":5,"_klantId":0,"_productId":1}
-{"_index":11,"_timestamp":"2018-03-13T10:30:37.123Z","_commandName":"KlantAfrekenenCommand","_klantId":0}
-{"_index":12,"_timestamp":"2018-03-15T10:30:37.123Z","_commandName":"KassaTellenCommand","_saldo":153.5}
-{"_index":13,"_timestamp":"2018-03-15T10:30:37.123Z","_commandName":"KassaAfsluitenCommand","_bedrag":3.6}
-
+{"_index":4,"_timestamp":"2018-05-29T11:51:58.257Z","_commandName":"AankoopToevoegenCommand","_klantId":0,"_productId":1}
+{"_index":5,"_timestamp":"2018-05-29T11:52:05.361Z","_commandName":"KlantAfrekenenCommand","_klantId":0}
+{"_index":6,"_timestamp":"2018-05-29T11:52:09.385Z","_commandName":"AankoopToevoegenCommand","_klantId":0,"_productId":2}
+{"_index":7,"_timestamp":"2018-05-29T11:52:09.513Z","_commandName":"AankoopToevoegenCommand","_klantId":0,"_productId":2}
+{"_index":8,"_timestamp":"2018-05-29T11:52:10.048Z","_commandName":"AankoopToevoegenCommand","_klantId":0,"_productId":3}
+{"_index":9,"_timestamp":"2018-05-29T11:52:10.177Z","_commandName":"AankoopToevoegenCommand","_klantId":0,"_productId":3}
+{"_index":10,"_timestamp":"2018-05-29T11:52:16.329Z","_commandName":"KlantAfrekenenCommand","_klantId":0}
+{"_index":11,"_timestamp":"2018-05-29T11:52:39.193Z","_commandName":"KlantToevoegenCommand","_klantId":11,"_naam":"Loos","_voornaam":"Daevid","_klantType":"LID"}
+{"_index":12,"_timestamp":"2018-05-29T11:52:42.753Z","_commandName":"AankoopToevoegenCommand","_klantId":11,"_productId":1}
+{"_index":13,"_timestamp":"2018-05-29T11:56:34.952Z","_commandName":"KlantToevoegenCommand","_klantId":13,"_naam":"sdf","_voornaam":"dsf","_klantType":"GAST"}
+{"_index":14,"_timestamp":"2018-05-29T11:56:37.751Z","_commandName":"AankoopToevoegenCommand","_klantId":13,"_productId":1}
+{"_index":15,"_timestamp":"2018-05-29T11:56:40.647Z","_commandName":"KlantAfrekenenCommand","_klantId":13}
+{"_index":16,"_timestamp":"2018-05-29T11:56:52.840Z","_commandName":"KlantAfrekenenCommand","_klantId":11}

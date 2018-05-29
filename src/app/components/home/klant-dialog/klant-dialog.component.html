@@ -1,0 +1,34 @@
+<h1 mat-dialog-title class="mat-headline">Aankopen {{data.voornaam}} {{data.naam}}</h1>
+
+<mat-dialog-content style="height: 200px">
+
+  <div class="klantAankopenForm">
+    <ng-container *ngFor="let product of productService.state$ | async">
+      <div>{{product.omschrijving}} {{product.prijsLid}} <button mat-raised-button color="primary" (click)="aankoopToevoegen(product)">toevoegen</button></div>
+    </ng-container>
+  </div>
+
+  <div class="aankopenTimeline">
+    <ng-container *ngFor="let aankoop of getOnbetaaldeAankopen()">
+      <div class="aankoop">{{aankoop.product.omschrijving}} {{aankoop.getBedrag()}}</div>
+    </ng-container>
+  </div>
+  <div class="aankopenTotaal">
+    Totaal: {{getAankoopTotaal()}}
+  </div>
+
+
+  <label class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</label>
+  <mat-form-field>
+    <input matInput [(ngModel)]="gegeven" (ngModelChange)="berekenTerug()" placeholder="gegeven">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="terug" placeholder="0.00" readonly>
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="ok()" [disabled]="errorMessage">ok</button>
+</mat-dialog-actions>

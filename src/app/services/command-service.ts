@@ -11,6 +11,8 @@ import {ProductService} from './product-service';
 import {AankoopService} from './aankoop-service';
 import {KassaService} from './kassa-service';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
+import {Klant} from '../model/klant';
+import {Product} from '../model/product';
 
 @Injectable()
 export class CommandService {
@@ -65,12 +67,20 @@ export class CommandService {
     this.executeCommand(new KlantToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, naam, voornaam, type));
   }
 
-
   public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number) {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
     this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, productOmschrijving, prijsLid, prijsGast));
   }
 
+  public voegAankoopToe(klantId: number, productId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new AankoopToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, klantId, productId));
+  }
+
+  public voegKlantAfrekenenToe(klantId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new KlantAfrekenenCommand(this._nextCommandIndex, new Date(), klantId));
+  }
 
   private saveCommand(command: Command) {
     this.fs.appendFileSync('data/commands.txt', JSON.stringify(command) + '\n');
@@ -78,6 +88,8 @@ export class CommandService {
 
 
   public initialize() {
+    if (this._initialized) return;
+    console.log('Initializing CommandService');
     this.fs.readFileSync('data/commands.txt')
       .toString()
       .split(/(?:\n|\r\n|\r)/g)
