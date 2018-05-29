@@ -24,6 +24,10 @@ export class Kassa {
     return this._tegoed;
   }
 
+  get tellingen(): Telling[] {
+    return this._tellingen;
+  }
+
   aankoopToevoegen(aankoop: Aankoop) {
     this._tegoed += aankoop.getBedrag();
   }
@@ -40,6 +44,7 @@ export class Kassa {
 
   tellingToevoegen(saldo: number, timestamp: Date) {
     this._tellingen = [...this._tellingen, new Telling(this._saldo, saldo, timestamp)];
+    this._saldo = saldo;
   }
 
   afsluitingToevoegen(bedrag: number, timestamp: Date) {

@@ -4,17 +4,14 @@ import '../polyfills';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
 import {PrettyJsonModule} from 'angular2-prettyjson';
-
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-
 import {AppRoutingModule} from './app-routing.module';
 // NG Translate
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
 import {WebviewDirective} from './directives/webview.directive';
+import {CurrencyMaskModule} from 'ng2-currency-mask';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
@@ -24,6 +21,7 @@ import {InitializeCommandsResolver} from './resolvers/initialize-commands-resolv
 import {ProductService} from './services/product-service';
 import {AankoopService} from './services/aankoop-service';
 import {KassaService} from './services/kassa-service';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -58,9 +56,13 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
+
 import {KlantAanmakenDialogComponent} from './components/home/klant-aanmaken-dialog/klant-aanmaken-dialog.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {KlantDialogComponent} from './components/home/klant-dialog/klant-dialog.component';
+import {KassaComponent} from './components/kassa/kassa.component';
+import {BarComponent} from './components/bar/bar.component';
+import {KassaTellenDialogComponent} from './components/kassa/kassa-tellen-dialog/kassa-tellen-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -73,9 +75,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     KlantAanmakenDialogComponent,
     KlantDialogComponent,
-    WebviewDirective
+    WebviewDirective,
+    KassaComponent,
+    BarComponent,
+    KassaTellenDialogComponent
   ],
   imports: [
+    CurrencyMaskModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -123,7 +129,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [InitializeCommandsResolver, CommandService, KlantService, ProductService, AankoopService, KassaService],
-  entryComponents: [KlantAanmakenDialogComponent, KlantDialogComponent],
+  entryComponents: [KlantAanmakenDialogComponent, KlantDialogComponent, KassaTellenDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

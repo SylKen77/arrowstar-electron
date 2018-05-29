@@ -33,6 +33,9 @@ export class KlantService extends Store<Klant[]> {
       aankoop.setBetaald();
       this.kassaService.aankoopAfrekenen(aankoop);
     });
+    if (klant.klantType === KlantType.GAST) {
+      this.setState(this.state.filter(k => k !== klant));
+    }
   }
 
 }

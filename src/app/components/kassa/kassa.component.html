@@ -1,0 +1,17 @@
+<div class="container">
+
+  <div class="timestamp">{{ timestamp | async | date:'dd/MM/yyyy HH:mm:ss' }}</div>
+  <div class="saldo">{{ kassaService.state.saldo | currency : 'EUR'}}</div>
+  <div class="tegoed">{{ kassaService.state.tegoed | currency : 'EUR'}}</div>
+
+  <button mat-raised-button color="primary" (click)="kassaTellen()">kassa tellen</button>
+
+
+  <div class="tellingen">
+    <ng-container *ngFor="let telling of kassaService.state.tellingen">
+      <div class="telling">
+        {{telling.timestamp | date:'dd/MM/yyyy HH:mm:ss'}} | Theoritisch saldo: {{telling.kassaSaldo | currency : 'EUR'}} | Werkelijk saldo: {{telling.tellingSaldo | currency : 'EUR'}}
+      </div>
+    </ng-container>
+  </div>
+</div>

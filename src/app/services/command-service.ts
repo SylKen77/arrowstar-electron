@@ -82,6 +82,11 @@ export class CommandService {
     this.executeCommand(new KlantAfrekenenCommand(this._nextCommandIndex, new Date(), klantId));
   }
 
+  public voegKassaTellingToe(saldo: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new KassaTellenCommand(this._nextCommandIndex, new Date(), saldo));
+  }
+
   private saveCommand(command: Command) {
     this.fs.appendFileSync('data/commands.txt', JSON.stringify(command) + '\n');
   }
