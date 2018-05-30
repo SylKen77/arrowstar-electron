@@ -24,6 +24,8 @@ export class KassaTellenDialogComponent implements OnInit {
   public twintigEuroAantal: number;
   public vijftigEuroAantal: number;
 
+  public opmerking: string;
+
   constructor(public dialogRef: MatDialogRef<KlantDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
@@ -34,7 +36,7 @@ export class KassaTellenDialogComponent implements OnInit {
 
   ok() {
     this.dialogRef.close('ok');
-    this.commandService.voegKassaTellingToe(this.totaal());
+    this.commandService.voegKassaTellingToe(this.totaal(), this.opmerking);
   }
 
   public totaal() {

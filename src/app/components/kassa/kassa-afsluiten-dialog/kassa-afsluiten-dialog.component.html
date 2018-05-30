@@ -1,0 +1,15 @@
+<h1 mat-dialog-title class="mat-headline">Kassa tellen</h1>
+
+<mat-dialog-content style="height: 600px">
+  <mat-form-field>
+    <input matInput [(ngModel)]="bedrag" placeholder="bedrag">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput [(ngModel)]="opmerking" placeholder="opmerking"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="ok()">ok</button>
+  <button mat-button [mat-dialog-close]="cancel">cancel</button>
+</mat-dialog-actions>

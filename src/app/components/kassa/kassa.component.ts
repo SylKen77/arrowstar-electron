@@ -6,6 +6,7 @@ import 'rxjs/add/operator/share';
 import {KassaService} from '../../services/kassa-service';
 import {MatDialog} from '@angular/material';
 import {KassaTellenDialogComponent} from './kassa-tellen-dialog/kassa-tellen-dialog.component';
+import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
 
 @Component({
   selector: 'app-kassa',
@@ -31,6 +32,16 @@ export class KassaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Kassa tellen dialog closed: ' + result);
+    });
+  }
+
+  kassaAfsluiten() {
+    const dialogRef = this.dialog.open(KassaAfsluitenDialogComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Kassa afsluiten dialog closed: ' + result);
     });
   }
 

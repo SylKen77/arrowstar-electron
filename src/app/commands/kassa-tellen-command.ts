@@ -2,15 +2,16 @@ import {Command} from './command';
 import {JsonObject, JsonProperty} from 'json2typescript';
 import {CommandService} from '../services/command-service';
 
-@JsonObject
 export class KassaTellenCommand extends Command {
 
-  @JsonProperty('saldo', Number)
   private _saldo: number;
+  private _opmerking: string;
 
-  constructor(index: number, timestamp: Date, saldo: number) {
+
+  constructor(index: number, timestamp: Date, saldo: number, opmerking: string) {
     super(index, timestamp, 'KassaTellenCommand');
     this._saldo = saldo;
+    this._opmerking = opmerking;
   }
 
   execute(executor: CommandService) {
@@ -19,6 +20,10 @@ export class KassaTellenCommand extends Command {
 
   get saldo(): number {
     return this._saldo;
+  }
+
+  get opmerking(): string {
+    return this._opmerking;
   }
 
 }

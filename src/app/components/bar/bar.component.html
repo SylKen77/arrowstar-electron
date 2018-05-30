@@ -1,3 +1,7 @@
-<p>
-  bar works!
-</p>
+<div class="container">
+
+  <div class="productDetails" *ngFor="let product of productService.state$ | async">
+    <mat-card>{{product.omschrijving}} Prijs Leden: {{product.prijsLid | currency : 'EUR'}} Prijs Gast: {{product.prijsGast | currency : 'EUR'}}</mat-card>
+  </div>
+
+</div>

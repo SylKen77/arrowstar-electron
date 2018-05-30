@@ -2,16 +2,11 @@ import {Command} from './command';
 import {JsonObject, JsonProperty} from 'json2typescript';
 import {CommandService} from '../services/command-service';
 
-@JsonObject
 export class ProductToevoegenCommand extends Command {
 
-  @JsonProperty('productId', Number)
   private _productId: number;
-  @JsonProperty('productOmschrijving', String)
   private _productOmschrijving: string;
-  @JsonProperty('prijsLid', Number)
   private _prijsLid: number;
-  @JsonProperty('prijsGast', Number)
   private _prijsGast: number;
 
   constructor(index: number, timestamp: Date, productId: number, productOmschrijving: string, prijsLid: number, prijsGast: number) {

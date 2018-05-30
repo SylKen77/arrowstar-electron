@@ -25,11 +25,11 @@ export class KassaService extends Store<Kassa> {
   }
 
   kassaTellen(command: KassaTellenCommand) {
-    this.state.tellingToevoegen(command.saldo, command.timestamp);
+    this.state.tellingToevoegen(command.saldo, command.timestamp, command.opmerking);
   }
 
   kassaAfsluiten(command: KassaAfsluitenCommand) {
-    this.state.afsluitingToevoegen(command.bedrag, command.timestamp);
+    this.state.afsluitingToevoegen(command.bedrag, command.timestamp, command.opmerking);
   }
 
 }

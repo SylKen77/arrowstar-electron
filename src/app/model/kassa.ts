@@ -42,13 +42,13 @@ export class Kassa {
     this._tegoed -= bedrag;
   }
 
-  tellingToevoegen(saldo: number, timestamp: Date) {
-    this._tellingen = [...this._tellingen, new Telling(this._saldo, saldo, timestamp)];
+  tellingToevoegen(saldo: number, timestamp: Date, opmerking: string) {
+    this._tellingen = [...this._tellingen, new Telling(this._saldo, saldo, timestamp, opmerking)];
     this._saldo = saldo;
   }
 
-  afsluitingToevoegen(bedrag: number, timestamp: Date) {
-    this._afsluitingen = [...this._afsluitingen, new Afsluiting(bedrag, timestamp)];
+  afsluitingToevoegen(bedrag: number, timestamp: Date, opmerking: string) {
+    this._afsluitingen = [...this._afsluitingen, new Afsluiting(bedrag, timestamp, opmerking)];
     this._saldo = this._saldo - bedrag;
   }
 
