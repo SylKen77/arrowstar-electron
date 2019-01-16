@@ -13,6 +13,9 @@ import {KassaService} from './kassa-service';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
 import {Klant} from '../model/klant';
 import {Product} from '../model/product';
+import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
+import {AppConfig} from '../app.config';
+
 
 @Injectable()
 export class CommandService {
@@ -22,6 +25,8 @@ export class CommandService {
   private _expectedCommandIndex: number;
   private remote;
   private fs;
+  private workingDir;
+  private commandsFile;
 
   private static isNotEmpty(line: string): boolean {
     return !!line;
@@ -36,6 +41,7 @@ export class CommandService {
     if (data['_commandName'] === 'KlantAfrekenenCommand') return new KlantAfrekenenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
     if (data['_commandName'] === 'KlantToevoegenCommand') return new KlantToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_naam'], data['_voornaam'], data['_klantType']);
     if (data['_commandName'] === 'ProductToevoegenCommand') return new ProductToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
+    if (data['_commandName'] === 'ProductWijzigenCommand') return new ProductWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
     throw new Error('Unknown command name: ' + data['_commandName']);
   }
 
@@ -51,6 +57,8 @@ export class CommandService {
     if (this.isElectron()) {
       this.remote = window.require('electron').remote;
       this.fs = this.remote.require('fs');
+      this.workingDir = this.remote.getGlobal('workingDir');
+      this.commandsFile = this.workingDir + '/data/commands.txt';
     }
   }
 
@@ -92,15 +100,21 @@ export class CommandService {
     this.executeCommand(new KassaAfsluitenCommand(this._nextCommandIndex, new Date(), bedrag, opmerking));
   }
 
+  public wijzigProduct(productId: number, omschrijving: string, prijsLid: number, prijsGast: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new ProductWijzigenCommand(this._nextCommandIndex, new Date(), productId, omschrijving, prijsLid, prijsGast));
+  }
+
   private saveCommand(command: Command) {
-    this.fs.appendFileSync('data/commands.txt', JSON.stringify(command) + '\n');
+    this.fs.appendFileSync(this.commandsFile, JSON.stringify(command) + '\n');
   }
 
 
   public initialize() {
     if (this._initialized) return;
     console.log('Initializing CommandService');
-    this.fs.readFileSync('data/commands.txt')
+    console.log('Reading commands from ' + this.commandsFile);
+    this.fs.readFileSync(this.commandsFile)
       .toString()
       .split(/(?:\n|\r\n|\r)/g)
       .filter(line => CommandService.isNotEmpty(line))
@@ -130,25 +144,25 @@ export class CommandService {
 
 
   executeAankoopToevoegenCommand(command: AankoopToevoegenCommand) {
-    console.log('executeAankoopToevoegenCommand: ' + command);
+    console.log('CommandService.executeAankoopToevoegenCommand: ' + command);
     this.aankoopService.aankoopToevoegen(command);
   }
 
 
   executeAankoopVerwijderenCommand(command: AankoopVerwijderenCommand) {
-    console.log('executeAankoopVerwijderenCommand: ' + command);
+    console.log('CommandService.executeAankoopVerwijderenCommand: ' + command);
     this.aankoopService.aankoopVerwijderen(command);
   }
 
 
   executeKlantAfrekenenCommand(command: KlantAfrekenenCommand) {
-    console.log('executeKlantAfrekenenCommand: ' + command);
+    console.log('CommandService.executeKlantAfrekenenCommand: ' + command);
     this.klantService.afrekenen(command);
   }
 
 
   executeKassaTellenCommand(command: KassaTellenCommand) {
-    console.log('executeKassaTellenCommand: ' + command);
+    console.log('CommandService.executeKassaTellenCommand: ' + command);
     this.kassaService.kassaTellen(command);
   }
 
@@ -163,6 +177,13 @@ export class CommandService {
     console.log('CommandService.executeProductToevoegenCommand: ' + command.index);
     this.productService.productToevoegen(command);
   }
+
+
+  executeProductWijzigenCommand(command: ProductWijzigenCommand) {
+    console.log('CommandService.executeProductWijzigenCommand: ' + command.index);
+    this.productService.productWijzigen(command);
+  }
+
 
   executeKassaAfsluitenCommand(command: KassaAfsluitenCommand) {
     console.log('CommandService.executeKassaAfsluitenCommand: ' + command.index);

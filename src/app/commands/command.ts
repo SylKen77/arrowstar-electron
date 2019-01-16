@@ -2,11 +2,11 @@ import {CommandService} from '../services/command-service';
 
 export abstract class Command {
 
-  private _index: number;
-  private _timestamp: Date;
-  private _commandName: string;
+  private readonly _index: number;
+  private readonly _timestamp: Date;
+  private readonly _commandName: string;
 
-  constructor(index: number, timestamp: Date, commandName: string) {
+  protected constructor(index: number, timestamp: Date, commandName: string) {
     this._index = index;
     this._timestamp = timestamp;
     this._commandName = commandName;

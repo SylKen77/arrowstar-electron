@@ -64,6 +64,7 @@ import {KassaComponent} from './components/kassa/kassa.component';
 import {BarComponent} from './components/bar/bar.component';
 import {KassaTellenDialogComponent} from './components/kassa/kassa-tellen-dialog/kassa-tellen-dialog.component';
 import { KassaAfsluitenDialogComponent } from './components/kassa/kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
+import { ProductDialogComponent } from './components/bar/product-dialog/product-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -80,7 +81,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     KassaComponent,
     BarComponent,
     KassaTellenDialogComponent,
-    KassaAfsluitenDialogComponent
+    KassaAfsluitenDialogComponent,
+    ProductDialogComponent
   ],
   imports: [
     CurrencyMaskModule,
@@ -131,7 +133,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [InitializeCommandsResolver, CommandService, KlantService, ProductService, AankoopService, KassaService],
-  entryComponents: [KlantAanmakenDialogComponent, KlantDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent],
+  entryComponents: [KlantAanmakenDialogComponent, KlantDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent, ProductDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

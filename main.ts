@@ -2,9 +2,12 @@ import {app, BrowserWindow, screen} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-let win, serve;
+let win, serve, workingDir;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+workingDir = args.filter(val => val.startsWith('--workingDir=')).map(val => val.replace('--workingDir=', '')).pop();
+
+(global as any).workingDir = workingDir;
 
 try {
   require('dotenv').config();
@@ -13,7 +16,6 @@ try {
 }
 
 function createWindow() {
-
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -38,6 +40,8 @@ function createWindow() {
 
   win.webContents.openDevTools();
 
+  initDirectories();
+
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store window
@@ -47,6 +51,14 @@ function createWindow() {
   });
 }
 
+function initDirectories() {
+  const log = require('electron-log');
+  log.warn('Initalizing filesystem');
+  const fs = require('fs-extra');
+  fs.ensureDirSync((global as any).workingDir + '/data/backup');
+  fs.ensureFileSync((global as any).workingDir + '/data/commands.txt');
+}
+
 function createBackup() {
   const log = require('electron-log');
   log.warn('Creating backup');
@@ -54,7 +66,9 @@ function createBackup() {
   const date = new Date();
   const day = date.getDate() > 9 ? '' + date.getDate() : '0' + date.getDate();
   const month = (date.getUTCMonth() + 1) > 9 ? '' + (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
-  fs.copySync('data/commands.txt', 'data/backup/' + date.getFullYear() + month + day + '.txt');
+  const commandsFile = workingDir + '/data/commands.txt';
+  const backupFile = workingDir + '/data/backup/' + date.getFullYear() + month + day + '.txt';
+  fs.copySync(commandsFile, backupFile);
   log.warn('Backup created');
 }
 

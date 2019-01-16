@@ -1,12 +1,10 @@
 import {Command} from './command';
-import {JsonObject, JsonProperty} from 'json2typescript';
 import {CommandService} from '../services/command-service';
 
 export class KassaTellenCommand extends Command {
 
-  private _saldo: number;
-  private _opmerking: string;
-
+  private readonly _saldo: number;
+  private readonly _opmerking: string;
 
   constructor(index: number, timestamp: Date, saldo: number, opmerking: string) {
     super(index, timestamp, 'KassaTellenCommand');

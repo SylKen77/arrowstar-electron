@@ -24,7 +24,7 @@
     "build:prod": "node hooks/environments/set_profile.js && ng build --prod && npm run electron:tsc",
     "ng:serve": "ng serve",
     "electron:tsc": "tsc main.ts",
-    "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
+    "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve --workingDir=C:/arrowstar",
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
@@ -35,12 +35,12 @@
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
   "dependencies": {
-    "@angular/animations": "^5.2.9",
-    "@angular/cdk": "^5.2.4",
-    "@angular/material": "^5.2.4",
+    "@angular/animations": "^5.2.11",
+    "@angular/cdk": "^5.2.5",
+    "@angular/material": "^5.2.5",
     "angular2-prettyjson": "^3.0.1",
-    "electron-log": "^2.2.14",
-    "json2typescript": "^1.0.5",
+    "electron-log": "^2.2.17",
+    "json2typescript": "^1.0.6",
     "line-by-line": "^0.1.6",
     "ng2-currency-mask": "^5.3.1"
   },
@@ -87,7 +87,7 @@
     "ts-node": "4.1.0",
     "tslint": "5.9.1",
     "typescript": "2.6.2",
-    "wait-on": "^2.1.0",
+    "wait-on": "^2.1.2",
     "webdriver-manager": "12.0.6",
     "zone.js": "0.8.19"
   }

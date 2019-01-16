@@ -3,10 +3,10 @@ import {CommandService} from '../services/command-service';
 
 export class KlantToevoegenCommand extends Command {
 
-  private _klantId: number;
-  private _naam: string;
-  private _voornaam: string;
-  private _klantType: string;
+  private readonly _klantId: number;
+  private readonly _naam: string;
+  private readonly _voornaam: string;
+  private readonly _klantType: string;
 
   constructor(index: number, timestamp: Date, klantId: number, naam: string, voornaam: string, klantType: string) {
     super(index, timestamp, 'KlantToevoegenCommand');

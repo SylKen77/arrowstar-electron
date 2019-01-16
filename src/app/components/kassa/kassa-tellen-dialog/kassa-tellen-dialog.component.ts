@@ -39,6 +39,10 @@ export class KassaTellenDialogComponent implements OnInit {
     this.commandService.voegKassaTellingToe(this.totaal(), this.opmerking);
   }
 
+  cancel() {
+    this.dialogRef.close('cancel');
+  }
+
   public totaal() {
     // noinspection PointlessArithmeticExpressionJS
     return this.eenCentAantal * 0.01

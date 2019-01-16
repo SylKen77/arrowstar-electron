@@ -3,7 +3,7 @@ import {CommandService} from '../services/command-service';
 
 export class KlantAfrekenenCommand extends Command {
 
-  private _klantId: number;
+  private readonly _klantId: number;
 
   constructor(index: number, timestamp: Date, klantId: number) {
     super(index, timestamp, 'KlantAfrekenenCommand');

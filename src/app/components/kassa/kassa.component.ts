@@ -4,7 +4,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import {KassaService} from '../../services/kassa-service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {KassaTellenDialogComponent} from './kassa-tellen-dialog/kassa-tellen-dialog.component';
 import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
 
@@ -18,7 +18,8 @@ export class KassaComponent implements OnInit {
   public timestamp;
 
   constructor(public kassaService: KassaService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class KassaComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Kassa tellen dialog closed: ' + result);
+      if ('ok' === result) this.openSnackbar('Kassa geteld');
     });
   }
 
@@ -41,7 +42,13 @@ export class KassaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Kassa afsluiten dialog closed: ' + result);
+      if ('ok' === result) this.openSnackbar('Kassa afgesloten');
+    });
+  }
+
+  private openSnackbar(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 2000
     });
   }
 

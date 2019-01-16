@@ -29,13 +29,21 @@ export class KlantService extends Store<Klant[]> {
 
   afrekenen(klantAfrekenenCommand: KlantAfrekenenCommand) {
     const klant = this.getKlant(klantAfrekenenCommand.klantId);
+
+    // Alle aankopen van de klant afrekenen
     klant.getOnbetaaldeAankopen().forEach(aankoop => {
       aankoop.setBetaald();
       this.kassaService.aankoopAfrekenen(aankoop);
     });
+
+    // Gasten worden verwijderd na het afrekenen
     if (klant.klantType === KlantType.GAST) {
-      this.setState(this.state.filter(k => k !== klant));
+      this.verwijderKlantUitStore(klant);
     }
+  }
+
+  verwijderKlantUitStore(klant: Klant) {
+    this.setState(this.state.filter(k => k !== klant));
   }
 
 }

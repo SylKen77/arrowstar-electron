@@ -1,5 +1,6 @@
 import {ProductToevoegenCommand} from '../commands/product-toevoegen-command';
 import {KlantType} from './klant-type';
+import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
 
 export class Product {
 
@@ -33,6 +34,12 @@ export class Product {
 
   getPrijs(klantType: KlantType): number {
     return klantType === KlantType.LID ? this._prijsLid : this._prijsGast;
+  }
+
+  wijzig(productWijzigenCommand: ProductWijzigenCommand) {
+    this._omschrijving = productWijzigenCommand.productOmschrijving;
+    this._prijsLid = productWijzigenCommand.prijsLid;
+    this._prijsGast = productWijzigenCommand.prijsGast;
   }
 
 }

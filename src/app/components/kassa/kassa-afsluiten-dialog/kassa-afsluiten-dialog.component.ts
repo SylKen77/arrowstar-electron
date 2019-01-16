@@ -27,4 +27,8 @@ export class KassaAfsluitenDialogComponent implements OnInit {
     this.commandService.voegKassaAfsluitingToe(this.bedrag, this.opmerking);
   }
 
+  cancel() {
+    this.dialogRef.close('cancel');
+  }
+
 }

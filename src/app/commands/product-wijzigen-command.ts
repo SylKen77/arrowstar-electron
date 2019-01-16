@@ -1,7 +1,7 @@
 import {Command} from './command';
 import {CommandService} from '../services/command-service';
 
-export class ProductToevoegenCommand extends Command {
+export class ProductWijzigenCommand extends Command {
 
   private readonly _productId: number;
   private readonly _productOmschrijving: string;
@@ -9,7 +9,7 @@ export class ProductToevoegenCommand extends Command {
   private readonly _prijsGast: number;
 
   constructor(index: number, timestamp: Date, productId: number, productOmschrijving: string, prijsLid: number, prijsGast: number) {
-    super(index, timestamp, 'ProductToevoegenCommand');
+    super(index, timestamp, 'ProductWijzigenCommand');
     this._productId = productId;
     this._productOmschrijving = productOmschrijving;
     this._prijsLid = prijsLid;
@@ -17,7 +17,7 @@ export class ProductToevoegenCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    executor.executeProductToevoegenCommand(this);
+    executor.executeProductWijzigenCommand(this);
   }
 
   get productId(): number {

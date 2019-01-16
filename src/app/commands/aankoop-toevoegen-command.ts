@@ -3,12 +3,13 @@ import {CommandService} from '../services/command-service';
 
 export class AankoopToevoegenCommand extends Command {
 
-  private _aankoopId: number;
-  private _klantId: number;
-  private _productId: number;
+  private readonly _aankoopId: number;
+  private readonly _klantId: number;
+  private readonly _productId: number;
 
   constructor(index: number, timestamp: Date, aankoopId: number, klantId: number, productId: number) {
     super(index, timestamp, 'AankoopToevoegenCommand');
+    this._aankoopId = aankoopId;
     this._klantId = klantId;
     this._productId = productId;
   }

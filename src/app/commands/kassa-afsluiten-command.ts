@@ -3,8 +3,8 @@ import {Command} from './command';
 
 export class KassaAfsluitenCommand extends Command {
 
-  private _bedrag: number;
-  private _opmerking: string;
+  private readonly _bedrag: number;
+  private readonly _opmerking: string;
 
   constructor(index: number, timestamp: Date, bedrag: number, opmerking: string) {
     super(index, timestamp, 'KassaAfsluitenCommand');

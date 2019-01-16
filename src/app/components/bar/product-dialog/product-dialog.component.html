@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="mat-headline">Product</h1>
+
+<mat-dialog-content style="height: 600px">
+  <mat-form-field>
+    <input matInput [(ngModel)]="omschrijving" placeholder="omschrijving">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" [(ngModel)]="prijsLid" placeholder="prijs leden">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" [(ngModel)]="prijsGast" placeholder="prijs gasten">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="ok()">ok</button>
+  <button mat-button [mat-dialog-close]="cancel">cancel</button>
+</mat-dialog-actions>
