@@ -1,31 +1,47 @@
 <h1 mat-dialog-title class="mat-headline">Aankopen {{data.voornaam}} {{data.naam}}</h1>
 
-<mat-dialog-content style="height: 200px">
+<mat-dialog-content>
 
   <div class="klantAankopenForm">
     <ng-container *ngFor="let product of productService.state$ | async">
-      <div>{{product.omschrijving}} {{product.prijsLid | currency : 'EUR'}} <button mat-raised-button color="primary" (click)="aankoopToevoegen(product)">toevoegen</button></div>
+      <div class="productrij"><span class="productOmschrijving">{{product.omschrijving}} {{product.prijsLid | currency : 'EUR'}}</span>
+        <button mat-raised-button color="primary" (click)="aankoopToevoegen(product)">toevoegen</button>
+      </div>
     </ng-container>
   </div>
 
-  <div class="aankopenTimeline">
-    <ng-container *ngFor="let aankoop of getOnbetaaldeAankopen()">
-      <div class="aankoop">{{aankoop.product.omschrijving}} {{aankoop.getBedrag() | currency : 'EUR'}}</div>
-    </ng-container>
+  <div class="rekening">
+    <span class="title">Rekening:</span>
+
+    <div class="aankopenTimeline">
+      <ng-container *ngFor="let aankoop of getOnbetaaldeAankopen()">
+        <div class="aankoop"><span class="aankoopOmschrijving">{{aankoop.product.omschrijving}}</span> <span
+          class="aankoopBedrag"></span> {{aankoop.getBedrag() | currency : 'EUR'}}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="aankopenTotaal">
+      <span class="totaalTitle">Totaal:</span> <span
+      class="totaalBedrag">{{getAankoopTotaal() | currency : 'EUR'}}</span>
+    </div>
+
   </div>
-  <div class="aankopenTotaal">
-    Totaal: {{getAankoopTotaal() | currency : 'EUR'}}
+
+  <div class="gegevenTerug">
+    <div class="gegeven">
+      <span class="gegevenTitle">Gegeven:</span>
+      <span class="gegevenInput"><mat-form-field><input matInput type="text" currencyMask [(ngModel)]="gegeven" (ngModelChange)="berekenTerug()"></mat-form-field></span>
+    </div>
+    <!--<div class="nietGenoegGegeven" *ngIf="errorMessage">-->
+      <!--<label class="errorMessage" >{{errorMessage}}</label>-->
+    <!--</div>-->
+
+    <div class="terug" *ngIf="!errorMessage && terug">
+      <span class="terugTitle">Terug:</span>
+      <span class="terugBedrag">{{terug | currency : 'EUR'}}</span>
+    </div>
   </div>
-
-
-  <label class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</label>
-  <mat-form-field>
-    <input matInput type="text" currencyMask [(ngModel)]="gegeven" (ngModelChange)="berekenTerug()" placeholder="gegeven">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" currencyMask [(ngModel)]="terug" placeholder="0.00" readonly>
-  </mat-form-field>
-
 
 </mat-dialog-content>
 

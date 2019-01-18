@@ -6,3 +6,80 @@
 .klantAankopenForm > * {
   width: 100%;
 }
+
+.productrij {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.productOmschrijving {
+  flex-grow: 10;
+}
+
+.rekening {
+  border-top: 2px solid #333337;
+  margin-top: 10px;
+}
+
+.rekening .title {
+  font-size: 2em;
+}
+
+.aankopenTimeline .aankoop {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.aankoopOmschrijving {
+  flex-grow: 10;
+}
+
+.aankoopBedrag {
+
+}
+
+.aankopenTotaal {
+  border-top: 1px dotted #333337;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid #333337;
+}
+
+.totaalTitle {
+  font-size: 1.5em;
+  flex-grow: 10;
+}
+
+.totaalBedrag {
+  font-size: 1.5em;
+}
+
+.gegevenTerug {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid #333337;
+  font-size: 1.5em;
+}
+
+.gegeven {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.gegevenTitle {
+  flex-grow: 10;
+}
+
+.terug {
+  display: flex;
+  flex-direction: row;
+}
+
+.terugTitle {
+  flex-grow: 10;
+}

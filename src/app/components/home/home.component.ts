@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   openKlantDialog(klant: Klant): void {
     const dialogRef = this.dialog.open(KlantDialogComponent, {
-      width: '400px',
+      width: '500px',
       data: klant
     });
 

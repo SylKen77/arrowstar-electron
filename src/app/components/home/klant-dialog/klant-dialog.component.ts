@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {KlantType} from '../../../model/klant-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
 import {ProductService} from '../../../services/product-service';
@@ -34,6 +33,8 @@ export class KlantDialogComponent implements OnInit {
   }
 
   aankoopToevoegen(product: Product) {
+    this.gegeven = null;
+    this.berekenTerug();
     this.commandService.voegAankoopToe(this.data.klantId, product.productId);
   }
 
@@ -56,6 +57,5 @@ export class KlantDialogComponent implements OnInit {
       this.terug = null;
     }
   }
-
 
 }
