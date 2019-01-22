@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
 import {ProductService} from '../../../services/product-service';
-import {Product} from '../../../model/product';
+import {Rekening} from '../../../model/rekening';
 
 @Component({
   selector: 'app-klant-dialog',
@@ -13,7 +13,8 @@ export class KlantDialogComponent implements OnInit {
 
   public gegeven: number;
   public terug: number;
-  public errorMessage: string;
+  public heeftGenoegBetaald = false;
+  public betalen = false;
 
   constructor(public dialogRef: MatDialogRef<KlantDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -24,22 +25,41 @@ export class KlantDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setBetalen() {
+    this.betalen = true;
+  }
+
+  annuleerAfrekenen() {
+    this.gegeven = null;
+    this.berekenTerug();
+    this.betalen = false;
+  }
+
   ok() {
     this.dialogRef.close('ok');
     if (this.gegeven && this.gegeven >= this.getAankoopTotaal()) {
-      console.log('Afrekening toevoegen');
       this.commandService.voegKlantAfrekenenToe(this.data.klantId);
     }
   }
 
-  aankoopToevoegen(product: Product) {
+  aankoopToevoegen(productId: number) {
     this.gegeven = null;
     this.berekenTerug();
-    this.commandService.voegAankoopToe(this.data.klantId, product.productId);
+    this.commandService.voegAankoopToe(this.data.klantId, productId);
+  }
+
+  aankoopVerwijderen(productId: number) {
+    this.gegeven = null;
+    this.berekenTerug();
+    this.commandService.verwijderAankoop(this.data.klantId, productId);
   }
 
   getOnbetaaldeAankopen() {
     return this.data.aankopen.filter(aankoop => !aankoop.betaald);
+  }
+
+  getRekening() {
+    return new Rekening(this.data.klantId, this.data.voornaam + ' ' + this.data.naam, this.data.klantType, this.productService.state, this.getOnbetaaldeAankopen());
   }
 
   getAankoopTotaal(): number {
@@ -49,11 +69,11 @@ export class KlantDialogComponent implements OnInit {
   }
 
   berekenTerug() {
+    this.heeftGenoegBetaald = false;
     if (this.gegeven) {
-      this.errorMessage = this.gegeven < this.getAankoopTotaal() ? 'Het gegeven bedrag moet hoger dan het totaalbedrag zijn.' : null;
+      this.heeftGenoegBetaald = this.gegeven >= this.getAankoopTotaal();
       this.terug = this.gegeven - this.getAankoopTotaal();
     } else {
-      this.errorMessage = null;
       this.terug = null;
     }
   }

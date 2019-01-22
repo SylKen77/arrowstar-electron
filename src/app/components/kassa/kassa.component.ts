@@ -7,6 +7,7 @@ import {KassaService} from '../../services/kassa-service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {KassaTellenDialogComponent} from './kassa-tellen-dialog/kassa-tellen-dialog.component';
 import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
+import {Telling} from '../../model/telling';
 
 @Component({
   selector: 'app-kassa',
@@ -50,6 +51,12 @@ export class KassaComponent implements OnInit {
     this.snackBar.open(message, '', {
       duration: 2000
     });
+  }
+
+  getVerschilStatus(telling: Telling): string {
+    if (telling.isZonderAfwijking()) return 'ok';
+    if (telling.verschil > 0) return 'positief';
+    return 'negatief';
   }
 
 }

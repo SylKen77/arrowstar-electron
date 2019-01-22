@@ -20,12 +20,11 @@ function createWindow() {
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
-  win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height
-  });
+  win = new BrowserWindow({show: false});
+
+  win.setMenu(null);
+  win.maximize();
+  win.show();
 
   if (serve) {
     require('electron-reload')(__dirname, {});

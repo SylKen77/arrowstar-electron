@@ -85,6 +85,11 @@ export class CommandService {
     this.executeCommand(new AankoopToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, klantId, productId));
   }
 
+  public verwijderAankoop(klantId: number, productId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new AankoopVerwijderenCommand(this._nextCommandIndex, new Date(), klantId, productId));
+  }
+
   public voegKlantAfrekenenToe(klantId: number) {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
     this.executeCommand(new KlantAfrekenenCommand(this._nextCommandIndex, new Date(), klantId));

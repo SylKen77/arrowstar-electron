@@ -1,41 +1,38 @@
-<h1 mat-dialog-title class="mat-headline">Aankopen {{data.voornaam}} {{data.naam}}</h1>
+<h1 mat-dialog-title class="mat-headline">{{data.voornaam}} {{data.naam}}</h1>
 
 <mat-dialog-content>
 
-  <div class="klantAankopenForm">
-    <ng-container *ngFor="let product of productService.state$ | async">
-      <div class="productrij"><span class="productOmschrijving">{{product.omschrijving}} {{product.prijsLid | currency : 'EUR'}}</span>
-        <button mat-raised-button color="primary" (click)="aankoopToevoegen(product)">toevoegen</button>
-      </div>
-    </ng-container>
-  </div>
-
   <div class="rekening">
-    <span class="title">Rekening:</span>
-
-    <div class="aankopenTimeline">
-      <ng-container *ngFor="let aankoop of getOnbetaaldeAankopen()">
-        <div class="aankoop"><span class="aankoopOmschrijving">{{aankoop.product.omschrijving}}</span> <span
-          class="aankoopBedrag"></span> {{aankoop.getBedrag() | currency : 'EUR'}}
+    <div class="rekeningLijnen">
+      <span class="rekeningLijnOmschrijving rekeningLijnTitle">Product</span>
+      <span class="rekeningLijnPrijs rekeningLijnTitle">Prijs</span>
+      <span class="rekeningLijnAantal rekeningLijnTitle">Aantal</span>
+      <span class="rekeningLijnTotaal rekeningLijnTitle">Totaal</span>
+      <ng-container *ngFor="let rekeningLijn of getRekening().rekeningLijnen">
+        <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
+        <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
+        <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
+          <mat-icon class="remove_circle">remove_circle</mat-icon>
         </div>
+        <span class="rekeningLijnAantal">{{rekeningLijn.aantal}}</span>
+        <div class="rekeningLijnToevoegen" (click)="aankoopToevoegen(rekeningLijn.productId)">
+          <mat-icon class="add_circle">add_circle</mat-icon>
+        </div>
+        <span class="rekeningLijnTotaal">{{rekeningLijn.totaal | currency : 'EUR'}}</span>
       </ng-container>
     </div>
 
-    <div class="aankopenTotaal">
-      <span class="totaalTitle">Totaal:</span> <span
-      class="totaalBedrag">{{getAankoopTotaal() | currency : 'EUR'}}</span>
+    <div class="rekeningTotaal">
+      <span class="totaalTitle">Totaal:</span> <span class="totaalBedrag">{{getAankoopTotaal() | currency : 'EUR'}}</span>
     </div>
-
   </div>
 
-  <div class="gegevenTerug">
+  <div class="gegevenTerug" *ngIf="betalen">
     <div class="gegeven">
       <span class="gegevenTitle">Gegeven:</span>
       <span class="gegevenInput"><mat-form-field><input matInput type="text" currencyMask [(ngModel)]="gegeven" (ngModelChange)="berekenTerug()"></mat-form-field></span>
     </div>
-    <!--<div class="nietGenoegGegeven" *ngIf="errorMessage">-->
-      <!--<label class="errorMessage" >{{errorMessage}}</label>-->
-    <!--</div>-->
+
 
     <div class="terug" *ngIf="!errorMessage && terug">
       <span class="terugTitle">Terug:</span>
@@ -46,5 +43,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="ok()" [disabled]="errorMessage">ok</button>
+  <button mat-raised-button color="primary" (click)="ok()" [disabled]="!heeftGenoegBetaald && betalen">Ok</button>
+  <button *ngIf="!betalen" mat-raised-button color="primary" (click)="setBetalen()" [disabled]="getAankoopTotaal() < 0.01">Afrekenen</button>
+  <button *ngIf="betalen" mat-raised-button color="primary" (click)="annuleerAfrekenen()">Annuleer afrekenen</button>
+
 </mat-dialog-actions>

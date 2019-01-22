@@ -28,12 +28,12 @@ export class Telling {
     return this._opmerking;
   }
 
-  public getVerschil(): number {
-    return (this._kassaSaldo - this._tellingSaldo);
+  get verschil(): number {
+    return (this._tellingSaldo - this._kassaSaldo);
   }
 
   public isZonderAfwijking(): boolean {
-    return this.getVerschil() < 0.01;
+    return Math.abs(this.verschil) < 0.01;
   }
 
 }

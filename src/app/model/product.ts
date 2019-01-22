@@ -4,7 +4,7 @@ import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
 
 export class Product {
 
-  private _productId: number;
+  private readonly _productId: number;
   private _omschrijving: string;
   private _prijsLid: number;
   private _prijsGast: number;

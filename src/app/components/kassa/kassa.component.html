@@ -1,18 +1,24 @@
 <div class="container">
 
   <div class="timestamp">{{ timestamp | async | date:'dd/MM/yyyy HH:mm:ss' }}</div>
-  <div class="saldo">{{ kassaService.state.saldo | currency : 'EUR'}}</div>
-  <div class="tegoed">{{ kassaService.state.tegoed | currency : 'EUR'}}</div>
+  <div class="saldo">Bedrag in kas: {{ kassaService.state.saldo | currency : 'EUR'}}</div>
+  <div class="tegoed">Openstaand saldo: {{ kassaService.state.tegoed | currency : 'EUR'}}</div>
 
   <button mat-raised-button color="primary" (click)="kassaTellen()">kassa tellen</button>
   <button mat-raised-button color="primary" (click)="kassaAfsluiten()">kassa afsluiten</button>
 
 
   <div class="tellingen">
-    <ng-container *ngFor="let telling of kassaService.state.tellingen">
-      <div class="telling">
-        {{telling.timestamp | date:'dd/MM/yyyy HH:mm:ss'}} | Theoritisch saldo: {{telling.kassaSaldo | currency : 'EUR'}} | Werkelijk saldo: {{telling.tellingSaldo | currency : 'EUR'}}
-      </div>
+    <div class="tellingTimestamp tellingTitle">Tijdstip</div>
+    <div class="theoretischSaldo tellingTitle">Bedrag dan in kas zou moeten zitten</div>
+    <div class="werkelijkSaldo tellingTitle">Bedrag dat in kas zat</div>
+    <div class="verschil tellingTitle">Verschil</div>
+    <ng-container *ngFor="let telling of (kassaService.state$ | async).tellingen">
+
+      <div class="tellingTimestamp">{{telling.timestamp | date:'dd/MM/yyyy HH:mm:ss'}}</div>
+      <div class="theoretischSaldo">{{telling.kassaSaldo | currency : 'EUR'}}</div>
+      <div class="werkelijkSaldo">{{telling.tellingSaldo | currency : 'EUR'}}</div>
+      <div class="verschil" [ngClass]="getVerschilStatus(telling)">{{telling.verschil | currency : 'EUR'}}</div>
     </ng-container>
   </div>
 </div>

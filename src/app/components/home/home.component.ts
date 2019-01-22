@@ -25,22 +25,20 @@ export class HomeComponent implements OnInit {
 
   openKlantAanmakenDialog(): void {
     const dialogRef = this.dialog.open(KlantAanmakenDialogComponent, {
-      width: '400px'
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('KlantAanmaken dialog closed: ' + result);
     });
   }
 
   openKlantDialog(klant: Klant): void {
     const dialogRef = this.dialog.open(KlantDialogComponent, {
-      width: '500px',
+      width: '600px',
       data: klant
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Klant dialog closed: ' + result);
     });
   }
 }
