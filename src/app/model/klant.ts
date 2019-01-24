@@ -49,4 +49,8 @@ export class Klant {
     return this._aankopen.filter(aankoop => !aankoop.betaald);
   }
 
+  heeftOnbetaaldeAankopen(): boolean {
+    return this._aankopen.some(aankoop => !aankoop.betaald);
+  }
+
 }

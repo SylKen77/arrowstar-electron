@@ -11,12 +11,24 @@
   grid-auto-rows: minmax(100px, auto);
 }
 
-.grid > div {
+.klantBox {
   border: 2px solid #333337;
   border-radius: 5px;
   padding: 1em;
   color: #807f7c;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
+
+.klantNaam {
+  flex-grow: 10;
+}
+
+.onbetaaldeAankopen {
+  text-align: right;
+}
+
 
 .logo {
   grid-column: 3 / 5;
@@ -26,4 +38,14 @@
 
 .debugInfo {
 
+}
+
+.onbetaaldeAankopenDiv{
+  position: relative;
+}
+
+.onbetaaldeAankopenIcon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }

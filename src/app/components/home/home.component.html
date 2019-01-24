@@ -3,13 +3,15 @@
   <div class="logo">one</div>
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
-    <div (click)="openKlantDialog(klant)">{{klant.voornaam}}</div>
+    <div class="klantBox" (click)="openKlantDialog(klant)" >
+      <div class="klantNaam">{{klant.voornaam}}</div>
+      <div class="onbetaaldeAankopen" *ngIf="klant.heeftOnbetaaldeAankopen()" ><mat-icon>shopping_cart</mat-icon></div>
+    </div>
   </ng-container>
 
-  <div class="persoon" (click)="openKlantAanmakenDialog()">
+  <div class="klantBox" (click)="openKlantAanmakenDialog()">
     <mat-icon class="accountIcon" >account_circle</mat-icon> klant toevoegen
   </div>
-
 
 </div>
 

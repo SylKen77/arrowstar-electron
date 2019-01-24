@@ -3,12 +3,80 @@
   margin: 0 auto;
 }
 
+.kassaScherm {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.kassaSchermLinks {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.kassaSchermRechts {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.kassaOverzichtTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.kassaOverzicht {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.timestamp {
+  text-align: center;
+  font-size: 2em;
+}
+
+.saldo {
+  text-align: center;
+  font-size: 2em;
+}
+
+.tegoed {
+  text-align: center;
+  font-size: 2em;
+}
+
+.kassaActies {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+}
+
+.kassaActies > * {
+  margin: 10px;
+}
+
+.tellingenTitle {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
 
 .tellingen {
-  margin-top: 20px;
   display: grid;
   grid-gap: 10px;
   grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
 }
 
 .tellingTitle {
@@ -21,14 +89,17 @@
 
 .theoretischSaldo {
   grid-column: 2;
+  text-align: right;
 }
 
 .werkelijkSaldo {
   grid-column: 3;
+  text-align: right;
 }
 
 .verschil {
   grid-column: 4;
+  text-align: right;
 }
 
 .ok {
@@ -41,5 +112,63 @@
 
 .negatief {
   background-color: red;
+}
+
+.afsluitingenTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.afsluitingen {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-column-gap: 0px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.afsluitingDatum {
+  padding: 5px;
+  grid-column: 1;
+}
+
+.afsluitingOpmerking {
+  padding: 5px;
+  grid-column: 2;
+}
+
+.afsluitingBedrag {
+  padding: 5px;
+  grid-column: 3;
+  text-align: right;
+}
+
+.dagAfrekeningenTitle {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.dagAfrekeningen {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-column-gap: 0px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.dagAfrekeningDatum {
+  padding: 5px;
+  grid-column: 1;
+}
+
+.dagAfrekeningBedrag {
+  padding: 5px;
+  grid-column: 2;
+  text-align: right;
 }
 

@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import {Aankoop} from '../model/aankoop';
 import {KassaTellenCommand} from '../commands/kassa-tellen-command';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
+import {KlantAfrekenenCommand} from '../commands/klant-afrekenen-command';
 
 @Injectable()
 export class KassaService extends Store<Kassa> {
@@ -20,8 +21,8 @@ export class KassaService extends Store<Kassa> {
     this.state.aankoopVerwijderen(teVerwijderenAankoop);
   }
 
-  aankoopAfrekenen(afTeRekenenAankoop: Aankoop) {
-    this.state.aankoopAfrekenen(afTeRekenenAankoop);
+  aankoopAfrekenen(afTeRekenenAankoop: Aankoop, datum: Date) {
+    this.state.aankoopAfrekenen(afTeRekenenAankoop, datum);
   }
 
   kassaTellen(command: KassaTellenCommand) {

@@ -33,7 +33,7 @@ export class KlantService extends Store<Klant[]> {
     // Alle aankopen van de klant afrekenen
     klant.getOnbetaaldeAankopen().forEach(aankoop => {
       aankoop.setBetaald();
-      this.kassaService.aankoopAfrekenen(aankoop);
+      this.kassaService.aankoopAfrekenen(aankoop, klantAfrekenenCommand.timestamp);
     });
 
     // Gasten worden verwijderd na het afrekenen

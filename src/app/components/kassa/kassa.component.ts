@@ -24,7 +24,7 @@ export class KassaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.timestamp = Observable.interval(1000).map(() => new Date()).share();
+    this.timestamp = new Date();
   }
 
   kassaTellen() {
