@@ -31,6 +31,10 @@
 
 
 .logo {
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+  color: #807f7c;
   grid-column: 3 / 5;
   grid-row: 1 / 4;
 }

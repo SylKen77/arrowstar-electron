@@ -1,0 +1,36 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#klantenTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.klantenLijst {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 40px auto 30px 30px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.tableItem {
+  border-top: 1px solid black;
+  padding: 10px;
+}
+
+.klantSortOrder {
+}
+
+.klantNaam {
+}
+
+.klantDown {
+}
+
+.klantUp {
+}

@@ -1,0 +1,18 @@
+<div class="container">
+
+  <div id="klantenTitle">Klanten beheren</div>
+
+  <div class="klantenLijst">
+    <ng-container *ngFor="let klant of klantService.state$ | async">
+      <div class="klantSortOrder tableItem">{{klant.sortOrder}}</div>
+      <div class="klantNaam tableItem">{{klant.voornaam}} {{klant.naam}}</div>
+      <div class="klantDown tableItem">
+        <mat-icon (click)="moveKlantDown(klant.klantId)" class="clickable">arrow_drop_down</mat-icon>
+      </div>
+      <div class="klantUp tableItem">
+        <mat-icon (click)="moveKlantUp(klant.klantId)" class="clickable">arrow_drop_up</mat-icon>
+      </div>
+    </ng-container>
+  </div>
+
+</div>

@@ -65,6 +65,7 @@ import {BarComponent} from './components/bar/bar.component';
 import {KassaTellenDialogComponent} from './components/kassa/kassa-tellen-dialog/kassa-tellen-dialog.component';
 import { KassaAfsluitenDialogComponent } from './components/kassa/kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
 import { ProductDialogComponent } from './components/bar/product-dialog/product-dialog.component';
+import {KlantenComponent} from './components/klanten/klanten.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -80,6 +81,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     KassaComponent,
     BarComponent,
+    KlantenComponent,
     KassaTellenDialogComponent,
     KassaAfsluitenDialogComponent,
     ProductDialogComponent

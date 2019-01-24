@@ -4,6 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {InitializeCommandsResolver} from './resolvers/initialize-commands-resolver';
 import {KassaComponent} from './components/kassa/kassa.component';
 import {BarComponent} from './components/bar/bar.component';
+import {KlantenComponent} from './components/klanten/klanten.component';
 
 const routes: Routes = [
   {
@@ -13,11 +14,18 @@ const routes: Routes = [
   },
   {
     path: 'kassa',
-    component: KassaComponent
+    component: KassaComponent,
+    resolve: {initialized: InitializeCommandsResolver}
+  },
+  {
+    path: 'klanten',
+    component: KlantenComponent,
+    resolve: {initialized: InitializeCommandsResolver}
   },
   {
     path: 'bar',
-    component: BarComponent
+    component: BarComponent,
+    resolve: {initialized: InitializeCommandsResolver}
   }
 ];
 

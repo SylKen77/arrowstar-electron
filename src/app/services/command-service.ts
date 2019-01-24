@@ -15,6 +15,8 @@ import {Klant} from '../model/klant';
 import {Product} from '../model/product';
 import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
 import {AppConfig} from '../app.config';
+import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
+import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
 
 
 @Injectable()
@@ -42,6 +44,8 @@ export class CommandService {
     if (data['_commandName'] === 'KlantToevoegenCommand') return new KlantToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_naam'], data['_voornaam'], data['_klantType']);
     if (data['_commandName'] === 'ProductToevoegenCommand') return new ProductToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
     if (data['_commandName'] === 'ProductWijzigenCommand') return new ProductWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
+    if (data['_commandName'] === 'KlantZetOmhoogCommand') return new KlantZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
+    if (data['_commandName'] === 'KlantZetOmlaagCommand') return new KlantZetOmlaagCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
     throw new Error('Unknown command name: ' + data['_commandName']);
   }
 
@@ -108,6 +112,16 @@ export class CommandService {
   public wijzigProduct(productId: number, omschrijving: string, prijsLid: number, prijsGast: number) {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
     this.executeCommand(new ProductWijzigenCommand(this._nextCommandIndex, new Date(), productId, omschrijving, prijsLid, prijsGast));
+  }
+
+  public zetKlantOmhoog(klantId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new KlantZetOmhoogCommand(this._nextCommandIndex, new Date(), klantId));
+  }
+
+  public zetKlantOmlaag(klantId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new KlantZetOmlaagCommand(this._nextCommandIndex, new Date(), klantId));
   }
 
   private saveCommand(command: Command) {
@@ -193,6 +207,16 @@ export class CommandService {
   executeKassaAfsluitenCommand(command: KassaAfsluitenCommand) {
     console.log('CommandService.executeKassaAfsluitenCommand: ' + command.index);
     this.kassaService.kassaAfsluiten(command);
+  }
+
+  executeKlantZetOmhoogCommand(command: KlantZetOmhoogCommand) {
+    console.log('CommandService.executeKlantZetOmhoogCommand: ' + command.index);
+    this.klantService.zetKlantOmhoog(command);
+  }
+
+  executeKlantZetOmlaagCommand(command: KlantZetOmlaagCommand) {
+    console.log('CommandService.executeKlantZetOmlaagCommand: ' + command.index);
+    this.klantService.zetKlantOmlaag(command);
   }
 
 }

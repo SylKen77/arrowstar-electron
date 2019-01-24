@@ -8,13 +8,15 @@ export class Klant {
   private _voornaam: string;
   private _klantType: KlantType;
   private _aankopen: Aankoop[];
+  private _sortOrder: number;
 
-  constructor(klantId: number, naam: string, voornaam: string, klantType: KlantType) {
+  constructor(klantId: number, naam: string, voornaam: string, klantType: KlantType, sortOrder: number) {
     this._klantId = klantId;
     this._naam = naam;
     this._voornaam = voornaam;
     this._klantType = klantType;
     this._aankopen = [];
+    this._sortOrder = sortOrder;
   }
 
   get klantId() {
@@ -37,6 +39,10 @@ export class Klant {
     return this._aankopen;
   }
 
+  get sortOrder(): number {
+    return this._sortOrder;
+  }
+
   aankoopToevoegen(aankoop: Aankoop) {
     this._aankopen = [...this._aankopen, aankoop];
   }
@@ -53,4 +59,7 @@ export class Klant {
     return this._aankopen.some(aankoop => !aankoop.betaald);
   }
 
+  setSortOrder(sortOrder: number) {
+    this._sortOrder = sortOrder;
+  }
 }
