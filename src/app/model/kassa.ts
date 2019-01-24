@@ -63,7 +63,7 @@ export class Kassa {
   }
 
   aankoopVerwijderen(teVerwijderenAankoop: Aankoop) {
-    this._tegoed -= teVerwijderenAankoop.getBedrag();
+    if (teVerwijderenAankoop) this._tegoed -= teVerwijderenAankoop.getBedrag();
   }
 
   aankoopAfrekenen(aankoop: Aankoop, datum: Date) {

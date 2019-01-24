@@ -4,4 +4,7 @@
     <mat-card (click)="openProductDialog(product)">{{product.omschrijving}} Prijs Leden: {{product.prijsLid | currency : 'EUR'}} Prijs Gast: {{product.prijsGast | currency : 'EUR'}}</mat-card>
   </div>
 
+  <div class="productToevoegen">
+    <mat-card (click)="openProductDialogVoorNieuwProduct()">nieuw product toevoegen</mat-card>
+  </div>
 </div>

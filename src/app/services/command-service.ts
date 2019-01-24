@@ -79,9 +79,11 @@ export class CommandService {
     this.executeCommand(new KlantToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, naam, voornaam, type));
   }
 
-  public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number) {
+  public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, productOmschrijving, prijsLid, prijsGast));
+    const productId = this._nextCommandIndex;
+    this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), productId, productOmschrijving, prijsLid, prijsGast));
+    return productId;
   }
 
   public voegAankoopToe(klantId: number, productId: number) {
