@@ -7,6 +7,7 @@ import {KlantAfrekenenCommand} from '../commands/klant-afrekenen-command';
 import {KassaService} from './kassa-service';
 import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
 import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
+import {DeleteKlantCommand} from '../commands/delete-klant-command';
 
 @Injectable()
 export class KlantService extends Store<Klant[]> {
@@ -30,6 +31,10 @@ export class KlantService extends Store<Klant[]> {
     return this.state.find(klant => klant.klantId === klantId);
   }
 
+  heeftOnbetaaldeAankopen(productId: number): boolean {
+    return this.state.some(klant => klant.getOnbetaaldeAankopen().some(aankoop => aankoop.product.productId === productId));
+  }
+
   afrekenen(klantAfrekenenCommand: KlantAfrekenenCommand) {
     const klant = this.getKlant(klantAfrekenenCommand.klantId);
 
@@ -48,31 +53,20 @@ export class KlantService extends Store<Klant[]> {
   zetKlantOmhoog(command: KlantZetOmhoogCommand) {
     const klant = this.getKlant(command.klantId);
     const sortOrder = klant.sortOrder;
-    console.log('sortOrder voor klant ' + klant.voornaam + ' ' + klant.naam + ' is ' + sortOrder);
     if (sortOrder === 0) return;
     const klantBoven = this.state[sortOrder - 1];
     klant.setSortOrder(sortOrder - 1);
     klantBoven.setSortOrder(sortOrder);
-
-    console.log('new sortOrder voor klant ' + klant.voornaam + ' ' + klant.naam + ' is ' + klant.sortOrder);
-    console.log('new sortOrder voor klant ' + klantBoven.voornaam + ' ' + klantBoven.naam + ' is ' + klantBoven.sortOrder);
-
-
     this.sortKlanten();
   }
 
   zetKlantOmlaag(command: KlantZetOmlaagCommand) {
     const klant = this.getKlant(command.klantId);
     const sortOrder = klant.sortOrder;
-    console.log('sortOrder voor klant ' + klant.voornaam + ' ' + klant.naam + ' is ' + sortOrder);
     if (sortOrder === (this.state.length - 1)) return;
     const klantOnder = this.state[sortOrder + 1];
     klant.setSortOrder(sortOrder + 1);
     klantOnder.setSortOrder(sortOrder);
-
-    console.log('new sortOrder voor klant ' + klant.voornaam + ' ' + klant.naam + ' is ' + klant.sortOrder);
-    console.log('new sortOrder voor klant ' + klantOnder.voornaam + ' ' + klantOnder.naam + ' is ' + klantOnder.sortOrder);
-
     this.sortKlanten();
 
   }
@@ -83,6 +77,16 @@ export class KlantService extends Store<Klant[]> {
 
   verwijderKlantUitStore(klant: Klant) {
     this.setState(this.state.filter(k => k !== klant));
+    this.setSortorderEqualToIndex();
   }
 
+  deleteKlant(command: DeleteKlantCommand) {
+    const klant = this.getKlant(command.klantId);
+    if (!klant.heeftOnbetaaldeAankopen()) this.verwijderKlantUitStore(klant);
+    this.setSortorderEqualToIndex();
+  }
+
+  setSortorderEqualToIndex() {
+    this.state.forEach((k, i) => k.setSortOrder(i));
+  }
 }

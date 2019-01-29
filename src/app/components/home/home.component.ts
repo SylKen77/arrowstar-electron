@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material';
 import {KlantAanmakenDialogComponent} from './klant-aanmaken-dialog/klant-aanmaken-dialog.component';
 import {KlantDialogComponent} from './klant-dialog/klant-dialog.component';
 import {Klant} from '../../model/klant';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-home',
@@ -40,5 +41,15 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  laatsteTelling(): Date {
+    if (this.kassaService.state && this.kassaService.state.tellingen) return this.kassaService.state.tellingen[this.kassaService.state.tellingen.length - 1].timestamp;
+    return new Date();
+  }
+
+  laatsteAfsluiting(): Date {
+    if (this.kassaService.state && this.kassaService.state.afsluitingen) return this.kassaService.state.afsluitingen[this.kassaService.state.afsluitingen.length - 1].timestamp;
+    return new Date();
   }
 }

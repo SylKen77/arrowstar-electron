@@ -32,6 +32,18 @@ export class KassaTellenDialogComponent implements OnInit {
               public kassaService: KassaService) { }
 
   ngOnInit() {
+  this.eenCentAantal = 0;
+    this.tweeCentAantal = 0;
+    this.vijfCentAantal = 0;
+    this.tienCentAantal = 0;
+    this.twintigCentAantal = 0;
+    this.vijftigCentAantal = 0;
+    this.eenEuroAantal = 0;
+    this.tweeEuroAantal = 0;
+    this.vijfEuroAantal = 0;
+    this.tienEuroAantal = 0;
+    this.twintigEuroAantal = 0;
+    this.vijftigEuroAantal = 0;
   }
 
   ok() {

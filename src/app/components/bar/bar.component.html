@@ -1,10 +1,39 @@
 <div class="container">
 
-  <div class="productDetails" *ngFor="let product of productService.state$ | async">
-    <mat-card (click)="openProductDialog(product)">{{product.omschrijving}} Prijs Leden: {{product.prijsLid | currency : 'EUR'}} Prijs Gast: {{product.prijsGast | currency : 'EUR'}}</mat-card>
+  <div class="barTitle">Producten beheren</div>
+
+  <div class="productenLijst">
+    <div></div>
+    <div class="tableTitle">Productomschrijving</div>
+    <div class="tableTitle">Lidprijs</div>
+    <div class="tableTitle">Gastprijs</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <ng-container *ngFor="let product of productService.state$ | async">
+      <div class="productSortOrder tableItem">{{product.sortOrder}}</div>
+      <div class="productNaam tableItem">{{product.omschrijving}}</div>
+      <div class="productPrijsLid tableItem">{{product.prijsLid | currency : 'EUR'}}</div>
+      <div class="productPrijsLid tableItem">{{product.prijsGast | currency : 'EUR'}}</div>
+      <div class="productEdit tableItem">
+        <mat-icon (click)="openProductDialog(product)" class="clickable">edit</mat-icon>
+      </div>
+      <div class="productDelete tableItem">
+        <mat-icon *ngIf="!heeftOnbetaaldeAankopen(product.productId)" (click)="deleteProduct(product.productId)" class="clickable">delete</mat-icon>
+      </div>
+      <div class="productDown tableItem">
+        <mat-icon (click)="moveProductDown(product.productId)" class="clickable">arrow_drop_down</mat-icon>
+      </div>
+      <div class="productUp tableItem">
+        <mat-icon (click)="moveProductUp(product.productId)" class="clickable">arrow_drop_up</mat-icon>
+      </div>
+    </ng-container>
   </div>
 
-  <div class="productToevoegen">
-    <mat-card (click)="openProductDialogVoorNieuwProduct()">nieuw product toevoegen</mat-card>
+  <div>
+    <button mat-raised-button color="primary" (click)="openProductDialogVoorNieuwProduct()">Product toevoegen</button>
   </div>
+
 </div>

@@ -1,6 +1,9 @@
 <div class="grid">
 
-  <div class="logo">one</div>
+  <div class="logo">one
+    <div class="laatsteTelling">Laatste telling: {{laatsteTelling() | date:'dd/MM/yyyy'}}</div>
+    <div class="laatsteAfsluiting">Laatste afsluiting: {{laatsteAfsluiting() | date:'dd/MM/yyyy'}}</div>
+  </div>
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
     <div class="klantBox" (click)="openKlantDialog(klant)" >

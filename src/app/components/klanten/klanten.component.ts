@@ -23,4 +23,9 @@ export class KlantenComponent implements OnInit {
     console.log('moveKlantDown', klantId);
     this.commandService.zetKlantOmlaag(klantId);
   }
+
+  deleteKlant(klantId: number) {
+    console.log('moveKlantDown', klantId);
+    this.commandService.deleteKlant(klantId);
+  }
 }

@@ -17,6 +17,10 @@ import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
 import {AppConfig} from '../app.config';
 import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
 import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
+import {DeleteKlantCommand} from '../commands/delete-klant-command';
+import {ProductZetOmlaagCommand} from '../commands/product-zet-omlaag-command';
+import {ProductZetOmhoogCommand} from '../commands/product-zet-omhoog-command';
+import {DeleteProductCommand} from '../commands/delete-product-command';
 
 
 @Injectable()
@@ -46,6 +50,11 @@ export class CommandService {
     if (data['_commandName'] === 'ProductWijzigenCommand') return new ProductWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
     if (data['_commandName'] === 'KlantZetOmhoogCommand') return new KlantZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
     if (data['_commandName'] === 'KlantZetOmlaagCommand') return new KlantZetOmlaagCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
+    if (data['_commandName'] === 'DeleteKlantCommand') return new DeleteKlantCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
+    if (data['_commandName'] === 'ProductZetOmlaagCommand') return new ProductZetOmlaagCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
+    if (data['_commandName'] === 'ProductZetOmhoogCommand') return new ProductZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
+    if (data['_commandName'] === 'DeleteProductCommand') return new DeleteProductCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
+
     throw new Error('Unknown command name: ' + data['_commandName']);
   }
 
@@ -125,6 +134,29 @@ export class CommandService {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
     this.executeCommand(new KlantZetOmlaagCommand(this._nextCommandIndex, new Date(), klantId));
   }
+
+  public deleteKlant(klantId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new DeleteKlantCommand(this._nextCommandIndex, new Date(), klantId));
+  }
+
+  public zetProductOmhoog(productId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new ProductZetOmhoogCommand(this._nextCommandIndex, new Date(), productId));
+  }
+
+  public zetProductOmlaag(productId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new ProductZetOmlaagCommand(this._nextCommandIndex, new Date(), productId));
+  }
+
+  public deleteProduct(productId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new DeleteProductCommand(this._nextCommandIndex, new Date(), productId));
+  }
+
+
+
 
   private saveCommand(command: Command) {
     this.fs.appendFileSync(this.commandsFile, JSON.stringify(command) + '\n');
@@ -219,6 +251,26 @@ export class CommandService {
   executeKlantZetOmlaagCommand(command: KlantZetOmlaagCommand) {
     console.log('CommandService.executeKlantZetOmlaagCommand: ' + command.index);
     this.klantService.zetKlantOmlaag(command);
+  }
+
+  executeDeleteKlantCommand(command: DeleteKlantCommand) {
+      console.log('CommandService.executeDeleteKlantCommand: ' + command.index);
+      this.klantService.deleteKlant(command);
+  }
+
+  executeProductZetOmlaagCommand(command: ProductZetOmlaagCommand) {
+    console.log('CommandService.executeProductZetOmlaagCommand: ' + command.index);
+    this.productService.zetProductOmlaag(command);
+  }
+
+  executeProductZetOmhoogCommand(command: ProductZetOmhoogCommand) {
+    console.log('CommandService.executeProductZetOmhoogCommand: ' + command.index);
+    this.productService.zetProductOmhoog(command);
+  }
+
+  executeDeleteProductCommand(command: DeleteProductCommand) {
+    console.log('CommandService.executeDeleteProductCommand: ' + command.index);
+    this.productService.deleteProduct(command);
   }
 
 }

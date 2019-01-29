@@ -8,12 +8,14 @@ export class Product {
   private _omschrijving: string;
   private _prijsLid: number;
   private _prijsGast: number;
+  private _sortOrder: number;
 
-  constructor(productToevoegenCommand: ProductToevoegenCommand) {
-    this._productId = productToevoegenCommand.productId;
-    this._omschrijving = productToevoegenCommand.productOmschrijving;
-    this._prijsLid = productToevoegenCommand.prijsLid;
-    this._prijsGast = productToevoegenCommand.prijsGast;
+  constructor(productId: number, omschrijving: string, prijsLid: number, prijsGast: number, sortOrder: number) {
+    this._productId = productId;
+    this._omschrijving = omschrijving;
+    this._prijsLid = prijsLid;
+    this._prijsGast = prijsGast;
+    this._sortOrder = sortOrder;
   }
 
   get productId(): number {
@@ -32,6 +34,10 @@ export class Product {
     return this._prijsGast;
   }
 
+  get sortOrder(): number {
+    return this._sortOrder;
+  }
+
   getPrijs(klantType: KlantType): number {
     return klantType === KlantType.LID ? this._prijsLid : this._prijsGast;
   }
@@ -42,4 +48,7 @@ export class Product {
     this._prijsGast = productWijzigenCommand.prijsGast;
   }
 
+  setSortOrder(sortOrder: number) {
+    this._sortOrder = sortOrder;
+  }
 }

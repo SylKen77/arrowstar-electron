@@ -6,6 +6,10 @@
     <ng-container *ngFor="let klant of klantService.state$ | async">
       <div class="klantSortOrder tableItem">{{klant.sortOrder}}</div>
       <div class="klantNaam tableItem">{{klant.voornaam}} {{klant.naam}}</div>
+      <div class="klantSchuld tableItem">{{klant.getSchuld() | currency : 'EUR'}}</div>
+      <div class="klantDelete tableItem">
+        <mat-icon *ngIf="!klant.heeftOnbetaaldeAankopen()" (click)="deleteKlant(klant.klantId)" class="clickable">delete</mat-icon>
+      </div>
       <div class="klantDown tableItem">
         <mat-icon (click)="moveKlantDown(klant.klantId)" class="clickable">arrow_drop_down</mat-icon>
       </div>
