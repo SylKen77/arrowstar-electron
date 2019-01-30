@@ -3,10 +3,22 @@
   <div id="klantenTitle">Klanten beheren</div>
 
   <div class="klantenLijst">
+    <div></div>
+    <div class="tableTitle">Naam</div>
+    <div class="tableTitle">Schuld</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+
     <ng-container *ngFor="let klant of klantService.state$ | async">
       <div class="klantSortOrder tableItem">{{klant.sortOrder}}</div>
-      <div class="klantNaam tableItem">{{klant.voornaam}} {{klant.naam}}</div>
+      <div class="klantNaam tableItem">{{klant.naam}}</div>
       <div class="klantSchuld tableItem">{{klant.getSchuld() | currency : 'EUR'}}</div>
+      <div class="klantEdit tableItem">
+        <mat-icon (click)="openKlantDialog(klant)" class="clickable">edit</mat-icon>
+      </div>
       <div class="klantDelete tableItem">
         <mat-icon *ngIf="!klant.heeftOnbetaaldeAankopen()" (click)="deleteKlant(klant.klantId)" class="clickable">delete</mat-icon>
       </div>
@@ -17,6 +29,11 @@
         <mat-icon (click)="moveKlantUp(klant.klantId)" class="clickable">arrow_drop_up</mat-icon>
       </div>
     </ng-container>
+  </div>
+
+
+  <div>
+    <button mat-raised-button color="primary" (click)="openKlantDialogVoorNieuweKlant()">Klant toevoegen</button>
   </div>
 
 </div>

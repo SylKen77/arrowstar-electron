@@ -5,14 +5,12 @@ export class KlantToevoegenCommand extends Command {
 
   private readonly _klantId: number;
   private readonly _naam: string;
-  private readonly _voornaam: string;
   private readonly _klantType: string;
 
-  constructor(index: number, timestamp: Date, klantId: number, naam: string, voornaam: string, klantType: string) {
+  constructor(index: number, timestamp: Date, klantId: number, naam: string, klantType: string) {
     super(index, timestamp, 'KlantToevoegenCommand');
     this._klantId = klantId;
     this._naam = naam;
-    this._voornaam = voornaam;
     this._klantType = klantType;
   }
 
@@ -29,9 +27,6 @@ export class KlantToevoegenCommand extends Command {
     return this._naam;
   }
 
-  get voornaam(): string {
-    return this._voornaam;
-  }
 
   get klantType(): string {
     return this._klantType;

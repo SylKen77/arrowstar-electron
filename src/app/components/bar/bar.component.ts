@@ -26,35 +26,21 @@ export class BarComponent implements OnInit {
   }
 
   openProductDialog(product: Product) {
-    const dialogRef = this.dialog.open(ProductDialogComponent, {
-      data: product,
-      width: '400px'
-    });
-
+    const dialogRef = this.dialog.open(ProductDialogComponent, {data: product});
     dialogRef.afterClosed().subscribe(result => {
-      if ('ok' === result) this.openSnackbar('Wijzigingen opgeslagen');
+      if ('ok' === result) this.openSnackbar('Product gewijzigd');
     });
   }
 
   openProductDialogVoorNieuwProduct() {
-    const productId = this.commandService.voegProductToe('nieuwProduct', 0, 0);
-    const product = this.productService.getProduct(productId);
-
-    const dialogRef = this.dialog.open(ProductDialogComponent, {
-      data: product,
-      width: '400px'
-    });
-
+    const dialogRef = this.dialog.open(ProductDialogComponent, {});
     dialogRef.afterClosed().subscribe(result => {
-      if ('ok' === result) this.openSnackbar('Wijzigingen opgeslagen');
+      if ('ok' === result) this.openSnackbar('Product toegevoegd');
     });
-
   }
 
   private openSnackbar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000
-    });
+    this.snackBar.open(message, '', {duration: 2000});
   }
 
   deleteProduct(productId: number) {

@@ -12,11 +12,15 @@
 .klantenLijst {
   margin-top: 10px;
   display: grid;
-  grid-template-columns: 40px auto 80px 30px 30px 30px;
+  grid-template-columns: 40px auto 80px 30px 30px 30px 30px;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+.tableTitle {
+  font-weight: bold;
 }
 
 .tableItem {

@@ -1,0 +1,10 @@
+.telCentjes {
+  display: grid;
+  grid-template-columns: 60px 60px 60px 60px 60px 60px;
+  grid-gap: 20px;
+  padding: 10px;
+}
+
+.small {
+  width:50px !important;
+}

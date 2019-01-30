@@ -5,17 +5,14 @@ import {CommandService} from '../../../services/command-service';
 
 @Component({
   selector: 'app-klant-aanmaken-dialog',
-  templateUrl: './klant-aanmaken-dialog.component.html',
-  styleUrls: ['./klant-aanmaken-dialog.component.css']
+  templateUrl: './gast-aanmaken-dialog.component.html',
+  styleUrls: ['./gast-aanmaken-dialog.component.css']
 })
-export class KlantAanmakenDialogComponent implements OnInit {
+export class GastAanmakenDialogComponent implements OnInit {
+
   public naam: string;
-  public voornaam: string;
-  public klantType: KlantType = KlantType.GAST;
 
-  public klantTypeEnum = KlantType;
-
-  constructor(public dialogRef: MatDialogRef<KlantAanmakenDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<GastAanmakenDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService) {
   }
@@ -24,7 +21,7 @@ export class KlantAanmakenDialogComponent implements OnInit {
   }
 
   ok() {
-    this.commandService.voegKlantToe(this.naam, this.voornaam, this.klantType);
+    this.commandService.voegKlantToe(this.naam, KlantType.GAST);
     this.dialogRef.close('ok');
   }
 

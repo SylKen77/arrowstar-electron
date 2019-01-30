@@ -5,15 +5,13 @@ export class Klant {
 
   private _klantId: number;
   private _naam: string;
-  private _voornaam: string;
   private _klantType: KlantType;
   private _aankopen: Aankoop[];
   private _sortOrder: number;
 
-  constructor(klantId: number, naam: string, voornaam: string, klantType: KlantType, sortOrder: number) {
+  constructor(klantId: number, naam: string, klantType: KlantType, sortOrder: number) {
     this._klantId = klantId;
     this._naam = naam;
-    this._voornaam = voornaam;
     this._klantType = klantType;
     this._aankopen = [];
     this._sortOrder = sortOrder;
@@ -27,8 +25,8 @@ export class Klant {
     return this._naam;
   }
 
-  get voornaam(): string {
-    return this._voornaam;
+  setNaam(naam: string) {
+    this._naam = naam;
   }
 
   get klantType(): KlantType {

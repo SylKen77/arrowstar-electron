@@ -7,7 +7,7 @@
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
     <div class="klantBox" (click)="openKlantDialog(klant)" >
-      <div class="klantNaam">{{klant.voornaam}}</div>
+      <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen" *ngIf="klant.heeftOnbetaaldeAankopen()" ><mat-icon>shopping_cart</mat-icon></div>
     </div>
   </ng-container>

@@ -8,6 +8,7 @@ import {KassaService} from './kassa-service';
 import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
 import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
 import {DeleteKlantCommand} from '../commands/delete-klant-command';
+import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
 
 @Injectable()
 export class KlantService extends Store<Klant[]> {
@@ -17,13 +18,7 @@ export class KlantService extends Store<Klant[]> {
   }
 
   klantToevoegen(klantToevoegenCommand: KlantToevoegenCommand) {
-    const klant = new Klant(
-      klantToevoegenCommand.klantId,
-      klantToevoegenCommand.naam,
-      klantToevoegenCommand.voornaam,
-      klantToevoegenCommand.klantType === 'LID' ? KlantType.LID : KlantType.GAST,
-      this.state.length);
-
+    const klant = new Klant(klantToevoegenCommand.klantId, klantToevoegenCommand.naam, klantToevoegenCommand.klantType === 'LID' ? KlantType.LID : KlantType.GAST, this.state.length);
     this.setState([...this.state, klant]);
   }
 
@@ -88,5 +83,11 @@ export class KlantService extends Store<Klant[]> {
 
   setSortorderEqualToIndex() {
     this.state.forEach((k, i) => k.setSortOrder(i));
+  }
+
+  klantWijzigen(command: KlantWijzigenCommand) {
+    const klant = this.getKlant(command.klantId);
+    klant.setNaam(command.naam);
+    this.setState(this.state);
   }
 }

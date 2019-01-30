@@ -3,8 +3,8 @@ import {KlantService} from '../../services/klant-service';
 import {ProductService} from '../../services/product-service';
 import {KassaService} from '../../services/kassa-service';
 import {MatDialog} from '@angular/material';
-import {KlantAanmakenDialogComponent} from './klant-aanmaken-dialog/klant-aanmaken-dialog.component';
-import {KlantDialogComponent} from './klant-dialog/klant-dialog.component';
+import {GastAanmakenDialogComponent} from './gast-aanmaken-dialog/gast-aanmaken-dialog.component';
+import {RekeningDialogComponent} from './rekening-dialog/rekening-dialog.component';
 import {Klant} from '../../model/klant';
 import {Observable} from 'rxjs/Observable';
 
@@ -25,8 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   openKlantAanmakenDialog(): void {
-    const dialogRef = this.dialog.open(KlantAanmakenDialogComponent, {
-      width: '600px'
+    const dialogRef = this.dialog.open(GastAanmakenDialogComponent, {
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -34,8 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   openKlantDialog(klant: Klant): void {
-    const dialogRef = this.dialog.open(KlantDialogComponent, {
-      width: '600px',
+    const dialogRef = this.dialog.open(RekeningDialogComponent, {
       data: klant
     });
 

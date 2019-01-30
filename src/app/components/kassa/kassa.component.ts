@@ -29,7 +29,6 @@ export class KassaComponent implements OnInit {
 
   kassaTellen() {
       const dialogRef = this.dialog.open(KassaTellenDialogComponent, {
-        width: '400px'
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -39,13 +38,13 @@ export class KassaComponent implements OnInit {
 
   kassaAfsluiten() {
     const dialogRef = this.dialog.open(KassaAfsluitenDialogComponent, {
-      width: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if ('ok' === result) this.openSnackbar('Kassa afgesloten');
     });
   }
+
 
   private openSnackbar(message: string) {
     this.snackBar.open(message, '', {

@@ -1,42 +1,42 @@
 <h1 mat-dialog-title class="mat-headline">Kassa tellen</h1>
 
-<mat-dialog-content style="height: 600px">
+<mat-dialog-content class="telCentjes">
 
-  <mat-form-field>
-    1 cent: <input matInput type="number" [(ngModel)]="eenCentAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="eenCentAantal" placeholder="1 cent">
   </mat-form-field>
-  <mat-form-field>
-    2 cent: <input matInput type="number" [(ngModel)]="tweeCentAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="tweeCentAantal" placeholder="2 cent">
   </mat-form-field>
-  <mat-form-field>
-    5 cent: <input matInput type="number" [(ngModel)]="vijfCentAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="vijfCentAantal" placeholder="5 cent">
   </mat-form-field>
-  <mat-form-field>
-    10 cent: <input matInput type="number" [(ngModel)]="tienCentAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="tienCentAantal" placeholder="10 cent">
   </mat-form-field>
-  <mat-form-field>
-    20 cent: <input matInput type="number" [(ngModel)]="twintigCentAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="twintigCentAantal" placeholder="20 cent">
   </mat-form-field>
-  <mat-form-field>
-    50 cent: <input matInput type="number" [(ngModel)]="vijftigCentAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="vijftigCentAantal" placeholder="50 cent">
   </mat-form-field>
-  <mat-form-field>
-    1 euro: <input matInput type="number" [(ngModel)]="eenEuroAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="eenEuroAantal" placeholder="1 euro">
   </mat-form-field>
-  <mat-form-field>
-    2 euro: <input matInput type="number" [(ngModel)]="tweeEuroAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="tweeEuroAantal" placeholder="2 euro">
   </mat-form-field>
-  <mat-form-field>
-    5 euro: <input matInput type="number" [(ngModel)]="vijfEuroAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="vijfEuroAantal" placeholder="5 euro">
   </mat-form-field>
-  <mat-form-field>
-    10 euro: <input matInput type="number" [(ngModel)]="tienEuroAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="tienEuroAantal" placeholder="10 euro">
   </mat-form-field>
-  <mat-form-field>
-    20 euro: <input matInput type="number" [(ngModel)]="twintigEuroAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="twintigEuroAantal" placeholder="20 euro">
   </mat-form-field>
-  <mat-form-field>
-    50 euro: <input matInput type="number" [(ngModel)]="vijftigEuroAantal" placeholder="0">
+  <mat-form-field class="small">
+    <input matInput type="number" [(ngModel)]="vijftigEuroAantal" placeholder="50 euro">
   </mat-form-field>
 
   <div class="totaal">Totaal: {{totaal() | currency : 'EUR'}}</div>

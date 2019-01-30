@@ -6,17 +6,17 @@ import {Rekening} from '../../../model/rekening';
 
 @Component({
   selector: 'app-klant-dialog',
-  templateUrl: './klant-dialog.component.html',
-  styleUrls: ['./klant-dialog.component.css']
+  templateUrl: './rekening-dialog.component.html',
+  styleUrls: ['./rekening-dialog.component.css']
 })
-export class KlantDialogComponent implements OnInit {
+export class RekeningDialogComponent implements OnInit {
 
   public gegeven: number;
   public terug: number;
   public heeftGenoegBetaald = false;
   public betalen = false;
 
-  constructor(public dialogRef: MatDialogRef<KlantDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<RekeningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
               public productService: ProductService) {
@@ -59,7 +59,7 @@ export class KlantDialogComponent implements OnInit {
   }
 
   getRekening() {
-    return new Rekening(this.data.klantId, this.data.voornaam + ' ' + this.data.naam, this.data.klantType, this.productService.state, this.getOnbetaaldeAankopen());
+    return new Rekening(this.data.klantId, this.data.naam, this.data.klantType, this.productService.state, this.getOnbetaaldeAankopen());
   }
 
   getAankoopTotaal(): number {

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title class="mat-headline">Klant</h1>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="naam" placeholder="naam">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="ok()">ok</button>
+  <button mat-button [mat-dialog-close]="cancel">cancel</button>
+</mat-dialog-actions>

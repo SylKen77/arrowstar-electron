@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {KlantDialogComponent} from '../../home/klant-dialog/klant-dialog.component';
+import {RekeningDialogComponent} from '../../home/rekening-dialog/rekening-dialog.component';
 import {CommandService} from '../../../services/command-service';
 import {KassaService} from '../../../services/kassa-service';
 
@@ -26,7 +26,7 @@ export class KassaTellenDialogComponent implements OnInit {
 
   public opmerking: string;
 
-  constructor(public dialogRef: MatDialogRef<KlantDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<RekeningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
               public kassaService: KassaService) { }
