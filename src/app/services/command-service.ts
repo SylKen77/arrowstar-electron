@@ -82,9 +82,11 @@ export class CommandService {
   }
 
 
-  public voegKlantToe(naam: string, type: string) {
+  public voegKlantToe(naam: string, type: string): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    this.executeCommand(new KlantToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, naam, type));
+    const klantId = this._nextCommandIndex;
+    this.executeCommand(new KlantToevoegenCommand(this._nextCommandIndex, new Date(), klantId, naam, type));
+    return klantId;
   }
 
   public wijzigKlant(klantId: number, naam: string) {

@@ -67,6 +67,7 @@ import { KassaAfsluitenDialogComponent } from './components/kassa/kassa-afsluite
 import { ProductDialogComponent } from './components/bar/product-dialog/product-dialog.component';
 import {KlantenComponent} from './components/klanten/klanten.component';
 import {KlantDialogComponent} from './components/klanten/klant-dialog/klant-dialog.component';
+import {ImageService} from './services/image-service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -136,7 +137,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [InitializeCommandsResolver, CommandService, KlantService, ProductService, AankoopService, KassaService],
+  providers: [InitializeCommandsResolver, CommandService, KlantService, ProductService, AankoopService, KassaService, ImageService],
   entryComponents: [GastAanmakenDialogComponent, RekeningDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent, ProductDialogComponent, KlantDialogComponent],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {KlantType} from '../../../model/klant-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
+import {ImageService} from '../../../services/image-service';
 
 @Component({
   selector: 'app-klant-aanmaken-dialog',
@@ -14,7 +15,8 @@ export class GastAanmakenDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<GastAanmakenDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private commandService: CommandService) {
+              private commandService: CommandService,
+              public imageService: ImageService) {
   }
 
   ngOnInit(): void {

@@ -2,6 +2,10 @@
 
 <mat-dialog-content>
 
+  <div class="avatar">
+    <img src="data:image/jpg;base64,{{imageService.defaultAvatar}}">
+  </div>
+
   <div class="createKlantForm">
     <mat-form-field>
       <input matInput [(ngModel)]="naam" placeholder="naam">

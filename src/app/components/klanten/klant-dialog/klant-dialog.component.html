@@ -1,6 +1,10 @@
 <h1 mat-dialog-title class="mat-headline">Klant</h1>
 
+
 <mat-dialog-content>
+  <div class="avatar" (click)="changeAvatar(klant.klantId)">
+    <img width="60px" height="60px" [src]="avatar">
+  </div>
   <mat-form-field>
     <input matInput [(ngModel)]="naam" placeholder="naam">
   </mat-form-field>

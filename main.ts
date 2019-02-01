@@ -51,8 +51,10 @@ function createWindow() {
 }
 
 function initDirectories() {
+
   const log = require('electron-log');
   log.warn('Initalizing filesystem');
+  log.warn(app.getPath('appData'));
   const fs = require('fs-extra');
   fs.ensureDirSync((global as any).workingDir + '/data/backup');
   fs.ensureFileSync((global as any).workingDir + '/data/commands.txt');
