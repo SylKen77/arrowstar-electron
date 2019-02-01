@@ -59,6 +59,6 @@ export class KlantDialogComponent implements OnInit {
 
   private setAvatar(avatar: Image) {
     this.avatarImage = avatar;
-    this.avatar = 'data:image/jpg;base64,' + avatar.contentBase64;
+    this.avatar = avatar.contentBase64;
   }
 }

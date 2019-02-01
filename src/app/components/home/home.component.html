@@ -7,6 +7,7 @@
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
     <div class="klantBox" (click)="openKlantDialog(klant)" >
+      <div class="klantAvatar"><img width="60px" height="60px" [src]="getAvatar(klant.klantId)"></div>
       <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen" *ngIf="klant.heeftOnbetaaldeAankopen()" ><mat-icon>shopping_cart</mat-icon></div>
     </div>

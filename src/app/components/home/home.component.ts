@@ -7,6 +7,7 @@ import {GastAanmakenDialogComponent} from './gast-aanmaken-dialog/gast-aanmaken-
 import {RekeningDialogComponent} from './rekening-dialog/rekening-dialog.component';
 import {Klant} from '../../model/klant';
 import {Observable} from 'rxjs/Observable';
+import {ImageService} from '../../services/image-service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(public klantService: KlantService,
               public productService: ProductService,
               public kassaService: KassaService,
+              public imageService: ImageService,
               public dialog: MatDialog) {
   }
 
@@ -25,8 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   openKlantAanmakenDialog(): void {
-    const dialogRef = this.dialog.open(GastAanmakenDialogComponent, {
-    });
+    const dialogRef = this.dialog.open(GastAanmakenDialogComponent, {});
 
     dialogRef.afterClosed().subscribe(result => {
     });
@@ -39,6 +40,10 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  getAvatar(klantId: number): string {
+    return this.imageService.getAvatar('' + klantId).contentBase64;
   }
 
   laatsteTelling(): Date {

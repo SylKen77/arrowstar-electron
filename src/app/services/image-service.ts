@@ -22,7 +22,7 @@ export class ImageService {
       this.workingDir = this.remote.getGlobal('workingDir');
 
       const defaultAvatarContent = this.fs.readFileSync('./assets/defaultAvatar.jpg');
-      const defaultAvatarContentBase64 = defaultAvatarContent.toString('base64');
+      const defaultAvatarContentBase64 = 'data:image/jpg;base64,' + defaultAvatarContent.toString('base64');
       this.defaultAvatar = new Image('./assets/defaultAvatar.jpg', defaultAvatarContentBase64, defaultAvatarContent);
     }
   }
@@ -33,14 +33,18 @@ export class ImageService {
     console.log('getImage: ' + path);
     const image = this.images.find(i => i.path === path);
     if (image) return image;
-    return this.loadImage(path);
+    else {
+      const loadedImage = this.loadImage(path);
+      this.images.push(loadedImage);
+      return loadedImage;
+    }
   }
 
   private loadImage(path: string): Image {
     console.log('loadImage: ' + path);
     if (this.fs.pathExistsSync(path)) {
       const content = this.fs.readFileSync(path);
-      const contentBase64 = content.toString('base64');
+      const contentBase64 = 'data:image/jpg;base64,' + content.toString('base64');
       return new Image(path, contentBase64, content);
     } else {
       return this.defaultAvatar;
@@ -49,6 +53,7 @@ export class ImageService {
 
   public saveAvatar(klantId: number, avatarImage: Image) {
     const path = this.getAvatarPath('' + klantId);
+    this.images = this.images.filter(i => i.path !== path);
     console.log('saveAvatar: ', path);
     this.fs.outputFile(this.getAvatarPath('' + klantId), avatarImage.content);
   }
@@ -60,7 +65,7 @@ export class ImageService {
   private loadFirstImage(filePaths: string[]): Image|undefined {
     if (filePaths === undefined || filePaths.length === 0) return;
     const content = this.fs.readFileSync(filePaths[0]);
-    const contentBase64 = content.toString('base64');
+    const contentBase64 = 'data:image/jpg;base64,' + content.toString('base64');
     return new Image(filePaths[0], contentBase64, content);
   }
 
