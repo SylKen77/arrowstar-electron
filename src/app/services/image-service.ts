@@ -7,7 +7,7 @@ export class ImageService {
   private remote;
   private dialog;
   private fs;
-  private workingDir;
+  private readonly workingDir;
 
   public defaultAvatar: Image;
 
@@ -20,41 +20,41 @@ export class ImageService {
       this.dialog = window.require('electron').remote.dialog;
       this.fs = window.require('fs-extra');
       this.workingDir = this.remote.getGlobal('workingDir');
-
-      const defaultAvatarContent = this.fs.readFileSync('./assets/defaultAvatar.jpg');
-      const defaultAvatarContentBase64 = 'data:image/jpg;base64,' + defaultAvatarContent.toString('base64');
-      this.defaultAvatar = new Image('./assets/defaultAvatar.jpg', defaultAvatarContentBase64, defaultAvatarContent);
+      this.defaultAvatar = this.loadImage('./assets/defaultAvatar.jpg');
     }
   }
 
   isElectron = () => (window && window.process && window.process.type);
 
-  private getImage(path: string): Image {
-    console.log('getImage: ' + path);
+  private getImage(path: string, defaultImage?: Image): Image {
     const image = this.images.find(i => i.path === path);
     if (image) return image;
-    else {
-      const loadedImage = this.loadImage(path);
+    const loadedImage = this.loadImage(path);
+    if (loadedImage != null) {
       this.images.push(loadedImage);
       return loadedImage;
+    } else {
+      return defaultImage;
     }
   }
 
+  private loadFirstImage(filePaths: string[]): Image {
+    if (filePaths === undefined || filePaths.length === 0) return null;
+    return this.loadImage(filePaths[0]);
+  }
+
   private loadImage(path: string): Image {
-    console.log('loadImage: ' + path);
     if (this.fs.pathExistsSync(path)) {
       const content = this.fs.readFileSync(path);
       const contentBase64 = 'data:image/jpg;base64,' + content.toString('base64');
       return new Image(path, contentBase64, content);
-    } else {
-      return this.defaultAvatar;
     }
+    return null;
   }
 
   public saveAvatar(klantId: number, avatarImage: Image) {
     const path = this.getAvatarPath('' + klantId);
     this.images = this.images.filter(i => i.path !== path);
-    console.log('saveAvatar: ', path);
     this.fs.outputFile(this.getAvatarPath('' + klantId), avatarImage.content);
   }
 
@@ -62,15 +62,8 @@ export class ImageService {
     this.dialog.showOpenDialog({filters: [{name: 'Avatars', extensions: ['jpg']}]}, filePaths => callback(this.loadFirstImage(filePaths)));
   }
 
-  private loadFirstImage(filePaths: string[]): Image|undefined {
-    if (filePaths === undefined || filePaths.length === 0) return;
-    const content = this.fs.readFileSync(filePaths[0]);
-    const contentBase64 = 'data:image/jpg;base64,' + content.toString('base64');
-    return new Image(filePaths[0], contentBase64, content);
-  }
-
   getAvatar(klantId: string): Image {
-    return this.getImage(this.getAvatarPath(klantId));
+    return this.getImage(this.getAvatarPath(klantId), this.defaultAvatar);
   }
 
   getAvatarPath(klantId: string) {
