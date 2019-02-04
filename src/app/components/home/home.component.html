@@ -1,19 +1,20 @@
 <div class="grid">
 
-  <div class="logo mat-elevation-z2">one
+  <div class="logo mat-elevation-z3">
+    <div id="logo"></div>
     <div class="laatsteTelling">Laatste telling: {{laatsteTelling() | date:'dd/MM/yyyy'}}</div>
     <div class="laatsteAfsluiting">Laatste afsluiting: {{laatsteAfsluiting() | date:'dd/MM/yyyy'}}</div>
   </div>
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
-    <div class="klantBox mat-elevation-z2" (click)="openKlantDialog(klant)" >
+    <div class="klantBox mat-elevation-z3" (click)="openKlantDialog(klant)" >
       <div class="klantAvatar"><img width="60px" height="60px" [src]="getAvatar(klant.klantId)"></div>
       <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen" *ngIf="klant.heeftOnbetaaldeAankopen()" ><mat-icon>shopping_cart</mat-icon></div>
     </div>
   </ng-container>
 
-  <div class="klantBox mat-elevation-z2" (click)="openKlantAanmakenDialog()">
+  <div class="klantBox mat-elevation-z3" (click)="openKlantAanmakenDialog()">
     <mat-icon class="accountIcon" >account_circle</mat-icon> klant toevoegen
   </div>
 

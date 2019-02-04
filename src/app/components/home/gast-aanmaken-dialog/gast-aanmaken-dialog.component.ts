@@ -7,7 +7,7 @@ import {ImageService} from '../../../services/image-service';
 @Component({
   selector: 'app-klant-aanmaken-dialog',
   templateUrl: './gast-aanmaken-dialog.component.html',
-  styleUrls: ['./gast-aanmaken-dialog.component.css']
+  styleUrls: ['./gast-aanmaken-dialog.component.scss']
 })
 export class GastAanmakenDialogComponent implements OnInit {
 

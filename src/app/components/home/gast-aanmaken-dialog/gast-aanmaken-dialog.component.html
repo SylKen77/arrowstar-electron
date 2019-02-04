@@ -2,14 +2,16 @@
 
 <mat-dialog-content>
 
-  <div class="avatar">
-    <img src="{{imageService.defaultAvatar.contentBase64}}">
-  </div>
+  <div class="createGastForm">
 
-  <div class="createKlantForm">
-    <mat-form-field>
+    <div class="avatar">
+      <img src="../../../../assets/visitor.jpg">
+    </div>
+
+    <mat-form-field class="naamInput">
       <input matInput [(ngModel)]="naam" placeholder="naam">
     </mat-form-field>
+
   </div>
 
 </mat-dialog-content>
