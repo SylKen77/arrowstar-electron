@@ -11,6 +11,9 @@
 
 .klantenLijst {
   margin-top: 10px;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
   display: grid;
   grid-template-columns: 40px auto 80px 30px 30px 30px 30px;
 }
@@ -21,6 +24,8 @@
 
 .tableTitle {
   font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .tableItem {
@@ -38,4 +43,8 @@
 }
 
 .klantUp {
+}
+
+.buttonRow {
+  margin-top: 20px;
 }

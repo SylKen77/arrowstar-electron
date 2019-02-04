@@ -5,7 +5,7 @@
     <div class="kassaSchermLinks">
 
       <div class="kassaOverzichtTitle">Overzicht</div>
-      <div class="kassaOverzicht">
+      <div class="kassaOverzicht mat-elevation-z8">
         <div class="timestamp">{{ timestamp | date:'dd/MM/yyyy' }}</div>
         <div class="saldo">In kas: {{ kassaService.state.saldo | currency : 'EUR'}}</div>
         <div class="tegoed">Openstaande rekeningen: {{ kassaService.state.tegoed | currency : 'EUR'}}</div>
@@ -16,7 +16,7 @@
       </div>
 
       <div class="tellingenTitle">Tellingen</div>
-      <div class="tellingen">
+      <div class="tellingen mat-elevation-z8">
         <div class="tellingTimestamp tellingTitle">Tijdstip</div>
         <div class="theoretischSaldo tellingTitle">Theoretisch bedrag</div>
         <div class="werkelijkSaldo tellingTitle">Effectief bedrag</div>
@@ -34,7 +34,7 @@
     <div class="kassaSchermRechts">
 
       <div class="afsluitingenTitle">Afsluitingen</div>
-      <div class="afsluitingen">
+      <div class="afsluitingen mat-elevation-z8">
         <div class="afsluitingDatum tellingTitle">Datum</div>
         <div class="afsluitingOpmerking tellingTitle">Opmerking</div>
         <div class="afsluitingBedrag tellingTitle">Bedrag</div>
@@ -46,7 +46,7 @@
       </div>
 
       <div class="dagAfrekeningenTitle">Dagafrekeningen</div>
-      <div class="dagAfrekeningen">
+      <div class="dagAfrekeningen mat-elevation-z8">
         <div class="dagAfrekeningDatum tellingTitle">Datum</div>
         <div class="dagAfrekeningBedrag tellingTitle">Bedrag</div>
         <ng-container *ngFor="let dagAfrekening of (kassaService.state$ | async).dagAfrekeningen">
