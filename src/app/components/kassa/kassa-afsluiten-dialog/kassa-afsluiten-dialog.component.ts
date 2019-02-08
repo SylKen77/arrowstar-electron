@@ -20,6 +20,7 @@ export class KassaAfsluitenDialogComponent implements OnInit {
               public kassaService: KassaService) { }
 
   ngOnInit() {
+    this.bedrag = 0.00;
   }
 
   ok() {

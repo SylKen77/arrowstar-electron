@@ -8,17 +8,29 @@
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
     <div class="klantBox mat-elevation-z3" (click)="openKlantDialog(klant)" >
-      <div class="klantAvatar"><img width="60px" height="60px" [src]="getAvatar(klant.klantId)"></div>
+      <div class="klantAvatar"><img class="rond avatarKlein" [src]="getAvatar(klant.klantId)"></div>
       <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen" *ngIf="klant.heeftOnbetaaldeAankopen()" ><mat-icon>shopping_cart</mat-icon></div>
     </div>
   </ng-container>
 
   <div class="klantBox mat-elevation-z3" (click)="openKlantAanmakenDialog()">
-    <mat-icon class="accountIcon" >account_circle</mat-icon> klant toevoegen
+    <div class="klantAvatar gastToevoegenAvatar"></div>
+    <mat-icon class="accountIcon" >account_circle</mat-icon>
+    <div class="klantNaam">gast toevoegen</div>
   </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
 
 <div class="debugInfo">
 

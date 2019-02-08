@@ -8,6 +8,7 @@ export class ImageService {
   private dialog;
   private fs;
   private readonly workingDir;
+  private readonly runningDir;
 
   public defaultAvatar: Image;
 
@@ -20,7 +21,8 @@ export class ImageService {
       this.dialog = window.require('electron').remote.dialog;
       this.fs = window.require('fs-extra');
       this.workingDir = this.remote.getGlobal('workingDir');
-      this.defaultAvatar = this.loadImage('./assets/defaultAvatar.jpg');
+      this.runningDir = this.remote.getGlobal('runningDir');
+      this.defaultAvatar = this.loadImage(this.runningDir + '/assets/defaultAvatar.jpg');
     }
   }
 

@@ -39,13 +39,15 @@
     "@angular/cdk": "^5.2.5",
     "@angular/material": "^5.2.5",
     "angular2-prettyjson": "^3.0.1",
+    "buffer": "^5.2.1",
     "electron-log": "^2.2.17",
     "fs-extra": "^5.0.0",
     "json2typescript": "^1.0.6",
     "line-by-line": "^0.1.6",
     "material-design-icons": "^3.0.1",
     "ng2-currency-mask": "^5.3.1",
-    "npm": "^6.5.0"
+    "npm": "^6.5.0",
+    "util": "^0.11.1"
   },
   "devDependencies": {
     "@angular/cli": "1.7.1",

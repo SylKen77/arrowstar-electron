@@ -47,12 +47,12 @@ export class HomeComponent implements OnInit {
   }
 
   laatsteTelling(): Date {
-    if (this.kassaService.state && this.kassaService.state.tellingen) return this.kassaService.state.tellingen[this.kassaService.state.tellingen.length - 1].timestamp;
+    if (this.kassaService.state && this.kassaService.state.tellingen && this.kassaService.state.tellingen.length > 0) return this.kassaService.state.tellingen[this.kassaService.state.tellingen.length - 1].timestamp;
     return new Date();
   }
 
   laatsteAfsluiting(): Date {
-    if (this.kassaService.state && this.kassaService.state.afsluitingen) return this.kassaService.state.afsluitingen[this.kassaService.state.afsluitingen.length - 1].timestamp;
+    if (this.kassaService.state && this.kassaService.state.afsluitingen && this.kassaService.state.afsluitingen.length > 0) return this.kassaService.state.afsluitingen[this.kassaService.state.afsluitingen.length - 1].timestamp;
     return new Date();
   }
 }

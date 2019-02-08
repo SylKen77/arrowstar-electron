@@ -1,12 +1,18 @@
-<h1 mat-dialog-title class="mat-headline">Kassa tellen</h1>
+<h1 mat-dialog-title class="mat-headline">Kassa afsluiten</h1>
 
-<mat-dialog-content style="height: 600px">
-  <mat-form-field>
-    <input matInput type="number" [(ngModel)]="bedrag" placeholder="bedrag">
-  </mat-form-field>
-  <mat-form-field>
-    <textarea matInput [(ngModel)]="opmerking" placeholder="opmerking"></textarea>
-  </mat-form-field>
+<mat-dialog-content>
+
+  <div class="afsluitenFormFields">
+    <mat-form-field>
+      <mat-label>Bedrag dat uit de kas wordt gehaald</mat-label>
+      <input matInput currencyMask [(ngModel)]="bedrag">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Opmerking</mat-label>
+      <textarea matInput rows="5" [(ngModel)]="opmerking"></textarea>
+    </mat-form-field>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions>

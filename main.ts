@@ -8,6 +8,7 @@ serve = args.some(val => val === '--serve');
 workingDir = args.filter(val => val.startsWith('--workingDir=')).map(val => val.replace('--workingDir=', '')).pop();
 
 (global as any).workingDir = workingDir;
+(global as any).runningDir = app.getAppPath();
 
 try {
   require('dotenv').config();
@@ -30,6 +31,7 @@ function createWindow() {
     require('electron-reload')(__dirname, {});
     win.loadURL('http://localhost:4200');
   } else {
+    global.Buffer = global.Buffer || require('buffer').Buffer;
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
       protocol: 'file:',
@@ -40,6 +42,7 @@ function createWindow() {
   win.webContents.openDevTools();
 
   initDirectories();
+  createBackup();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -55,12 +58,17 @@ function initDirectories() {
   const log = require('electron-log');
   log.warn('Initalizing filesystem');
   log.warn(app.getPath('appData'));
+  log.warn(app.getPath('exe'));
+  log.warn(app.getPath('exe').substring(0, app.getPath('exe').lastIndexOf('\\')));
+  log.warn(app.getAppPath());
   const fs = require('fs-extra');
   fs.ensureDirSync((global as any).workingDir + '/data/backup');
   fs.ensureFileSync((global as any).workingDir + '/data/commands.txt');
 }
 
 function createBackup() {
+  global.Buffer = global.Buffer || require('buffer').Buffer;
+
   const log = require('electron-log');
   log.warn('Creating backup');
   const fs = require('fs-extra');
@@ -97,7 +105,7 @@ try {
     }
   });
 
-  app.on('quit', () => createBackup());
+  // app.on('quit', () => createBackup());
 
 } catch (e) {
   // Catch Error
