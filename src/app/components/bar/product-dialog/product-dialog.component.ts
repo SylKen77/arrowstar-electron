@@ -24,6 +24,10 @@ export class ProductDialogComponent implements OnInit {
       this.omschrijving = this.product.omschrijving;
       this.prijsLid = this.product.prijsLid;
       this.prijsGast = this.product.prijsGast;
+    } else {
+      this.omschrijving = 'Nieuw product'
+      this.prijsLid = 1.00;
+      this.prijsGast = 1.50;
     }
   }
 

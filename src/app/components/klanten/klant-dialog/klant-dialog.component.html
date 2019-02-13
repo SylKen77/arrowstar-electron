@@ -2,12 +2,21 @@
 
 
 <mat-dialog-content>
-  <div class="avatar" (click)="changeAvatar(klant.klantId)">
-    <img width="60px" height="60px" [src]="avatar">
+
+  <div id="createKlantForm">
+
+    <div class="avatarContainer clickable" (click)="changeAvatar()">
+      <img *ngIf="heeftAvatar(klant)" class="avatarGroot" [src]="avatar">
+      <div *ngIf="!heeftAvatar(klant)" class="avatarGroot defaultAvatar"></div>
+
+    </div>
+
+    <mat-form-field id="naamField">
+      <mat-label>Naam</mat-label>
+      <input matInput [(ngModel)]="naam">
+    </mat-form-field>
+
   </div>
-  <mat-form-field>
-    <input matInput [(ngModel)]="naam" placeholder="naam">
-  </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>

@@ -72,4 +72,8 @@ export class ImageService {
     return this.workingDir + '/images/' + klantId + '.jpg';
   }
 
+  public heeftAvatar(klantId: number): boolean {
+    return this.fs.pathExistsSync(this.getAvatarPath("" + klantId));
+  }
+
 }

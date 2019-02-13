@@ -3,11 +3,14 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
 import {ProductService} from '../../../services/product-service';
 import {Rekening} from '../../../model/rekening';
+import {ImageService} from '../../../services/image-service';
+import {Klant} from '../../../model/klant';
+import {KlantType} from '../../../model/klant-type';
 
 @Component({
   selector: 'app-klant-dialog',
   templateUrl: './rekening-dialog.component.html',
-  styleUrls: ['./rekening-dialog.component.css']
+  styleUrls: ['./rekening-dialog.component.scss']
 })
 export class RekeningDialogComponent implements OnInit {
 
@@ -19,6 +22,7 @@ export class RekeningDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RekeningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
+              public imageService: ImageService,
               public productService: ProductService) {
   }
 
@@ -77,5 +81,22 @@ export class RekeningDialogComponent implements OnInit {
       this.terug = null;
     }
   }
+
+  heeftAvatar(klantId: number): boolean {
+    return this.imageService.heeftAvatar(klantId);
+  }
+
+  getAvatar(klantId: number): string {
+    return this.imageService.getAvatar('' + klantId).contentBase64;
+  }
+
+  isGast(klant: Klant) {
+    return klant.klantType === KlantType.GAST;
+  }
+
+  isLid(klant: Klant) {
+    return klant.klantType === KlantType.LID;
+  }
+
 
 }

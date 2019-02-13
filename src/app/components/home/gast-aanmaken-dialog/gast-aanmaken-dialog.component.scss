@@ -1,23 +1,10 @@
-.klantTypeSelectie {
-}
-
-.radioButton {
-  margin-left: 10px;
-}
-
-.createKlantForm {
+#createGastForm {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
 
-.avatar {
-  width: 225px;
-  height: 225px;
-  background: url("../../../../assets/visitor.jpg");
-}
-
-
 .naamInput {
+  margin-top: 10px;
   width: 100%;
 }

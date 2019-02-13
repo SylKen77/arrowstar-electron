@@ -27,9 +27,9 @@ export class KlantDialogComponent implements OnInit {
   ngOnInit() {
     if (this.klant) {
       this.naam = this.klant.naam;
-      this.setAvatar(this.imageService.getAvatar('' + this.klant.klantId));
-    } else {
-      this.setAvatar(this.imageService.defaultAvatar);
+      if (this.imageService.heeftAvatar(this.klant.klantId)) {
+        this.setAvatar(this.imageService.getAvatar('' + this.klant.klantId));
+      }
     }
   }
 
@@ -37,14 +37,19 @@ export class KlantDialogComponent implements OnInit {
     this.dialogRef.close('ok');
     if (this.klant) {
       this.commandService.wijzigKlant(this.klant.klantId, this.naam);
-      this.imageService.saveAvatar(this.klant.klantId, this.avatarImage);
+      if (this.avatarImage) {
+        this.imageService.saveAvatar(this.klant.klantId, this.avatarImage);
+      }
     } else {
+      console.log('ok: ' + this.naam);
       const klantId = this.commandService.voegKlantToe(this.naam, KlantType.LID);
-      this.imageService.saveAvatar(klantId, this.avatarImage);
+      if (this.avatarImage) {
+        this.imageService.saveAvatar(klantId, this.avatarImage);
+      }
     }
   }
 
-  changeAvatar(klantId: number) {
+  changeAvatar() {
     this.imageService.kiesAvatar(avatarImage => {
       if (avatarImage) {
         this.setAvatar(avatarImage);
@@ -61,4 +66,11 @@ export class KlantDialogComponent implements OnInit {
     this.avatarImage = avatar;
     this.avatar = avatar.contentBase64;
   }
+
+  heeftAvatar(klant: Klant): boolean {
+    if (klant) return this.imageService.heeftAvatar(klant.klantId);
+    return false;
+  }
+
+
 }

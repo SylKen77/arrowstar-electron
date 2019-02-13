@@ -26,14 +26,19 @@ export class BarComponent implements OnInit {
   }
 
   openProductDialog(product: Product) {
-    const dialogRef = this.dialog.open(ProductDialogComponent, {data: product});
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '450px',
+      data: product
+    });
     dialogRef.afterClosed().subscribe(result => {
       if ('ok' === result) this.openSnackbar('Product gewijzigd');
     });
   }
 
   openProductDialogVoorNieuwProduct() {
-    const dialogRef = this.dialog.open(ProductDialogComponent, {});
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '450px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if ('ok' === result) this.openSnackbar('Product toegevoegd');
     });

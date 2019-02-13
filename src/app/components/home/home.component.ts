@@ -8,6 +8,7 @@ import {RekeningDialogComponent} from './rekening-dialog/rekening-dialog.compone
 import {Klant} from '../../model/klant';
 import {Observable} from 'rxjs/Observable';
 import {ImageService} from '../../services/image-service';
+import {KlantType} from '../../model/klant-type';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,9 @@ export class HomeComponent implements OnInit {
   }
 
   openKlantAanmakenDialog(): void {
-    const dialogRef = this.dialog.open(GastAanmakenDialogComponent, {});
+    const dialogRef = this.dialog.open(GastAanmakenDialogComponent, {
+      width: '450px'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
     });
@@ -35,11 +38,16 @@ export class HomeComponent implements OnInit {
 
   openKlantDialog(klant: Klant): void {
     const dialogRef = this.dialog.open(RekeningDialogComponent, {
-      data: klant
+      data: klant,
+      width: '450px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  heeftAvatar(klantId: number): boolean {
+    return this.imageService.heeftAvatar(klantId);
   }
 
   getAvatar(klantId: number): string {
@@ -54,5 +62,13 @@ export class HomeComponent implements OnInit {
   laatsteAfsluiting(): Date {
     if (this.kassaService.state && this.kassaService.state.afsluitingen && this.kassaService.state.afsluitingen.length > 0) return this.kassaService.state.afsluitingen[this.kassaService.state.afsluitingen.length - 1].timestamp;
     return new Date();
+  }
+
+  isGast(klant: Klant) {
+    return klant.klantType === KlantType.GAST;
+  }
+
+  isLid(klant: Klant) {
+    return klant.klantType === KlantType.LID;
   }
 }

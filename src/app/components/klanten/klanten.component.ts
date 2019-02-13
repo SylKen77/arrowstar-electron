@@ -37,14 +37,19 @@ export class KlantenComponent implements OnInit {
   }
 
   openKlantDialogVoorNieuweKlant() {
-    const dialogRef = this.dialog.open(KlantDialogComponent, {});
+    const dialogRef = this.dialog.open(KlantDialogComponent, {
+      width: '450px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if ('ok' === result) this.openSnackbar('Klant toegevoegd');
     });
   }
 
   openKlantDialog(klant: Klant) {
-    const dialogRef = this.dialog.open(KlantDialogComponent, {data: klant});
+    const dialogRef = this.dialog.open(KlantDialogComponent, {
+      width: '450px',
+      data: klant
+    });
     dialogRef.afterClosed().subscribe(result => {
       if ('ok' === result) this.openSnackbar('Klant gewijzigd');
     });

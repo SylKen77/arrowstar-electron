@@ -31,5 +31,4 @@ export class GastAanmakenDialogComponent implements OnInit {
     this.dialogRef.close('cancel');
   }
 
-
 }

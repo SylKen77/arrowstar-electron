@@ -1,25 +1,12 @@
-.klantAankopenForm {
-  display: flex;
-  flex-direction: column;
-}
-
-.klantAankopenForm > * {
-  width: 100%;
-}
-
-.productrij {
-  margin-top: 5px;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-
-.productOmschrijving {
-  flex-grow: 10;
-}
-
 .rekening {
   border-top: 2px solid #333337;
+  margin-top: 20px;
+}
+
+.klantNaam {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
   margin-top: 10px;
 }
 
@@ -71,19 +58,6 @@
 
 .rekening .title {
   font-size: 1.5em;
-}
-
-.aankopenTimeline .aankoop {
-  margin-top: 5px;
-  display: flex;
-  flex-direction: row;
-}
-
-.aankoopOmschrijving {
-  flex-grow: 10;
-}
-
-.aankoopBedrag {
 }
 
 .rekeningTotaal {

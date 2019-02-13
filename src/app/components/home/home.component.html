@@ -7,16 +7,23 @@
   </div>
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
-    <div class="klantBox mat-elevation-z3" (click)="openKlantDialog(klant)" >
-      <div class="klantAvatar"><img class="rond avatarKlein" [src]="getAvatar(klant.klantId)"></div>
+    <div class="klantBox clickable mat-elevation-z3" (click)="openKlantDialog(klant)" >
+      <div class="klantAvatar avatarContainer">
+        <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="getAvatar(klant.klantId)">
+        <div *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein defaultAvatar"></div>
+        <div *ngIf="isGast(klant)" class="avatarKlein visitorAvatar"></div>
+      </div>
       <div class="klantNaam">{{klant.naam}}</div>
-      <div class="onbetaaldeAankopen" *ngIf="klant.heeftOnbetaaldeAankopen()" ><mat-icon>shopping_cart</mat-icon></div>
+      <div class="onbetaaldeAankopen klantNotificatie" *ngIf="klant.heeftOnbetaaldeAankopen()" ></div>
+      <div class="geenOnbetaaldeAankopen klantNotificatie" *ngIf="!klant.heeftOnbetaaldeAankopen()" ></div>
     </div>
   </ng-container>
 
-  <div class="klantBox mat-elevation-z3" (click)="openKlantAanmakenDialog()">
-    <div class="klantAvatar gastToevoegenAvatar"></div>
-    <mat-icon class="accountIcon" >account_circle</mat-icon>
+  <div class="klantBox clickable mat-elevation-z3" (click)="openKlantAanmakenDialog()">
+    <div class="klantAvatar avatarContainer">
+      <div class="avatarKlein visitorAvatar"></div>
+    </div>
+    <div class="klantNotificatie addGast"></div>
     <div class="klantNaam">gast toevoegen</div>
   </div>
 

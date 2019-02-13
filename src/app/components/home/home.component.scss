@@ -5,7 +5,7 @@
 
 .grid {
   margin-top: 10px;
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 5px;
   grid-auto-rows: minmax(100px, auto);
@@ -17,32 +17,17 @@
   padding: 1em;
   color: #807f7c;
   display: grid;
+  grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
 }
 
-.klantBox:hover{
-  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+.klantBox:hover {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12)
 }
 
 .klantAvatar {
   grid-column: 1;
   grid-row: 1;
-}
-
-.avatarKlein {
-  width: 60px;
-  height: 60px;
-}
-
-.gastToevoegenAvatar {
-  background: url("../../../assets/visitor.jpg");
-  background-size: cover;
-  width: 60px;
-  height: 60px;
-}
-
-.rond {
-  border-radius: 50% 50%;
 }
 
 .klantNaam {
@@ -52,14 +37,28 @@
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
+  text-align: center;
 }
 
 .clipping {
 }
 
-.onbetaaldeAankopen{
+.onbetaaldeAankopen {
+  background-color: red;
+}
+
+.geenOnbetaaldeAankopen {
+  background-color: green;
+}
+
+.klantNotificatie {
+  width: 60px;
+  height: 60px;
   grid-column: 2;
   grid-row: 1;
+  border-radius: 50% 50%;
+  border: 1px solid #cdc5cd;
+  box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12)
 }
 
 .logo {
