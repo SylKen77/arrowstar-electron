@@ -7,8 +7,7 @@
 
     <div class="avatarContainer clickable" (click)="changeAvatar()">
       <img *ngIf="heeftAvatar(klant)" class="avatarGroot" [src]="avatar">
-      <div *ngIf="!heeftAvatar(klant)" class="avatarGroot defaultAvatar"></div>
-
+      <img *ngIf="!heeftAvatar(klant)" class="avatarGroot" src="file://img/avatarDefault.jpg">
     </div>
 
     <mat-form-field id="naamField">

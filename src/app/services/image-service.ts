@@ -22,7 +22,7 @@ export class ImageService {
       this.fs = window.require('fs-extra');
       this.workingDir = this.remote.getGlobal('workingDir');
       this.runningDir = this.remote.getGlobal('runningDir');
-      this.defaultAvatar = this.loadImage(this.runningDir + '/assets/defaultAvatar.jpg');
+      this.defaultAvatar = this.loadImage(this.runningDir + '/assets/avatarDefault.jpg');
     }
   }
 

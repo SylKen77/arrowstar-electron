@@ -1,7 +1,7 @@
 <div class="grid">
 
   <div class="logo mat-elevation-z3">
-    <div id="logo"></div>
+    <div id="logo"><img src="file://img/logo.gif"></div>
     <div class="laatsteTelling">Laatste telling: {{laatsteTelling() | date:'dd/MM/yyyy'}}</div>
     <div class="laatsteAfsluiting">Laatste afsluiting: {{laatsteAfsluiting() | date:'dd/MM/yyyy'}}</div>
   </div>
@@ -10,8 +10,8 @@
     <div class="klantBox clickable mat-elevation-z3" (click)="openKlantDialog(klant)" >
       <div class="klantAvatar avatarContainer">
         <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="getAvatar(klant.klantId)">
-        <div *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein defaultAvatar"></div>
-        <div *ngIf="isGast(klant)" class="avatarKlein visitorAvatar"></div>
+        <img *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein" src="file://img/avatarDefault.jpg">
+        <img *ngIf="isGast(klant)" class="avatarKlein" src="file://img/avatarGast.jpg">
       </div>
       <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen klantNotificatie" *ngIf="klant.heeftOnbetaaldeAankopen()" ></div>
@@ -21,7 +21,7 @@
 
   <div class="klantBox clickable mat-elevation-z3" (click)="openKlantAanmakenDialog()">
     <div class="klantAvatar avatarContainer">
-      <div class="avatarKlein visitorAvatar"></div>
+      <img class="avatarKlein" src="file://img/avatarGast.jpg">
     </div>
     <div class="klantNotificatie addGast"></div>
     <div class="klantNaam">gast toevoegen</div>

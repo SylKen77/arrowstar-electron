@@ -17,16 +17,16 @@
       <div class="klantNaam tableItem">{{klant.naam}}</div>
       <div class="klantSchuld tableItem">{{klant.getSchuld() | currency : 'EUR'}}</div>
       <div class="klantEdit tableItem">
-        <mat-icon (click)="openKlantDialog(klant)" class="clickable">edit</mat-icon>
+        <img src="file://img/edit.svg" (click)="openKlantDialog(klant)" class="clickable">
       </div>
       <div class="klantDelete tableItem">
-        <mat-icon *ngIf="!klant.heeftOnbetaaldeAankopen()" (click)="deleteKlant(klant.klantId)" class="clickable">delete</mat-icon>
+        <img src="file://img/delete.svg" *ngIf="!klant.heeftOnbetaaldeAankopen()" (click)="deleteKlant(klant.klantId)" class="clickable">
       </div>
       <div class="klantDown tableItem">
-        <mat-icon (click)="moveKlantDown(klant.klantId)" class="clickable">arrow_drop_down</mat-icon>
+        <img src="file://img/down.svg" (click)="moveKlantDown(klant.klantId)" class="clickable">
       </div>
       <div class="klantUp tableItem">
-        <mat-icon (click)="moveKlantUp(klant.klantId)" class="clickable">arrow_drop_up</mat-icon>
+        <img src="file://img/up.svg" (click)="moveKlantUp(klant.klantId)" class="clickable">
       </div>
     </ng-container>
   </div>
