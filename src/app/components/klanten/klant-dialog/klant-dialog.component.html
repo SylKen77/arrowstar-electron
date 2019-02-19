@@ -6,8 +6,9 @@
   <div id="createKlantForm">
 
     <div class="avatarContainer clickable" (click)="changeAvatar()">
-      <img *ngIf="heeftAvatar(klant)" class="avatarGroot" [src]="avatar">
-      <img *ngIf="!heeftAvatar(klant)" class="avatarGroot" src="file://img/avatarDefault.jpg">
+      <img *ngIf="heeftTempAvatar()" class="avatarGroot" [src]="tempAvatar">
+      <img *ngIf="!heeftTempAvatar() && heeftAvatar(klant)" class="avatarGroot" [src]="getAvatarUrl(klant.klantId)">
+      <img *ngIf="!heeftTempAvatar() && !heeftAvatar(klant)" class="avatarGroot" src="file://img/avatarDefault.jpg">
     </div>
 
     <mat-form-field id="naamField">

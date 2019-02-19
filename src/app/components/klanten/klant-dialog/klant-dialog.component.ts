@@ -14,7 +14,7 @@ import {Image} from '../../../model/image';
 export class KlantDialogComponent implements OnInit {
 
   public naam: string;
-  public avatar: string;
+  public tempAvatar: string;
   private avatarImage: Image;
 
   constructor(public dialogRef: MatDialogRef<KlantDialogComponent>,
@@ -27,9 +27,6 @@ export class KlantDialogComponent implements OnInit {
   ngOnInit() {
     if (this.klant) {
       this.naam = this.klant.naam;
-      if (this.imageService.heeftAvatar(this.klant.klantId)) {
-        this.setAvatar(this.imageService.getAvatar('' + this.klant.klantId));
-      }
     }
   }
 
@@ -41,7 +38,6 @@ export class KlantDialogComponent implements OnInit {
         this.imageService.saveAvatar(this.klant.klantId, this.avatarImage);
       }
     } else {
-      console.log('ok: ' + this.naam);
       const klantId = this.commandService.voegKlantToe(this.naam, KlantType.LID);
       if (this.avatarImage) {
         this.imageService.saveAvatar(klantId, this.avatarImage);
@@ -49,10 +45,14 @@ export class KlantDialogComponent implements OnInit {
     }
   }
 
+  heeftTempAvatar(): boolean {
+    return !!this.tempAvatar;
+  }
+
   changeAvatar() {
     this.imageService.kiesAvatar(avatarImage => {
       if (avatarImage) {
-        this.setAvatar(avatarImage);
+        this.setTempAvatar(avatarImage);
         this.applicationRef.tick();
       }
     });
@@ -62,14 +62,18 @@ export class KlantDialogComponent implements OnInit {
     this.dialogRef.close('cancel');
   }
 
-  private setAvatar(avatar: Image) {
+  private setTempAvatar(avatar: Image) {
     this.avatarImage = avatar;
-    this.avatar = avatar.contentBase64;
+    this.tempAvatar = avatar.contentBase64;
   }
 
   heeftAvatar(klant: Klant): boolean {
     if (klant) return this.imageService.heeftAvatar(klant.klantId);
     return false;
+  }
+
+  getAvatarUrl(klantId: number) {
+    return ImageService.getAvatarUrl(klantId);
   }
 
 

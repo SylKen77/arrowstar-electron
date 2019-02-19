@@ -3,7 +3,7 @@
 <mat-dialog-content>
 
   <div class="avatarContainer">
-    <img *ngIf="isLid(data) && heeftAvatar(data.klantId)" class="avatarGroot" [src]="getAvatar(data.klantId)">
+    <img *ngIf="isLid(data) && heeftAvatar(data.klantId)" class="avatarGroot" [src]="getAvatarUrl(data.klantId)">
     <img *ngIf="isLid(data) && !heeftAvatar(data.klantId)" class="avatarGroot" src="file://img/avatarDefault.jpg">
     <img *ngIf="isGast(data)" class="avatarGroot" src="file://img/avatarGast.jpg">
   </div>

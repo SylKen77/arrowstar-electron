@@ -6,7 +6,6 @@ import {MatDialog} from '@angular/material';
 import {GastAanmakenDialogComponent} from './gast-aanmaken-dialog/gast-aanmaken-dialog.component';
 import {RekeningDialogComponent} from './rekening-dialog/rekening-dialog.component';
 import {Klant} from '../../model/klant';
-import {Observable} from 'rxjs/Observable';
 import {ImageService} from '../../services/image-service';
 import {KlantType} from '../../model/klant-type';
 
@@ -50,8 +49,8 @@ export class HomeComponent implements OnInit {
     return this.imageService.heeftAvatar(klantId);
   }
 
-  getAvatar(klantId: number): string {
-    return this.imageService.getAvatar('' + klantId).contentBase64;
+  getAvatarUrl(klantId: number): string {
+    return ImageService.getAvatarUrl(klantId);
   }
 
   laatsteTelling(): Date {

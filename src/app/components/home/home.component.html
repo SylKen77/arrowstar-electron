@@ -9,7 +9,7 @@
   <ng-container *ngFor="let klant of klantService.state$ | async">
     <div class="klantBox clickable mat-elevation-z3" (click)="openKlantDialog(klant)" >
       <div class="klantAvatar avatarContainer">
-        <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="getAvatar(klant.klantId)">
+        <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="getAvatarUrl(klant.klantId)">
         <img *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein" src="file://img/avatarDefault.jpg">
         <img *ngIf="isGast(klant)" class="avatarKlein" src="file://img/avatarGast.jpg">
       </div>

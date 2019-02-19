@@ -62,6 +62,7 @@ function initDirectories() {
   log.warn(app.getAppPath());
   const fs = require('fs-extra');
   fs.ensureDirSync((global as any).workingDir + '/data/backup');
+  fs.ensureDirSync((global as any).workingDir + '/img/avatars');
   fs.ensureFileSync((global as any).workingDir + '/data/commands.txt');
 }
 

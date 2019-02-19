@@ -86,8 +86,8 @@ export class RekeningDialogComponent implements OnInit {
     return this.imageService.heeftAvatar(klantId);
   }
 
-  getAvatar(klantId: number): string {
-    return this.imageService.getAvatar('' + klantId).contentBase64;
+  getAvatarUrl(klantId: number): string {
+    return ImageService.getAvatarUrl(klantId);
   }
 
   isGast(klant: Klant) {
