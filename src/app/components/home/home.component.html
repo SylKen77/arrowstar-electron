@@ -1,9 +1,11 @@
 <div class="grid">
 
-  <div class="logo mat-elevation-z3">
+  <div class="logoContainer mat-elevation-z3">
     <div id="logo"><img src="file://img/logo.gif"></div>
+    <div class="logoInfoContainer">
     <div class="laatsteTelling">Laatste telling: {{laatsteTelling() | date:'dd/MM/yyyy'}}</div>
     <div class="laatsteAfsluiting">Laatste afsluiting: {{laatsteAfsluiting() | date:'dd/MM/yyyy'}}</div>
+    </div>
   </div>
 
   <ng-container *ngFor="let klant of klantService.state$ | async">
@@ -27,35 +29,4 @@
     <div class="klantNaam">gast toevoegen</div>
   </div>
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<div class="debugInfo">
-
-  <div class="json">
-  <pre>
-  {{kassaService.state | json}}
-  </pre>
-  </div>
-
-  <div class="json">
-  <pre>
-  {{klantService.state | json}}
-  </pre>
-  </div>
-
-  <div class="json">
-  <pre>
-  {{productService.state | json}}
-  </pre>
-  </div>
 </div>

@@ -58,3 +58,8 @@
 {"_index":57,"_timestamp":"2019-02-19T06:54:07.469Z","_commandName":"KlantWijzigenCommand","_klantId":0,"_naam":"De Cock"}
 {"_index":58,"_timestamp":"2019-02-19T07:09:35.617Z","_commandName":"KlantWijzigenCommand","_klantId":0,"_naam":"De Cock"}
 {"_index":59,"_timestamp":"2019-02-19T07:10:26.281Z","_commandName":"KlantWijzigenCommand","_klantId":0,"_naam":"De Cock"}
+{"_index":60,"_timestamp":"2019-02-21T14:12:49.924Z","_commandName":"KlantWijzigenCommand","_klantId":0,"_naam":"Maarten De Cock"}
+{"_index":61,"_timestamp":"2019-02-21T14:16:03.629Z","_commandName":"AankoopToevoegenCommand","_aankoopId":61,"_klantId":0,"_productId":1}
+{"_index":62,"_timestamp":"2019-02-21T14:16:03.749Z","_commandName":"AankoopToevoegenCommand","_aankoopId":62,"_klantId":0,"_productId":1}
+{"_index":63,"_timestamp":"2019-02-21T14:16:04.717Z","_commandName":"AankoopToevoegenCommand","_aankoopId":63,"_klantId":0,"_productId":2}
+{"_index":64,"_timestamp":"2019-02-21T14:16:04.869Z","_commandName":"AankoopToevoegenCommand","_aankoopId":64,"_klantId":0,"_productId":2}

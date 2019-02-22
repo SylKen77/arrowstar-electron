@@ -1,10 +1,11 @@
-import {app, BrowserWindow, screen, protocol} from 'electron';
+  import {app, BrowserWindow, screen, protocol} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-let win, serve;
+let win, serve, debug;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+debug = args.some(val => val === '--debug');
 
 (global as any).workingDir = __dirname;
 (global as any).runningDir = app.getAppPath();
@@ -38,7 +39,9 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  if (debug) {
+    win.webContents.openDevTools();
+  }
 
   initDirectories();
   createBackup();
