@@ -63,3 +63,15 @@
 {"_index":62,"_timestamp":"2019-02-21T14:16:03.749Z","_commandName":"AankoopToevoegenCommand","_aankoopId":62,"_klantId":0,"_productId":1}
 {"_index":63,"_timestamp":"2019-02-21T14:16:04.717Z","_commandName":"AankoopToevoegenCommand","_aankoopId":63,"_klantId":0,"_productId":2}
 {"_index":64,"_timestamp":"2019-02-21T14:16:04.869Z","_commandName":"AankoopToevoegenCommand","_aankoopId":64,"_klantId":0,"_productId":2}
+{"_index":65,"_timestamp":"2019-02-25T15:04:16.104Z","_commandName":"KlantToevoegenCommand","_klantId":65,"_naam":"sdfafsaddfas","_klantType":"LID"}
+{"_index":66,"_timestamp":"2019-02-25T15:04:18.719Z","_commandName":"KlantToevoegenCommand","_klantId":66,"_naam":"gdfaad","_klantType":"LID"}
+{"_index":67,"_timestamp":"2019-02-25T15:04:21.239Z","_commandName":"KlantToevoegenCommand","_klantId":67,"_naam":"sdgfasdgasd","_klantType":"LID"}
+{"_index":68,"_timestamp":"2019-02-25T15:04:23.775Z","_commandName":"KlantToevoegenCommand","_klantId":68,"_naam":"gasdfaa","_klantType":"LID"}
+{"_index":69,"_timestamp":"2019-02-25T15:04:26.439Z","_commandName":"KlantToevoegenCommand","_klantId":69,"_naam":"gadfgwessd","_klantType":"LID"}
+{"_index":70,"_timestamp":"2019-02-25T15:04:29.231Z","_commandName":"KlantToevoegenCommand","_klantId":70,"_naam":"gfdeewsdsd","_klantType":"LID"}
+{"_index":71,"_timestamp":"2019-02-25T15:04:32.271Z","_commandName":"KlantToevoegenCommand","_klantId":71,"_naam":"gafgawws","_klantType":"LID"}
+{"_index":72,"_timestamp":"2019-02-25T15:04:35.096Z","_commandName":"KlantToevoegenCommand","_klantId":72,"_naam":"gdsdsaasas","_klantType":"LID"}
+{"_index":73,"_timestamp":"2019-02-25T15:04:43.895Z","_commandName":"KlantToevoegenCommand","_klantId":73,"_naam":"dsgwews","_klantType":"LID"}
+{"_index":74,"_timestamp":"2019-02-25T15:04:46.831Z","_commandName":"KlantToevoegenCommand","_klantId":74,"_naam":"dfsaq","_klantType":"LID"}
+{"_index":75,"_timestamp":"2019-02-25T15:04:50.535Z","_commandName":"KlantToevoegenCommand","_klantId":75,"_naam":"sdfadsfadfad","_klantType":"LID"}
+{"_index":76,"_timestamp":"2019-02-25T15:04:55.855Z","_commandName":"KlantToevoegenCommand","_klantId":76,"_naam":"asdffasdasdf","_klantType":"LID"}
