@@ -4,8 +4,8 @@
 
   <div class="avatarContainer">
     <img *ngIf="isLid(data) && heeftAvatar(data.klantId)" class="avatarGroot" [src]="getAvatarUrl(data.klantId)">
-    <img *ngIf="isLid(data) && !heeftAvatar(data.klantId)" class="avatarGroot" src="file://img/avatarDefault.jpg">
-    <img *ngIf="isGast(data)" class="avatarGroot" src="file://img/avatarGast.jpg">
+    <img *ngIf="isLid(data) && !heeftAvatar(data.klantId)" class="avatarGroot" src="img://img/avatarDefault.jpg">
+    <img *ngIf="isGast(data)" class="avatarGroot" src="img://img/avatarGast.jpg">
   </div>
 
   <div class="klantNaam">
@@ -23,11 +23,11 @@
         <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
         <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
         <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
-          <img src="file://img/remove.svg">
+          <img src="img://img/remove.svg">
         </div>
         <span class="rekeningLijnAantal">{{rekeningLijn.aantal}}</span>
         <div class="rekeningLijnToevoegen" (click)="aankoopToevoegen(rekeningLijn.productId)">
-          <img src="file://img/add.svg">
+          <img src="img://img/add.svg">
         </div>
         <span class="rekeningLijnTotaal">{{rekeningLijn.totaal | currency : 'EUR'}}</span>
       </ng-container>

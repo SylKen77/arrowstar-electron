@@ -8,10 +8,9 @@ export class ImageService {
   private dialog;
   private fs;
   private readonly workingDir;
-  private readonly runningDir;
 
   static getAvatarUrl(klantId: number): string {
-    return 'file://img/avatars/' + klantId + '.jpg';
+    return 'img://img/avatars/' + klantId + '.jpg';
   }
 
   constructor() {
@@ -20,7 +19,6 @@ export class ImageService {
       this.dialog = window.require('electron').remote.dialog;
       this.fs = window.require('fs-extra');
       this.workingDir = this.remote.getGlobal('workingDir');
-      this.runningDir = this.remote.getGlobal('runningDir');
     }
   }
 

@@ -7,8 +7,10 @@ const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 debug = args.some(val => val === '--debug');
 
-(global as any).workingDir = __dirname;
-(global as any).runningDir = app.getAppPath();
+const exeDir = process.env.PORTABLE_EXECUTABLE_DIR;
+
+(global as any).workingDir =  exeDir ? exeDir : __dirname;
+
 
 try {
   require('dotenv').config();
@@ -17,11 +19,17 @@ try {
 }
 
 function createWindow() {
+  const log = require('electron-log');
+
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
   win = new BrowserWindow({show: false, webPreferences: {webSecurity: false}});
+
+  initDirectories();
+  createBackup();
+
 
   win.setMenu(null);
   win.maximize();
@@ -29,8 +37,10 @@ function createWindow() {
 
   if (serve) {
     require('electron-reload')(__dirname, {});
+    log.warn('loadUrl ' + path.join('http://localhost:4200'));
     win.loadURL('http://localhost:4200');
   } else {
+    log.warn('loadUrl ' + path.join(__dirname, 'dist/index.html'));
     global.Buffer = global.Buffer || require('buffer').Buffer;
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
@@ -43,8 +53,6 @@ function createWindow() {
     win.webContents.openDevTools();
   }
 
-  initDirectories();
-  createBackup();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -56,17 +64,23 @@ function createWindow() {
 }
 
 function initDirectories() {
-
   const log = require('electron-log');
-  log.warn('Initalizing filesystem');
-  log.warn(app.getPath('appData'));
-  log.warn(app.getPath('exe'));
-  log.warn(app.getPath('exe').substring(0, app.getPath('exe').lastIndexOf('\\')));
-  log.warn(app.getAppPath());
   const fs = require('fs-extra');
-  fs.ensureDirSync((global as any).workingDir + '/data/backup');
-  fs.ensureDirSync((global as any).workingDir + '/img/avatars');
-  fs.ensureFileSync((global as any).workingDir + '/data/commands.txt');
+
+  const backupDir = (global as any).workingDir + '/data/backup';
+  const avatarDir = (global as any).workingDir + '/img/avatars';
+  const commandsFile = (global as any).workingDir + '/data/commands.txt';
+
+  log.warn('Initalizing filesystem');
+  log.warn('Working dir: ' + (global as any).workingDir);
+
+
+  log.warn('ensureDirSync: ' + backupDir);
+  fs.ensureDirSync(backupDir);
+  log.warn('ensureDirSync: ' + avatarDir);
+  fs.ensureDirSync(avatarDir);
+  log.warn('ensureFileSync: ' + commandsFile);
+  fs.ensureFileSync(commandsFile);
 }
 
 function createBackup() {
@@ -80,8 +94,9 @@ function createBackup() {
   const month = (date.getUTCMonth() + 1) > 9 ? '' + (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
   const commandsFile = (global as any).workingDir + '/data/commands.txt';
   const backupFile = (global as any).workingDir + '/data/backup/' + date.getFullYear() + month + day + '.txt';
+
   fs.copySync(commandsFile, backupFile);
-  log.warn('Backup created');
+  log.warn('Backup ' + backupFile + ' created');
 }
 
 try {
@@ -89,9 +104,11 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
+  protocol.registerStandardSchemes(['img']);
   app.on('ready', () => {
-    protocol.interceptFileProtocol('file', (request, callback) => {
-      let imgUrl = request.url.substr(7);    /* all urls start with 'file://' */
+
+    protocol.registerFileProtocol('img', (request, callback) => {
+      let imgUrl = request.url.substr(6);    /* all urls start with 'img://' */
       if (imgUrl.endsWith('/')) imgUrl = imgUrl.substring(0, imgUrl.length - 1);
 
       const filePath = path.normalize(`${__dirname}/${imgUrl}`);
@@ -100,6 +117,7 @@ try {
     }, (err) => {
       if (err) console.error('Failed to register protocol');
     });
+
     createWindow();
   });
 

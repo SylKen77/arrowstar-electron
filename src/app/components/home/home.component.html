@@ -1,7 +1,7 @@
 <div class="grid">
 
   <div class="logoContainer mat-elevation-z3">
-    <div id="logo"><img src="file://img/logo.gif"></div>
+    <div id="logo"><img src="img://img/logo.gif"></div>
     <div class="logoInfoContainer">
     <div class="laatsteTelling">Laatste telling: {{laatsteTelling() | date:'dd/MM/yyyy'}}</div>
     <div class="laatsteAfsluiting">Laatste afsluiting: {{laatsteAfsluiting() | date:'dd/MM/yyyy'}}</div>
@@ -12,8 +12,8 @@
     <div class="klantBox clickable mat-elevation-z3" (click)="openKlantDialog(klant)" >
       <div class="klantAvatar avatarContainer">
         <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="getAvatarUrl(klant.klantId)">
-        <img *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein" src="file://img/avatarDefault.jpg">
-        <img *ngIf="isGast(klant)" class="avatarKlein" src="file://img/avatarGast.jpg">
+        <img *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein" src="img://img/avatarDefault.jpg">
+        <img *ngIf="isGast(klant)" class="avatarKlein" src="img://img/avatarGast.jpg">
       </div>
       <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen klantNotificatie" *ngIf="klant.heeftOnbetaaldeAankopen()" ></div>
@@ -23,7 +23,7 @@
 
   <div class="klantBox clickable mat-elevation-z3" (click)="openKlantAanmakenDialog()">
     <div class="klantAvatar avatarContainer">
-      <img class="avatarKlein" src="file://img/avatarGastToevoegen.jpg">
+      <img class="avatarKlein" src="img://img/avatarGastToevoegen.jpg">
     </div>
     <div class="addGast"></div>
     <div class="klantNaam">gast toevoegen</div>
