@@ -17,11 +17,13 @@
     <div class="rekeningLijnen">
       <span class="rekeningLijnOmschrijving rekeningLijnTitle">Product</span>
       <span class="rekeningLijnPrijs rekeningLijnTitle">Prijs</span>
+      <span class="rekeningLijnViaOverschrijving rekeningLijnTitle">Overschrijving</span>
       <span class="rekeningLijnAantal rekeningLijnTitle">Aantal</span>
       <span class="rekeningLijnTotaal rekeningLijnTitle">Totaal</span>
       <ng-container *ngFor="let rekeningLijn of getRekening().rekeningLijnen">
         <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
         <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
+        <span class="rekeningLijnViaOverschrijving"><input *ngIf="rekeningLijn.betaalbaarViaOverschrijving" type="checkbox" [checked]="rekeningLijn._viaOverschrijving" (change)="$event.target.checked ? wijzigAankopen(rekeningLijn.productId, true) : wijzigAankopen(rekeningLijn.productId, false)"></span>
         <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
           <img src="img://img/remove.svg">
         </div>

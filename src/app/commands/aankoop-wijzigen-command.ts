@@ -1,27 +1,21 @@
 import {Command} from './command';
 import {CommandService} from '../services/command-service';
 
-export class AankoopToevoegenCommand extends Command {
+export class AankoopWijzigenCommand extends Command {
 
-  private readonly _aankoopId: number;
   private readonly _klantId: number;
   private readonly _productId: number;
   private readonly _viaOverschrijving: boolean;
 
-  constructor(index: number, timestamp: Date, aankoopId: number, klantId: number, productId: number, viaOverschrijving: boolean = false) {
-    super(index, timestamp, 'AankoopToevoegenCommand');
-    this._aankoopId = aankoopId;
+  constructor(index: number, timestamp: Date, klantId: number, productId: number, viaOverschrijving: boolean) {
+    super(index, timestamp, 'AankoopWijzigenCommand');
     this._klantId = klantId;
     this._productId = productId;
     this._viaOverschrijving = viaOverschrijving;
   }
 
   execute(executor: CommandService) {
-    return executor.executeAankoopToevoegenCommand(this);
-  }
-
-  get aankoopId(): number {
-    return this._aankoopId;
+    return executor.executeAankoopWijzigenCommand(this);
   }
 
   get klantId(): number {

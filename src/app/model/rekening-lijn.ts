@@ -8,12 +8,21 @@ export class RekeningLijn {
   private readonly _productNaam: string;
   private readonly _aantal: number;
   private readonly _prijs: number;
+  private readonly _betaalbaarViaOverschrijving: boolean;
+  _viaOverschrijving: boolean;
 
   constructor(product: Product, klantType: KlantType, aankopen: Aankoop[]) {
     this._productId = product.productId;
     this._productNaam = product.omschrijving;
     this._prijs = product.getPrijs(klantType);
     this._aantal = aankopen.filter(aankoop => aankoop.product.productId === product.productId).length;
+    console.log('betaalbaarviaOverschrijving: ' + product.omschrijving + ': ' + product.betaalbaarViaOverschrijving);
+    this._betaalbaarViaOverschrijving = product.betaalbaarViaOverschrijving;
+    this._viaOverschrijving = aankopen
+      .filter(aankoop => aankoop.product.productId === product.productId)
+      .filter(aankoop => !aankoop.betaald)
+      .filter(aankoop => aankoop.viaOverschrijving)
+      .length > 0;
     console.log(this);
   }
 
@@ -26,7 +35,7 @@ export class RekeningLijn {
   }
 
   get aantal() {
-    return this._aantal
+    return this._aantal;
   }
 
   get prijs() {
@@ -35,6 +44,14 @@ export class RekeningLijn {
 
   get totaal() {
     return this._prijs * this._aantal;
+  }
+
+  get betaalbaarViaOverschrijving(): boolean {
+    return this._betaalbaarViaOverschrijving;
+  }
+
+  get viaOverschrijving(): boolean {
+    return this._viaOverschrijving;
   }
 
 }

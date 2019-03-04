@@ -6,12 +6,14 @@ export class Aankoop {
   private _aankoopId: number;
   private _klant: Klant;
   private _product: Product;
+  private _viaOverschrijving: boolean;
   private _betaald: boolean;
 
-  constructor(aankoopId: number, klant: Klant, product: Product) {
+  constructor(aankoopId: number, klant: Klant, product: Product, viaOverschrijving: boolean = false) {
     this._aankoopId = aankoopId;
     this._klant = klant;
     this._product = product;
+    this._viaOverschrijving = viaOverschrijving;
   }
 
   get aankoopId(): number {
@@ -37,4 +39,14 @@ export class Aankoop {
   getBedrag(): number {
     return this._product.getPrijs(this._klant.klantType);
   }
+
+
+  set viaOverschrijving(value: boolean) {
+    this._viaOverschrijving = value;
+  }
+
+  get viaOverschrijving(): boolean {
+    return this._viaOverschrijving;
+  }
+
 }

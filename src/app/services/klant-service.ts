@@ -34,10 +34,12 @@ export class KlantService extends Store<Klant[]> {
     const klant = this.getKlant(klantAfrekenenCommand.klantId);
 
     // Alle aankopen van de klant afrekenen
-    klant.getOnbetaaldeAankopen().forEach(aankoop => {
-      aankoop.setBetaald();
-      this.kassaService.aankoopAfrekenen(aankoop, klantAfrekenenCommand.timestamp);
-    });
+    klant.getOnbetaaldeAankopen()
+      .filter(aankoop => !aankoop.viaOverschrijving)
+      .forEach(aankoop => {
+        aankoop.setBetaald();
+        this.kassaService.aankoopAfrekenen(aankoop, klantAfrekenenCommand.timestamp);
+      });
 
     // Gasten worden verwijderd na het afrekenen
     if (klant.klantType === KlantType.GAST) {

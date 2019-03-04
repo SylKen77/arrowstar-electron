@@ -18,7 +18,7 @@ export class ProductService extends Store<Product[]> {
   }
 
   productToevoegen(c: ProductToevoegenCommand) {
-    const product = new Product(c.productId, c.productOmschrijving, c.prijsLid, c.prijsGast, this.state.length);
+    const product = new Product(c.productId, c.productOmschrijving, c.prijsLid, c.prijsGast, this.state.length, c.betaalbaarViaOverschrijving);
     this.setState([...this.state, product]);
   }
 

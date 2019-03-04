@@ -34,9 +34,9 @@ export class ProductDialogComponent implements OnInit {
   ok() {
     this.dialogRef.close('ok');
     if (this.product) {
-      this.commandService.wijzigProduct(this.product.productId, this.omschrijving, this.prijsLid, this.prijsGast);
+      this.commandService.wijzigProduct(this.product.productId, this.omschrijving, this.prijsLid, this.prijsGast, true);
     } else {
-      this.commandService.voegProductToe(this.omschrijving, this.prijsLid, this.prijsGast);
+      this.commandService.voegProductToe(this.omschrijving, this.prijsLid, this.prijsGast, true);
     }
   }
 

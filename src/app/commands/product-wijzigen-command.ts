@@ -7,13 +7,15 @@ export class ProductWijzigenCommand extends Command {
   private readonly _productOmschrijving: string;
   private readonly _prijsLid: number;
   private readonly _prijsGast: number;
+  private readonly _betaalbaarViaOverschrijving: boolean;
 
-  constructor(index: number, timestamp: Date, productId: number, productOmschrijving: string, prijsLid: number, prijsGast: number) {
+  constructor(index: number, timestamp: Date, productId: number, productOmschrijving: string, prijsLid: number, prijsGast: number, betaalbaarViaOverschrijving: boolean = false) {
     super(index, timestamp, 'ProductWijzigenCommand');
     this._productId = productId;
     this._productOmschrijving = productOmschrijving;
     this._prijsLid = prijsLid;
     this._prijsGast = prijsGast;
+    this._betaalbaarViaOverschrijving = betaalbaarViaOverschrijving;
   }
 
   execute(executor: CommandService) {
@@ -34,6 +36,10 @@ export class ProductWijzigenCommand extends Command {
 
   get prijsGast(): number {
     return this._prijsGast;
+  }
+
+  get betaalbaarViaOverschrijving(): boolean {
+    return this._betaalbaarViaOverschrijving;
   }
 
 }

@@ -6,6 +6,7 @@ import {KlantService} from './klant-service';
 import {ProductService} from './product-service';
 import {AankoopVerwijderenCommand} from '../commands/aankoop-verwijderen-command';
 import {KassaService} from './kassa-service';
+import {AankoopWijzigenCommand} from '../commands/aankoop-wijzigen-command';
 
 @Injectable()
 export class AankoopService extends Store<Aankoop[]> {
@@ -32,6 +33,15 @@ export class AankoopService extends Store<Aankoop[]> {
     klant.aankoopVerwijderen(teVerwijderenAankoop);
     this.kassaService.aankoopVerwijderen(teVerwijderenAankoop);
     this.setState(this.state.filter(aankoop => aankoop !== teVerwijderenAankoop));
+  }
+
+  aankoopWijzigen(aankoopWijzigenCommand: AankoopWijzigenCommand) {
+    const klant = this.klantService.getKlant(aankoopWijzigenCommand.klantId);
+    const teWijzigenAankopen = klant.aankopen
+      .filter(aankoop => aankoop.product.productId === aankoopWijzigenCommand.productId)
+      .filter(aankoop => !aankoop.betaald);
+    teWijzigenAankopen.forEach(aankoop => aankoop.viaOverschrijving = aankoopWijzigenCommand.viaOverschrijving);
+    this.kassaService.aankopenWijzigen(teWijzigenAankopen);
   }
 
 }

@@ -58,6 +58,10 @@ export class RekeningDialogComponent implements OnInit {
     this.commandService.verwijderAankoop(this.data.klantId, productId);
   }
 
+  wijzigAankopen(productId: number, viaOverschrijving: boolean) {
+    this.commandService.wijzigAankopen(this.data.klantId, productId, viaOverschrijving);
+  }
+
   getOnbetaaldeAankopen() {
     return this.data.aankopen.filter(aankoop => !aankoop.betaald);
   }
@@ -68,6 +72,7 @@ export class RekeningDialogComponent implements OnInit {
 
   getAankoopTotaal(): number {
     return this.getOnbetaaldeAankopen()
+      .filter(aankoop => !aankoop.viaOverschrijving)
       .map(aankoop => aankoop.getBedrag())
       .reduce((acc, currval) => acc + currval, 0);
   }

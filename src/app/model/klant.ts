@@ -53,12 +53,21 @@ export class Klant {
     return this._aankopen.filter(aankoop => !aankoop.betaald);
   }
 
+
   getSchuld(): number {
     return this.getOnbetaaldeAankopen().map(aankoop => aankoop.getBedrag()).reduce((p, c) => (p + c), 0);
   }
 
   heeftOnbetaaldeAankopen(): boolean {
-    return this._aankopen.some(aankoop => !aankoop.betaald);
+    return this._aankopen
+      .filter(aankoop => !aankoop.viaOverschrijving)
+      .some(aankoop => !aankoop.betaald);
+  }
+
+  heeftOnbetaaldeAankopenViaOverschrijving(): boolean {
+    return this._aankopen
+      .filter(aankoop => aankoop.viaOverschrijving)
+      .some(aankoop => !aankoop.betaald);
   }
 
   setSortOrder(sortOrder: number) {

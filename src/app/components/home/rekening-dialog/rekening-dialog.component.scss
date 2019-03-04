@@ -32,26 +32,33 @@
   vertical-align: center;
 }
 
-.rekeningLijnVerwijderen {
+.rekeningLijnViaOverschrijving {
   grid-column: 3;
+  text-align: center;
+  vertical-align: center;
+}
+
+.rekeningLijnVerwijderen {
+  grid-column: 4;
   text-align: right;
   vertical-align: center;
   cursor: pointer;
 }
 
 .rekeningLijnAantal {
-  grid-column: 4;
+  grid-column: 5;
   text-align: center;
+  vertical-align: center;
 }
 
 .rekeningLijnToevoegen {
-  grid-column: 5;
+  grid-column: 6;
   text-align: left;
   cursor: pointer;
 }
 
 .rekeningLijnTotaal {
-  grid-column: 6;
+  grid-column: 7;
   text-align: right;
   vertical-align: center;
 }

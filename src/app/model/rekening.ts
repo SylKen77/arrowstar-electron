@@ -15,7 +15,9 @@ export class Rekening {
     this._klantNaam = klantNaam;
     this._klantType = klantType;
 
-    this._rekeningLijnen = producten.map(product => new RekeningLijn(product, this.klantType, aankopen));
+    this._rekeningLijnen = producten
+      .filter(product => klantType === KlantType.GAST ? !product.betaalbaarViaOverschrijving : true)
+      .map(product => new RekeningLijn(product, this.klantType, aankopen));
   }
 
   get klantId() {

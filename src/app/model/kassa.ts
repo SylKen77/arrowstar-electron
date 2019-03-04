@@ -59,11 +59,20 @@ export class Kassa {
   }
 
   aankoopToevoegen(aankoop: Aankoop) {
+    if (aankoop.viaOverschrijving) return;
     this._tegoed += aankoop.getBedrag();
   }
 
   aankoopVerwijderen(teVerwijderenAankoop: Aankoop) {
+    if (teVerwijderenAankoop.viaOverschrijving) return;
     if (teVerwijderenAankoop) this._tegoed -= teVerwijderenAankoop.getBedrag();
+  }
+
+  aankopenWijzigen(gewijzigdeAankopen: Aankoop[]) {
+    if (gewijzigdeAankopen.length > 0) {
+      if (gewijzigdeAankopen.pop().viaOverschrijving) gewijzigdeAankopen.forEach(aankoop => this._tegoed -= aankoop.getBedrag());
+      else gewijzigdeAankopen.forEach(aankoop => this._tegoed += aankoop.getBedrag());
+    }
   }
 
   aankoopAfrekenen(aankoop: Aankoop, datum: Date) {

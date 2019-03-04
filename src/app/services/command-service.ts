@@ -19,6 +19,7 @@ import {ProductZetOmlaagCommand} from '../commands/product-zet-omlaag-command';
 import {ProductZetOmhoogCommand} from '../commands/product-zet-omhoog-command';
 import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
+import {AankoopWijzigenCommand} from '../commands/aankoop-wijzigen-command';
 
 
 @Injectable()
@@ -38,15 +39,16 @@ export class CommandService {
 
 
   private static deserialize(data: any): Command {
-    if (data['_commandName'] === 'AankoopToevoegenCommand') return new AankoopToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_aankoopId'], data['_klantId'], data['_productId']);
+    if (data['_commandName'] === 'AankoopToevoegenCommand') return new AankoopToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_aankoopId'], data['_klantId'], data['_productId'], data['_viaOverschrijving']);
+    if (data['_commandName'] === 'AankoopWijzigenCommand') return new AankoopWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_productId'], data['_viaOverschrijving']);
     if (data['_commandName'] === 'AankoopVerwijderenCommand') return new AankoopVerwijderenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_productId']);
     if (data['_commandName'] === 'KassaTellenCommand') return new KassaTellenCommand(data['_index'], new Date(data['_timestamp']), data['_saldo'], data['_opmerking']);
     if (data['_commandName'] === 'KassaAfsluitenCommand') return new KassaAfsluitenCommand(data['_index'], new Date(data['_timestamp']), data['_bedrag'], data['_opmerking']);
     if (data['_commandName'] === 'KlantAfrekenenCommand') return new KlantAfrekenenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
     if (data['_commandName'] === 'KlantToevoegenCommand') return new KlantToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_naam'], data['_klantType']);
     if (data['_commandName'] === 'KlantWijzigenCommand') return new KlantWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_naam']);
-    if (data['_commandName'] === 'ProductToevoegenCommand') return new ProductToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
-    if (data['_commandName'] === 'ProductWijzigenCommand') return new ProductWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast']);
+    if (data['_commandName'] === 'ProductToevoegenCommand') return new ProductToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast'], data['_betaalbaarViaOverschrijving']);
+    if (data['_commandName'] === 'ProductWijzigenCommand') return new ProductWijzigenCommand(data['_index'], new Date(data['_timestamp']), data['_productId'], data['_productOmschrijving'], data['_prijsLid'], data['_prijsGast'], data['_betaalbaarViaOverschrijving']);
     if (data['_commandName'] === 'KlantZetOmhoogCommand') return new KlantZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
     if (data['_commandName'] === 'KlantZetOmlaagCommand') return new KlantZetOmlaagCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
     if (data['_commandName'] === 'DeleteKlantCommand') return new DeleteKlantCommand(data['_index'], new Date(data['_timestamp']), data['_klantId']);
@@ -94,21 +96,26 @@ export class CommandService {
     this.executeCommand(new KlantWijzigenCommand(this._nextCommandIndex, new Date(), klantId, naam));
   }
 
-  public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number): number {
+  public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number, betaalbaarViaOverschrijving: boolean): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
     const productId = this._nextCommandIndex;
-    this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), productId, productOmschrijving, prijsLid, prijsGast));
+    this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), productId, productOmschrijving, prijsLid, prijsGast, betaalbaarViaOverschrijving));
     return productId;
   }
 
-  public voegAankoopToe(klantId: number, productId: number) {
+  public voegAankoopToe(klantId: number, productId: number, viaOverschrijving: boolean = false) {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    this.executeCommand(new AankoopToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, klantId, productId));
+    this.executeCommand(new AankoopToevoegenCommand(this._nextCommandIndex, new Date(), this._nextCommandIndex, klantId, productId, viaOverschrijving));
   }
 
   public verwijderAankoop(klantId: number, productId: number) {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
     this.executeCommand(new AankoopVerwijderenCommand(this._nextCommandIndex, new Date(), klantId, productId));
+  }
+
+  public wijzigAankopen(klantId: number, productId: number, viaOverschrijving: boolean) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new AankoopWijzigenCommand(this._nextCommandIndex, new Date(), klantId, productId, viaOverschrijving));
   }
 
   public voegKlantAfrekenenToe(klantId: number) {
@@ -126,9 +133,9 @@ export class CommandService {
     this.executeCommand(new KassaAfsluitenCommand(this._nextCommandIndex, new Date(), bedrag, opmerking));
   }
 
-  public wijzigProduct(productId: number, omschrijving: string, prijsLid: number, prijsGast: number) {
+  public wijzigProduct(productId: number, omschrijving: string, prijsLid: number, prijsGast: number, betaalbaarViaOverschrijving: boolean) {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    this.executeCommand(new ProductWijzigenCommand(this._nextCommandIndex, new Date(), productId, omschrijving, prijsLid, prijsGast));
+    this.executeCommand(new ProductWijzigenCommand(this._nextCommandIndex, new Date(), productId, omschrijving, prijsLid, prijsGast, betaalbaarViaOverschrijving));
   }
 
   public zetKlantOmhoog(klantId: number) {
@@ -211,6 +218,11 @@ export class CommandService {
   executeAankoopVerwijderenCommand(command: AankoopVerwijderenCommand) {
     console.log('CommandService.executeAankoopVerwijderenCommand: ' + command);
     this.aankoopService.aankoopVerwijderen(command);
+  }
+
+  executeAankoopWijzigenCommand(command: AankoopWijzigenCommand) {
+    console.log('CommandService.executeAankoopWijzigenCommand: ' + command);
+    this.aankoopService.aankoopWijzigen(command);
   }
 
 

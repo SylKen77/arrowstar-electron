@@ -21,6 +21,10 @@ export class KassaService extends Store<Kassa> {
     this.state.aankoopVerwijderen(teVerwijderenAankoop);
   }
 
+  aankopenWijzigen(gewijzigdeAankopen: Aankoop[]) {
+    this.state.aankopenWijzigen(gewijzigdeAankopen);
+  }
+
   aankoopAfrekenen(afTeRekenenAankoop: Aankoop, datum: Date) {
     this.state.aankoopAfrekenen(afTeRekenenAankoop, datum);
   }
