@@ -18,16 +18,16 @@
       <div class="productPrijsLid tableItem">{{product.prijsLid | currency : 'EUR'}}</div>
       <div class="productPrijsLid tableItem">{{product.prijsGast | currency : 'EUR'}}</div>
       <div class="productEdit tableItem">
-        <mat-icon (click)="openProductDialog(product)" class="clickable">edit</mat-icon>
+        <img src="img://img/edit.svg" (click)="openProductDialog(product)" class="clickable">
       </div>
       <div class="productDelete tableItem">
-        <mat-icon *ngIf="!heeftOnbetaaldeAankopen(product.productId)" (click)="deleteProduct(product.productId)" class="clickable">delete</mat-icon>
+        <img src="img://img/delete.svg" *ngIf="!heeftOnbetaaldeAankopen(product.productId)" (click)="deleteProduct(product.productId)" class="clickable">
       </div>
       <div class="productDown tableItem">
-        <mat-icon (click)="moveProductDown(product.productId)" class="clickable">arrow_drop_down</mat-icon>
+        <img src="img://img/down.svg" (click)="moveProductDown(product.productId)" class="clickable">
       </div>
       <div class="productUp tableItem">
-        <mat-icon (click)="moveProductUp(product.productId)" class="clickable">arrow_drop_up</mat-icon>
+        <img src="img://img/up.svg" (click)="moveProductUp(product.productId)" class="clickable">
       </div>
     </ng-container>
   </div>
