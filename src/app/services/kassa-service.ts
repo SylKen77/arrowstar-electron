@@ -29,6 +29,10 @@ export class KassaService extends Store<Kassa> {
     this.state.aankoopAfrekenen(afTeRekenenAankoop, datum);
   }
 
+  aankoopViaOverschrijvingAfrekenen(afTeRekenenAankoop: Aankoop) {
+    this.state.verwijderOnbetaaldeAankoopViaOverschrijving(afTeRekenenAankoop);
+  }
+
   kassaTellen(command: KassaTellenCommand) {
     this.state.tellingToevoegen(command.saldo, command.timestamp, command.opmerking);
   }

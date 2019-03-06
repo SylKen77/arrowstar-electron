@@ -33,6 +33,26 @@
 
     <div class="kassaSchermRechts">
 
+      <div class="onbetaaldeAankopenViaOverschrijvingTitle">Aankopen via overschrijving</div>
+      <div class="onbetaaldeAankopenViaOverschrijving mat-elevation-z8">
+        <div class="oavioDatum tellingTitle">Datum</div>
+        <div class="oavioKlantNaam tellingTitle">Naam</div>
+        <div class="oavioProductNaam tellingTitle">Product</div>
+        <div class="oavioAantal tellingTitle">Aantal</div>
+        <div class="oavioBedrag tellingTitle">Bedrag</div>
+        <div class="oavioBetalen tellingTitle">Betalen</div>
+
+        <ng-container *ngFor="let oavo of (kassaService.state$ | async).onbetaaldeAankopenViaOverschrijving">
+          <div class="oavioDatum">{{oavo.datum | date:'dd/MM/yyyy'}}</div>
+          <div class="oavioKlantNaam">{{oavo.klant.naam}}</div>
+          <div class="oavioProductNaam ">{{oavo.product.omschrijving}}</div>
+          <div class="oavioAantal">{{oavo.aantal}}</div>
+          <div class="oavioBedrag">{{oavo.bedrag | currency : 'EUR'}}</div>
+          <div class="oavioBetalen"><img src="img://img/payment.svg" (click)="betaalOnbetaaldeAankopenViaOverschrijving(oavo)" class="clickable"></div>
+        </ng-container>
+      </div>
+
+
       <div class="afsluitingenTitle">Afsluitingen</div>
       <div class="afsluitingen mat-elevation-z8">
         <div class="afsluitingDatum tellingTitle">Datum</div>

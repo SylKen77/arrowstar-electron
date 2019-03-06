@@ -11,7 +11,6 @@ export class ProductZetOmhoogCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('ProductZetOmhoogCommand.execute');
     executor.executeProductZetOmhoogCommand(this);
   }
 

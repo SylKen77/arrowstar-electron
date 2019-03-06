@@ -3,21 +3,28 @@ import {Klant} from './klant';
 
 export class Aankoop {
 
+  private _datum: Date;
   private _aankoopId: number;
   private _klant: Klant;
   private _product: Product;
   private _viaOverschrijving: boolean;
   private _betaald: boolean;
 
-  constructor(aankoopId: number, klant: Klant, product: Product, viaOverschrijving: boolean = false) {
+  constructor(aankoopId: number, datum: Date, klant: Klant, product: Product, viaOverschrijving: boolean = false) {
     this._aankoopId = aankoopId;
+    this._datum = datum;
     this._klant = klant;
     this._product = product;
     this._viaOverschrijving = viaOverschrijving;
+    this._betaald = false;
   }
 
   get aankoopId(): number {
     return this._aankoopId;
+  }
+
+  get datum(): Date {
+    return this._datum;
   }
 
   get klant(): Klant {

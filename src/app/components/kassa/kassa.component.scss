@@ -117,6 +117,7 @@
 .afsluitingenTitle {
   font-size: 1.5em;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .afsluitingen {
@@ -172,3 +173,50 @@
   text-align: right;
 }
 
+.onbetaaldeAankopenViaOverschrijvingTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.onbetaaldeAankopenViaOverschrijving {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-column-gap: 0px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.oavioDatum {
+  padding: 5px;
+  grid-column: 1;
+}
+
+.oavioKlantNaam {
+  padding: 5px;
+  grid-column: 2;
+}
+
+.oavioProductNaam {
+  padding: 5px;
+  grid-column: 3;
+}
+
+.oavioAantal {
+  padding: 5px;
+  grid-column: 4;
+  text-align: right;
+}
+
+.oavioBedrag {
+  padding: 5px;
+  grid-column: 5;
+  text-align: right;
+}
+
+.oavioBetalen {
+  padding: 5px;
+  grid-column: 6;
+  text-align: center;
+}

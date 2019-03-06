@@ -18,7 +18,7 @@ export class AankoopService extends Store<Aankoop[]> {
   aankoopToevoegen(aankoopToevoegenCommand: AankoopToevoegenCommand) {
     const klant = this.klantService.getKlant(aankoopToevoegenCommand.klantId);
     const product = this.productService.getProduct(aankoopToevoegenCommand.productId);
-    const aankoop = new Aankoop(aankoopToevoegenCommand.aankoopId, klant, product);
+    const aankoop = new Aankoop(aankoopToevoegenCommand.aankoopId, aankoopToevoegenCommand.timestamp, klant, product, aankoopToevoegenCommand.viaOverschrijving);
     klant.aankoopToevoegen(aankoop);
     this.kassaService.aankoopToevoegen(aankoop);
     this.setState([...this.state, aankoop]);
@@ -37,9 +37,7 @@ export class AankoopService extends Store<Aankoop[]> {
 
   aankoopWijzigen(aankoopWijzigenCommand: AankoopWijzigenCommand) {
     const klant = this.klantService.getKlant(aankoopWijzigenCommand.klantId);
-    const teWijzigenAankopen = klant.aankopen
-      .filter(aankoop => aankoop.product.productId === aankoopWijzigenCommand.productId)
-      .filter(aankoop => !aankoop.betaald);
+    const teWijzigenAankopen = klant.getOnbetaaldeAankopen().filter(aankoop => aankoop.product.productId === aankoopWijzigenCommand.productId);
     teWijzigenAankopen.forEach(aankoop => aankoop.viaOverschrijving = aankoopWijzigenCommand.viaOverschrijving);
     this.kassaService.aankopenWijzigen(teWijzigenAankopen);
   }

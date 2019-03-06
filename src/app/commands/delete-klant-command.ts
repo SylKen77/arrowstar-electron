@@ -11,7 +11,6 @@ export class DeleteKlantCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('DeleteKlantCommand.execute');
     executor.executeDeleteKlantCommand(this);
   }
 

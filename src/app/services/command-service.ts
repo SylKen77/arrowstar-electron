@@ -20,6 +20,7 @@ import {ProductZetOmhoogCommand} from '../commands/product-zet-omhoog-command';
 import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
 import {AankoopWijzigenCommand} from '../commands/aankoop-wijzigen-command';
+import {OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand} from '../commands/onbetaalde-aankoop-via-overschrijving-afrekenen-command';
 
 
 @Injectable()
@@ -55,6 +56,7 @@ export class CommandService {
     if (data['_commandName'] === 'ProductZetOmlaagCommand') return new ProductZetOmlaagCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'ProductZetOmhoogCommand') return new ProductZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'DeleteProductCommand') return new DeleteProductCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
+    if (data['_commandName'] === 'OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand') return new OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_productId']);
 
     throw new Error('Unknown command name: ' + data['_commandName']);
   }
@@ -168,6 +170,12 @@ export class CommandService {
     this.executeCommand(new DeleteProductCommand(this._nextCommandIndex, new Date(), productId));
   }
 
+  public onbetaaldeAankoopViaOverschrijvingAfrekenen(klantId: number, productId: number) {
+    if (!this.initialized) throw new Error('CommandFactory not initialized');
+    this.executeCommand(new OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand(this._nextCommandIndex, new Date(), klantId, productId));
+  }
+
+
 
 
 
@@ -193,13 +201,11 @@ export class CommandService {
 
   public executeCommand(command: Command) {
     if (command) {
-      console.log('Executing command: ' + JSON.stringify(command));
       this.validateCommand(command);
       command.execute(this);
       if (this.initialized) this.saveCommand(command);
       this._expectedCommandIndex++;
       this._nextCommandIndex++;
-      console.log('Command ' + command.index + ' executed. NextCommandIndex: ' + this._nextCommandIndex + ' Next ExpectedCommandIndex: ' + this._expectedCommandIndex);
     }
   }
 
@@ -210,91 +216,79 @@ export class CommandService {
 
 
   executeAankoopToevoegenCommand(command: AankoopToevoegenCommand) {
-    console.log('CommandService.executeAankoopToevoegenCommand: ' + command);
     this.aankoopService.aankoopToevoegen(command);
   }
 
 
   executeAankoopVerwijderenCommand(command: AankoopVerwijderenCommand) {
-    console.log('CommandService.executeAankoopVerwijderenCommand: ' + command);
     this.aankoopService.aankoopVerwijderen(command);
   }
 
   executeAankoopWijzigenCommand(command: AankoopWijzigenCommand) {
-    console.log('CommandService.executeAankoopWijzigenCommand: ' + command);
     this.aankoopService.aankoopWijzigen(command);
   }
 
 
   executeKlantAfrekenenCommand(command: KlantAfrekenenCommand) {
-    console.log('CommandService.executeKlantAfrekenenCommand: ' + command);
     this.klantService.afrekenen(command);
   }
 
 
   executeKassaTellenCommand(command: KassaTellenCommand) {
-    console.log('CommandService.executeKassaTellenCommand: ' + command);
     this.kassaService.kassaTellen(command);
   }
 
 
   executeKlantToevoegenCommand(command: KlantToevoegenCommand) {
-    console.log('CommandService.executeKlantToevoegenCommand: ' + command.index);
     this.klantService.klantToevoegen(command);
   }
 
 
   executeKlantWijzigenCommand(command: KlantWijzigenCommand) {
-    console.log('CommandService.executeKlantToevoegenCommand: ' + command.index);
     this.klantService.klantWijzigen(command);
   }
 
 
   executeProductToevoegenCommand(command: ProductToevoegenCommand) {
-    console.log('CommandService.executeProductToevoegenCommand: ' + command.index);
     this.productService.productToevoegen(command);
   }
 
 
   executeProductWijzigenCommand(command: ProductWijzigenCommand) {
-    console.log('CommandService.executeProductWijzigenCommand: ' + command.index);
     this.productService.productWijzigen(command);
   }
 
 
   executeKassaAfsluitenCommand(command: KassaAfsluitenCommand) {
-    console.log('CommandService.executeKassaAfsluitenCommand: ' + command.index);
     this.kassaService.kassaAfsluiten(command);
   }
 
   executeKlantZetOmhoogCommand(command: KlantZetOmhoogCommand) {
-    console.log('CommandService.executeKlantZetOmhoogCommand: ' + command.index);
     this.klantService.zetKlantOmhoog(command);
   }
 
   executeKlantZetOmlaagCommand(command: KlantZetOmlaagCommand) {
-    console.log('CommandService.executeKlantZetOmlaagCommand: ' + command.index);
     this.klantService.zetKlantOmlaag(command);
   }
 
   executeDeleteKlantCommand(command: DeleteKlantCommand) {
-      console.log('CommandService.executeDeleteKlantCommand: ' + command.index);
       this.klantService.deleteKlant(command);
   }
 
   executeProductZetOmlaagCommand(command: ProductZetOmlaagCommand) {
-    console.log('CommandService.executeProductZetOmlaagCommand: ' + command.index);
     this.productService.zetProductOmlaag(command);
   }
 
   executeProductZetOmhoogCommand(command: ProductZetOmhoogCommand) {
-    console.log('CommandService.executeProductZetOmhoogCommand: ' + command.index);
     this.productService.zetProductOmhoog(command);
   }
 
   executeDeleteProductCommand(command: DeleteProductCommand) {
-    console.log('CommandService.executeDeleteProductCommand: ' + command.index);
     this.productService.deleteProduct(command);
+  }
+
+  executeOnbetaaldeAankoopViaOverschrijvingAfrekenenCommand(command: OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand) {
+    this.klantService.onbetaaldeAankopenViaOverschrijvingAfrekenen(command);
   }
 
 }

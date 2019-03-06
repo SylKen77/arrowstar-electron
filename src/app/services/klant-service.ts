@@ -9,6 +9,7 @@ import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
 import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
 import {DeleteKlantCommand} from '../commands/delete-klant-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
+import {OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand} from '../commands/onbetaalde-aankoop-via-overschrijving-afrekenen-command';
 
 @Injectable()
 export class KlantService extends Store<Klant[]> {
@@ -46,6 +47,16 @@ export class KlantService extends Store<Klant[]> {
       this.verwijderKlantUitStore(klant);
     }
   }
+
+  onbetaaldeAankopenViaOverschrijvingAfrekenen(command: OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand) {
+    const klant = this.getKlant(command.klantId);
+    klant.getOnbetaaldeAankopen().filter(aankoop => aankoop.product.productId === command.productId)
+      .forEach(aankoop => {
+        aankoop.setBetaald();
+        this.kassaService.aankoopViaOverschrijvingAfrekenen(aankoop);
+      });
+  }
+
 
   zetKlantOmhoog(command: KlantZetOmhoogCommand) {
     const klant = this.getKlant(command.klantId);
@@ -92,4 +103,5 @@ export class KlantService extends Store<Klant[]> {
     klant.setNaam(command.naam);
     this.setState(this.state);
   }
+
 }

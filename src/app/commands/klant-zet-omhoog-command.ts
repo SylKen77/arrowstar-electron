@@ -11,7 +11,6 @@ export class KlantZetOmhoogCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('KlantZetOmhoogCommand.execute');
     executor.executeKlantZetOmhoogCommand(this);
   }
 

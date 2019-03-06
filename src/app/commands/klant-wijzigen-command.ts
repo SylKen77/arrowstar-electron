@@ -13,7 +13,6 @@ export class KlantWijzigenCommand extends Command{
   }
 
   execute(executor: CommandService) {
-    console.log('KlantWijzigenCommand.execute');
     executor.executeKlantWijzigenCommand(this);
   }
 

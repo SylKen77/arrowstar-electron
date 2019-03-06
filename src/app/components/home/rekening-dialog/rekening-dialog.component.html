@@ -23,7 +23,7 @@
       <ng-container *ngFor="let rekeningLijn of getRekening().rekeningLijnen">
         <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
         <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
-        <span class="rekeningLijnViaOverschrijving"><input *ngIf="rekeningLijn.betaalbaarViaOverschrijving" type="checkbox" [checked]="rekeningLijn._viaOverschrijving" (change)="$event.target.checked ? wijzigAankopen(rekeningLijn.productId, true) : wijzigAankopen(rekeningLijn.productId, false)"></span>
+        <span class="rekeningLijnViaOverschrijving"><input *ngIf="rekeningLijn.betaalbaarViaOverschrijving && rekeningLijn.aantal > 0" type="checkbox" [checked]="rekeningLijn._viaOverschrijving" (change)="wijzigViaOverschrijving(rekeningLijn.productId, $event.target.checked)"></span>
         <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
           <img src="img://img/remove.svg">
         </div>

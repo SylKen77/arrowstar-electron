@@ -2,6 +2,7 @@ import {Aankoop} from './aankoop';
 import {Telling} from './telling';
 import {Afsluiting} from './afsluiting';
 import {DagAfrekening} from './dag-afrekening';
+import {OnbetaaldeAankoopViaOverschrijving} from './onbetaalde-aankoop-via-overschrijving';
 
 export class Kassa {
 
@@ -10,6 +11,7 @@ export class Kassa {
   private _tellingen: Telling[];
   private _afsluitingen: Afsluiting[];
   private _dagAfrekeningen: DagAfrekening[];
+  private _onbetaaldeAankopenViaOverschrijving: OnbetaaldeAankoopViaOverschrijving[];
 
   private static getVolgendeTrainingsDag(datum: Date): Date {
     if (datum.getDay() <= 3) return Kassa.stripTime(Kassa.addDays(datum, 3 - datum.getDay())); // zo, ma, di, wo
@@ -36,6 +38,7 @@ export class Kassa {
     this._tellingen = [];
     this._afsluitingen = [];
     this._dagAfrekeningen = [];
+    this._onbetaaldeAankopenViaOverschrijving = [];
   }
 
   get saldo(): number {
@@ -58,22 +61,59 @@ export class Kassa {
     return this._dagAfrekeningen;
   }
 
+  get onbetaaldeAankopenViaOverschrijving(): OnbetaaldeAankoopViaOverschrijving[] {
+    return this._onbetaaldeAankopenViaOverschrijving;
+  }
+
   aankoopToevoegen(aankoop: Aankoop) {
-    if (aankoop.viaOverschrijving) return;
-    this._tegoed += aankoop.getBedrag();
+    if (aankoop.viaOverschrijving) {
+      this.voegToeAanOnbetaaldeAankopenViaOverschrijving(aankoop);
+    } else {
+      this._tegoed += aankoop.getBedrag();
+    }
   }
 
   aankoopVerwijderen(teVerwijderenAankoop: Aankoop) {
-    if (teVerwijderenAankoop.viaOverschrijving) return;
-    if (teVerwijderenAankoop) this._tegoed -= teVerwijderenAankoop.getBedrag();
+    if (teVerwijderenAankoop) {
+      if (teVerwijderenAankoop.viaOverschrijving) {
+        this.verwijderOnbetaaldeAankoopViaOverschrijving(teVerwijderenAankoop);
+      } else {
+        this._tegoed -= teVerwijderenAankoop.getBedrag();
+      }
+    }
   }
 
   aankopenWijzigen(gewijzigdeAankopen: Aankoop[]) {
     if (gewijzigdeAankopen.length > 0) {
-      if (gewijzigdeAankopen.pop().viaOverschrijving) gewijzigdeAankopen.forEach(aankoop => this._tegoed -= aankoop.getBedrag());
-      else gewijzigdeAankopen.forEach(aankoop => this._tegoed += aankoop.getBedrag());
+      if (gewijzigdeAankopen[0].viaOverschrijving) {
+        gewijzigdeAankopen.forEach(aankoop => this._tegoed -= aankoop.getBedrag());
+        gewijzigdeAankopen.forEach(aankoop => this.voegToeAanOnbetaaldeAankopenViaOverschrijving(aankoop));
+      } else {
+        gewijzigdeAankopen.forEach(aankoop => this._tegoed += aankoop.getBedrag());
+        gewijzigdeAankopen.forEach(aankoop => this.verwijderOnbetaaldeAankoopViaOverschrijving(aankoop));
+      }
     }
   }
+
+  voegToeAanOnbetaaldeAankopenViaOverschrijving(aankoop: Aankoop) {
+    const onbetaaldeAankoopViaOverschrijving = this._onbetaaldeAankopenViaOverschrijving.find(oavo => oavo.klant === aankoop.klant && oavo.product === aankoop.product);
+    if (onbetaaldeAankoopViaOverschrijving) {
+      onbetaaldeAankoopViaOverschrijving.voegAankoopToe();
+    } else {
+      this._onbetaaldeAankopenViaOverschrijving = [...this._onbetaaldeAankopenViaOverschrijving, new OnbetaaldeAankoopViaOverschrijving(aankoop.datum, aankoop.klant, aankoop.product, 1)];
+    }
+  }
+
+  verwijderOnbetaaldeAankoopViaOverschrijving(teVerwijderenAankoop: Aankoop) {
+    const onbetaaldeAankoopViaOverschrijving = this._onbetaaldeAankopenViaOverschrijving.find(oavo => oavo.klant === teVerwijderenAankoop.klant && oavo.product === teVerwijderenAankoop.product);
+    if (onbetaaldeAankoopViaOverschrijving) {
+      onbetaaldeAankoopViaOverschrijving.verwijderAankoop();
+      if (onbetaaldeAankoopViaOverschrijving.aantal === 0) {
+        this._onbetaaldeAankopenViaOverschrijving = this._onbetaaldeAankopenViaOverschrijving.filter(oavo => oavo !== onbetaaldeAankoopViaOverschrijving);
+      }
+    }
+  }
+
 
   aankoopAfrekenen(aankoop: Aankoop, datum: Date) {
     const bedrag = aankoop.getBedrag();
@@ -93,13 +133,11 @@ export class Kassa {
   }
 
   voegToeAanDagAfrekening(datum: Date, bedrag: number) {
-    console.log('voegToeAanDagAfrekening', datum, bedrag);
     this.getDagAfrekening(datum).voegBedragToe(bedrag);
   }
 
   getDagAfrekening(datum: Date): DagAfrekening {
     const volgendeTrainingsDag = Kassa.getVolgendeTrainingsDag(datum);
-    console.log('volgende trainingsdag ', datum, volgendeTrainingsDag);
     if (this._dagAfrekeningen.length === 0) {
       const volgendeDagAfrekening = new DagAfrekening(volgendeTrainingsDag);
       this._dagAfrekeningen.push(volgendeDagAfrekening);
@@ -107,7 +145,6 @@ export class Kassa {
     }
 
     const laatsteDagAfrekening = this._dagAfrekeningen[this._dagAfrekeningen.length - 1];
-    console.log('laatsteDagAfrekening', laatsteDagAfrekening)
     if (laatsteDagAfrekening.datum.getTime() === volgendeTrainingsDag.getTime()) {
       return laatsteDagAfrekening;
     } else {

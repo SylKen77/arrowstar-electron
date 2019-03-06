@@ -11,7 +11,6 @@ export class ProductZetOmlaagCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('ProductZetOmlaagCommand.execute');
     executor.executeProductZetOmlaagCommand(this);
   }
 

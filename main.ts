@@ -15,7 +15,6 @@ const exeDir = process.env.PORTABLE_EXECUTABLE_DIR;
 try {
   require('dotenv').config();
 } catch {
-  console.log('asar');
 }
 
 function createWindow() {

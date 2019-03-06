@@ -15,7 +15,6 @@ export class KlantToevoegenCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('KlantToevoegenCommand.execute');
     executor.executeKlantToevoegenCommand(this);
   }
 

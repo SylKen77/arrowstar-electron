@@ -4,7 +4,6 @@ export class DagAfrekening {
   private _bedrag: number;
 
   constructor(datum: Date) {
-    console.log('aanmaken DagAfrekening ', datum);
     this._datum = datum;
     this._datum.setHours(12, 0, 0, 0);
     this._bedrag = 0;

@@ -22,17 +22,14 @@ export class KlantenComponent implements OnInit {
   }
 
   moveKlantUp(klantId: number) {
-    console.log('moveKlantUp', klantId);
     this.commandService.zetKlantOmhoog(klantId);
   }
 
   moveKlantDown(klantId: number) {
-    console.log('moveKlantDown', klantId);
     this.commandService.zetKlantOmlaag(klantId);
   }
 
   deleteKlant(klantId: number) {
-    console.log('moveKlantDown', klantId);
     this.commandService.deleteKlant(klantId);
   }
 

@@ -16,14 +16,12 @@ export class RekeningLijn {
     this._productNaam = product.omschrijving;
     this._prijs = product.getPrijs(klantType);
     this._aantal = aankopen.filter(aankoop => aankoop.product.productId === product.productId).length;
-    console.log('betaalbaarviaOverschrijving: ' + product.omschrijving + ': ' + product.betaalbaarViaOverschrijving);
     this._betaalbaarViaOverschrijving = product.betaalbaarViaOverschrijving;
     this._viaOverschrijving = aankopen
       .filter(aankoop => aankoop.product.productId === product.productId)
       .filter(aankoop => !aankoop.betaald)
       .filter(aankoop => aankoop.viaOverschrijving)
       .length > 0;
-    console.log(this);
   }
 
   get productId() {

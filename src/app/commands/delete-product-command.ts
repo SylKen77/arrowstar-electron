@@ -11,7 +11,6 @@ export class DeleteProductCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('DeleteProductCommand.execute');
     executor.executeDeleteProductCommand(this);
   }
 

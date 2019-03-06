@@ -62,7 +62,6 @@ export class ProductService extends Store<Product[]> {
   }
 
   verwijderProductUitStore(product: Product) {
-    console.log('verwijderProductUitStore ', product);
     this.setState(this.state.filter(k => k !== product));
     this.setSortorderEqualToIndex();
   }

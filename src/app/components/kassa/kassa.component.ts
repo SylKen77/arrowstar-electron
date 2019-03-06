@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
@@ -8,6 +7,8 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {KassaTellenDialogComponent} from './kassa-tellen-dialog/kassa-tellen-dialog.component';
 import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
 import {Telling} from '../../model/telling';
+import {OnbetaaldeAankoopViaOverschrijving} from '../../model/onbetaalde-aankoop-via-overschrijving';
+import {CommandService} from '../../services/command-service';
 
 @Component({
   selector: 'app-kassa',
@@ -20,6 +21,7 @@ export class KassaComponent implements OnInit {
 
   constructor(public kassaService: KassaService,
               public dialog: MatDialog,
+              private commandService: CommandService,
               public snackBar: MatSnackBar) {
   }
 
@@ -56,6 +58,10 @@ export class KassaComponent implements OnInit {
     if (telling.isZonderAfwijking()) return 'ok';
     if (telling.verschil > 0) return 'positief';
     return 'negatief';
+  }
+
+  betaalOnbetaaldeAankopenViaOverschrijving(oavo: OnbetaaldeAankoopViaOverschrijving) {
+    this.commandService.onbetaaldeAankoopViaOverschrijvingAfrekenen(oavo.klant.klantId, oavo.product.productId);
   }
 
 }

@@ -49,7 +49,8 @@ export class RekeningDialogComponent implements OnInit {
   aankoopToevoegen(productId: number) {
     this.gegeven = null;
     this.berekenTerug();
-    this.commandService.voegAankoopToe(this.data.klantId, productId);
+    const viaOverschrijving = this.getOnbetaaldeAankopenViaOverschrijving().some(aankoop => aankoop.product.productId === productId);
+    this.commandService.voegAankoopToe(this.data.klantId, productId, viaOverschrijving);
   }
 
   aankoopVerwijderen(productId: number) {
@@ -58,12 +59,16 @@ export class RekeningDialogComponent implements OnInit {
     this.commandService.verwijderAankoop(this.data.klantId, productId);
   }
 
-  wijzigAankopen(productId: number, viaOverschrijving: boolean) {
+  wijzigViaOverschrijving(productId: number, viaOverschrijving: boolean) {
     this.commandService.wijzigAankopen(this.data.klantId, productId, viaOverschrijving);
   }
 
   getOnbetaaldeAankopen() {
     return this.data.aankopen.filter(aankoop => !aankoop.betaald);
+  }
+
+  getOnbetaaldeAankopenViaOverschrijving() {
+    return this.getOnbetaaldeAankopen().filter(aankoop => aankoop.viaOverschrijving);
   }
 
   getRekening() {

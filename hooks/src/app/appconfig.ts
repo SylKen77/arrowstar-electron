@@ -1,5 +1,11 @@
+// noinspection TypeScriptCheckImport
+// @ts-ignore
 import { CONF_LOCAL } from '../environments/environment.local';
+// noinspection TypeScriptCheckImport
+// @ts-ignore
 import { CONF_DEV } from '../environments/environment.dev';
+// noinspection TypeScriptCheckImport
+// @ts-ignore
 import { CONF_PROD } from '../environments/environment.prod';
 
 const ENV = 'PROFILE';

@@ -11,7 +11,6 @@ export class KlantZetOmlaagCommand extends Command {
   }
 
   execute(executor: CommandService) {
-    console.log('KlantZetOmlaagCommand.execute');
     executor.executeKlantZetOmlaagCommand(this);
   }
 
