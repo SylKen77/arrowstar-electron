@@ -8,6 +8,7 @@ import {RekeningDialogComponent} from './rekening-dialog/rekening-dialog.compone
 import {Klant} from '../../model/klant';
 import {ImageService} from '../../services/image-service';
 import {KlantType} from '../../model/klant-type';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
               public productService: ProductService,
               public kassaService: KassaService,
               public imageService: ImageService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public _DomSanitizationService: DomSanitizer ) {
   }
 
   ngOnInit() {

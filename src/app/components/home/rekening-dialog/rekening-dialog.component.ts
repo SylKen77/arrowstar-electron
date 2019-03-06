@@ -6,6 +6,7 @@ import {Rekening} from '../../../model/rekening';
 import {ImageService} from '../../../services/image-service';
 import {Klant} from '../../../model/klant';
 import {KlantType} from '../../../model/klant-type';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-klant-dialog',
@@ -23,7 +24,8 @@ export class RekeningDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
               public imageService: ImageService,
-              public productService: ProductService) {
+              public productService: ProductService,
+              public _DomSanitizationService: DomSanitizer ) {
   }
 
   ngOnInit(): void {
