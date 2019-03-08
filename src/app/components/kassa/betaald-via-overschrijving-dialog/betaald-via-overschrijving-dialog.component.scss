@@ -1,0 +1,30 @@
+.aankoopViaOverschrijving {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-column-gap: 0px;
+  grid-auto-rows: auto;
+  padding-top: 10px;
+}
+
+.aankoopViaOverschrijving div {
+  font-weight: bold;
+}
+
+
+.klantNaam {
+  grid-column: 1;
+}
+
+.productOmschrijving {
+  grid-column: 2;
+
+}
+
+.aantal {
+  grid-column: 3;
+
+}
+
+.bedrag {
+  grid-column: 4;
+}

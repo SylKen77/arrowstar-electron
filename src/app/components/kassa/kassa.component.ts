@@ -9,6 +9,7 @@ import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsl
 import {Telling} from '../../model/telling';
 import {OnbetaaldeAankoopViaOverschrijving} from '../../model/onbetaalde-aankoop-via-overschrijving';
 import {CommandService} from '../../services/command-service';
+import {BetaaldViaOverschrijvingDialogComponent} from './betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
 
 @Component({
   selector: 'app-kassa',
@@ -61,7 +62,13 @@ export class KassaComponent implements OnInit {
   }
 
   betaalOnbetaaldeAankopenViaOverschrijving(oavo: OnbetaaldeAankoopViaOverschrijving) {
-    this.commandService.onbetaaldeAankoopViaOverschrijvingAfrekenen(oavo.klant.klantId, oavo.product.productId);
+    const dialogRef = this.dialog.open(BetaaldViaOverschrijvingDialogComponent, {
+      data: oavo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ('ok' === result) this.openSnackbar('Aankoop via overschrijving is afgerekend');
+    });
   }
 
 }

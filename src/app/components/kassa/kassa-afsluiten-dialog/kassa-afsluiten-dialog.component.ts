@@ -14,7 +14,7 @@ export class KassaAfsluitenDialogComponent implements OnInit {
   public bedrag: number;
   public opmerking: string;
 
-  constructor(public dialogRef: MatDialogRef<RekeningDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<KassaAfsluitenDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
               public kassaService: KassaService) { }

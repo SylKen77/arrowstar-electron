@@ -10,3 +10,27 @@
 {"_index":9,"_timestamp":"2019-03-06T09:34:12.186Z","_commandName":"AankoopWijzigenCommand","_klantId":0,"_productId":1,"_viaOverschrijving":true}
 {"_index":10,"_timestamp":"2019-03-06T09:34:13.499Z","_commandName":"AankoopToevoegenCommand","_aankoopId":10,"_klantId":0,"_productId":1,"_viaOverschrijving":true}
 {"_index":11,"_timestamp":"2019-03-06T09:34:14.419Z","_commandName":"AankoopToevoegenCommand","_aankoopId":11,"_klantId":0,"_productId":1,"_viaOverschrijving":true}
+{"_index":12,"_timestamp":"2019-03-06T15:38:28.555Z","_commandName":"OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand","_klantId":0,"_productId":1}
+{"_index":13,"_timestamp":"2019-03-06T15:43:31.546Z","_commandName":"KlantWijzigenCommand","_klantId":0,"_naam":"De Cock"}
+{"_index":14,"_timestamp":"2019-03-06T15:47:16.145Z","_commandName":"KlantToevoegenCommand","_klantId":14,"_naam":"dsfsdfsdf","_klantType":"LID"}
+{"_index":15,"_timestamp":"2019-03-08T12:10:29.634Z","_commandName":"AankoopToevoegenCommand","_aankoopId":15,"_klantId":0,"_productId":1,"_viaOverschrijving":false}
+{"_index":16,"_timestamp":"2019-03-08T12:10:30.450Z","_commandName":"AankoopWijzigenCommand","_klantId":0,"_productId":1,"_viaOverschrijving":true}
+{"_index":17,"_timestamp":"2019-03-08T12:10:39.562Z","_commandName":"OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand","_klantId":0,"_productId":1}
+{"_index":18,"_timestamp":"2019-03-08T12:14:28.489Z","_commandName":"AankoopToevoegenCommand","_aankoopId":18,"_klantId":0,"_productId":1,"_viaOverschrijving":false}
+{"_index":19,"_timestamp":"2019-03-08T12:14:29.337Z","_commandName":"AankoopWijzigenCommand","_klantId":0,"_productId":1,"_viaOverschrijving":true}
+{"_index":20,"_timestamp":"2019-03-08T12:19:44.376Z","_commandName":"OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand","_klantId":0,"_productId":1}
+{"_index":21,"_timestamp":"2019-03-08T12:40:22.385Z","_commandName":"KlantZetOmlaagCommand","_klantId":14}
+{"_index":22,"_timestamp":"2019-03-08T12:40:23.850Z","_commandName":"KlantZetOmlaagCommand","_klantId":0}
+{"_index":23,"_timestamp":"2019-03-08T12:40:25.105Z","_commandName":"KlantZetOmhoogCommand","_klantId":0}
+{"_index":24,"_timestamp":"2019-03-08T12:40:27.577Z","_commandName":"KlantZetOmlaagCommand","_klantId":0}
+{"_index":25,"_timestamp":"2019-03-08T12:40:28.537Z","_commandName":"KlantZetOmhoogCommand","_klantId":0}
+{"_index":26,"_timestamp":"2019-03-08T12:40:29.473Z","_commandName":"KlantZetOmhoogCommand","_klantId":14}
+{"_index":27,"_timestamp":"2019-03-08T12:40:30.033Z","_commandName":"KlantZetOmhoogCommand","_klantId":0}
+{"_index":28,"_timestamp":"2019-03-08T12:40:32.002Z","_commandName":"KlantZetOmhoogCommand","_klantId":14}
+{"_index":29,"_timestamp":"2019-03-08T12:40:33.625Z","_commandName":"KlantZetOmlaagCommand","_klantId":0}
+{"_index":30,"_timestamp":"2019-03-08T12:40:33.993Z","_commandName":"KlantZetOmlaagCommand","_klantId":0}
+{"_index":31,"_timestamp":"2019-03-08T12:40:34.761Z","_commandName":"KlantZetOmlaagCommand","_klantId":14}
+{"_index":32,"_timestamp":"2019-03-08T12:40:35.657Z","_commandName":"KlantZetOmhoogCommand","_klantId":0}
+{"_index":33,"_timestamp":"2019-03-08T12:40:35.930Z","_commandName":"KlantZetOmhoogCommand","_klantId":0}
+{"_index":34,"_timestamp":"2019-03-08T12:40:39.561Z","_commandName":"ProductZetOmlaagCommand","_productId":2}
+{"_index":35,"_timestamp":"2019-03-08T12:40:40.489Z","_commandName":"ProductZetOmhoogCommand","_productId":2}

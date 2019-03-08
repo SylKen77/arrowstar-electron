@@ -1,0 +1,16 @@
+<h1 mat-dialog-title class="mat-headline">Aankoop via overschrijving afrekenen</h1>
+
+<mat-dialog-content>
+  Aankoop via overschrijving afrekenen
+  <div class="aankoopViaOverschrijving">
+    <div class="klantNaam">{{data.klant.naam}}</div>
+    <div class="productOmschrijving">{{data.product.omschrijving}}</div>
+    <div class="aantal">{{data.aantal}}</div>
+    <div class="bedrag">{{data.bedrag | currency : 'EUR'}}</div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="ok()">ok</button>
+  <button mat-button [mat-dialog-close]="cancel">cancel</button>
+</mat-dialog-actions>
