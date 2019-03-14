@@ -100,8 +100,6 @@ function createBackup() {
 
 try {
 
-  const log = require('electron-log');
-
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
@@ -109,11 +107,12 @@ try {
   app.on('ready', () => {
 
     protocol.registerFileProtocol('img', (request, callback) => {
+      const log = require('electron-log');
       let imgUrl = request.url.substr(6);    /* all urls start with 'img://' */
       if (imgUrl.endsWith('/')) imgUrl = imgUrl.substring(0, imgUrl.length - 1);
 
-      const filePath = path.normalize(`${__dirname}/${imgUrl}`);
-      log.info('intercept ' + imgUrl + ' to ' + filePath);
+      const filePath = path.normalize(`${(global as any).workingDir}/${imgUrl}`);
+      log.warn('intercept ' + imgUrl + ' to ' + filePath);
       callback(filePath);
     }, (err) => {
       if (err) console.error('Failed to register protocol');
