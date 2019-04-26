@@ -12,6 +12,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {WebviewDirective} from './directives/webview.directive';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
@@ -70,10 +71,24 @@ import {KlantDialogComponent} from './components/klanten/klant-dialog/klant-dial
 import {ImageService} from './services/image-service';
 import {BetaaldViaOverschrijvingDialogComponent} from './components/kassa/betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
 
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '€',
+  suffix: '',
+  thousands: '.'
+};
+
 
 @NgModule({
   declarations: [
@@ -139,7 +154,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [InitializeCommandsResolver, CommandService, KlantService, ProductService, AankoopService, KassaService, ImageService],
+  providers: [InitializeCommandsResolver, CommandService, KlantService, ProductService, AankoopService, KassaService, ImageService, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   entryComponents: [GastAanmakenDialogComponent, RekeningDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent, ProductDialogComponent, KlantDialogComponent, BetaaldViaOverschrijvingDialogComponent],
   bootstrap: [AppComponent]
 })
