@@ -7,8 +7,8 @@
 
     <div class="avatarContainer clickable" (click)="changeAvatar()">
       <img *ngIf="heeftTempAvatar()" class="avatarGroot" [src]="tempAvatar">
-      <img *ngIf="!heeftTempAvatar() && heeftAvatar(klant)" class="avatarGroot" [src]="getAvatarUrl(klant.klantId)">
-      <img *ngIf="!heeftTempAvatar() && !heeftAvatar(klant)" class="avatarGroot" src="img://img/avatarDefault.jpg">
+      <img *ngIf="!heeftTempAvatar() && heeftAvatar(klant)" class="avatarGroot" [src]="_DomSanitizationService.bypassSecurityTrustUrl(getAvatarUrl(klant.klantId))">
+      <img *ngIf="!heeftTempAvatar() && !heeftAvatar(klant)" class="avatarGroot" [src]="_DomSanitizationService.bypassSecurityTrustUrl(getDefaultAvatarUrl(klant))">
     </div>
 
     <mat-form-field id="naamField">

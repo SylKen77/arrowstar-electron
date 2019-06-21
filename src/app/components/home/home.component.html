@@ -12,7 +12,7 @@
     <div class="klantBox clickable mat-elevation-z3" (click)="openKlantDialog(klant)" >
       <div class="klantAvatar avatarContainer">
         <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="_DomSanitizationService.bypassSecurityTrustUrl(getAvatarUrl(klant.klantId))">
-        <img *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein" src="img://img/avatarDefault.jpg">
+        <img *ngIf="isLid(klant) && !heeftAvatar(klant.klantId)" class="avatarKlein" [src]="_DomSanitizationService.bypassSecurityTrustUrl(getDefaultAvatarUrl(klant))">
         <img *ngIf="isGast(klant)" class="avatarKlein" src="img://img/avatarGast.jpg">
       </div>
       <div class="klantNaam">{{klant.naam}}</div>

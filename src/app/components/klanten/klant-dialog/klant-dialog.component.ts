@@ -5,6 +5,7 @@ import {KlantType} from '../../../model/klant-type';
 import {Klant} from '../../../model/klant';
 import {ImageService} from '../../../services/image-service';
 import {Image} from '../../../model/image';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-klant-dialog',
@@ -21,7 +22,8 @@ export class KlantDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public klant: Klant,
               private commandService: CommandService,
               private imageService: ImageService,
-              private applicationRef: ApplicationRef) {
+              private applicationRef: ApplicationRef,
+              public _DomSanitizationService: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -35,11 +37,13 @@ export class KlantDialogComponent implements OnInit {
     if (this.klant) {
       this.commandService.wijzigKlant(this.klant.klantId, this.naam);
       if (this.avatarImage) {
+        console.log('saving avatar...');
         this.imageService.saveAvatar(this.klant.klantId, this.avatarImage);
       }
     } else {
       const klantId = this.commandService.voegKlantToe(this.naam, KlantType.LID);
       if (this.avatarImage) {
+        console.log('saving avatar...');
         this.imageService.saveAvatar(klantId, this.avatarImage);
       }
     }
@@ -74,6 +78,10 @@ export class KlantDialogComponent implements OnInit {
 
   getAvatarUrl(klantId: number) {
     return ImageService.getAvatarUrl(klantId);
+  }
+
+  getDefaultAvatarUrl(klant: Klant): string {
+    return ImageService.getDefaultAvatarUrl(klant.naam.charAt(0));
   }
 
 

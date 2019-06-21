@@ -34,3 +34,22 @@
 {"_index":33,"_timestamp":"2019-03-08T12:40:35.930Z","_commandName":"KlantZetOmhoogCommand","_klantId":0}
 {"_index":34,"_timestamp":"2019-03-08T12:40:39.561Z","_commandName":"ProductZetOmlaagCommand","_productId":2}
 {"_index":35,"_timestamp":"2019-03-08T12:40:40.489Z","_commandName":"ProductZetOmhoogCommand","_productId":2}
+{"_index":36,"_timestamp":"2019-04-26T06:43:07.639Z","_commandName":"ProductZetOmhoogCommand","_productId":3}
+{"_index":37,"_timestamp":"2019-04-26T06:43:09.266Z","_commandName":"ProductZetOmhoogCommand","_productId":3}
+{"_index":38,"_timestamp":"2019-04-26T06:43:10.523Z","_commandName":"ProductZetOmlaagCommand","_productId":3}
+{"_index":39,"_timestamp":"2019-04-26T06:43:11.809Z","_commandName":"ProductZetOmlaagCommand","_productId":3}
+{"_index":40,"_timestamp":"2019-04-26T06:43:16.250Z","_commandName":"KlantZetOmhoogCommand","_klantId":14}
+{"_index":41,"_timestamp":"2019-04-26T06:43:17.399Z","_commandName":"KlantZetOmlaagCommand","_klantId":14}
+{"_index":42,"_timestamp":"2019-04-26T06:43:49.022Z","_commandName":"KassaTellenCommand","_saldo":170}
+{"_index":43,"_timestamp":"2019-04-26T06:44:22.144Z","_commandName":"KassaAfsluitenCommand","_bedrag":20,"_opmerking":"afgehaald bedrag ter leging van de kassa"}
+{"_index":44,"_timestamp":"2019-04-26T06:44:31.669Z","_commandName":"AankoopToevoegenCommand","_aankoopId":44,"_klantId":0,"_productId":1,"_viaOverschrijving":false}
+{"_index":45,"_timestamp":"2019-04-26T06:44:31.848Z","_commandName":"AankoopToevoegenCommand","_aankoopId":45,"_klantId":0,"_productId":1,"_viaOverschrijving":false}
+{"_index":46,"_timestamp":"2019-04-26T06:44:32.011Z","_commandName":"AankoopToevoegenCommand","_aankoopId":46,"_klantId":0,"_productId":1,"_viaOverschrijving":false}
+{"_index":47,"_timestamp":"2019-04-26T06:44:36.291Z","_commandName":"AankoopToevoegenCommand","_aankoopId":47,"_klantId":0,"_productId":2,"_viaOverschrijving":false}
+{"_index":48,"_timestamp":"2019-04-26T06:44:36.492Z","_commandName":"AankoopToevoegenCommand","_aankoopId":48,"_klantId":0,"_productId":2,"_viaOverschrijving":false}
+{"_index":49,"_timestamp":"2019-04-26T06:44:36.685Z","_commandName":"AankoopToevoegenCommand","_aankoopId":49,"_klantId":0,"_productId":2,"_viaOverschrijving":false}
+{"_index":50,"_timestamp":"2019-04-26T06:44:37.814Z","_commandName":"AankoopToevoegenCommand","_aankoopId":50,"_klantId":0,"_productId":3,"_viaOverschrijving":false}
+{"_index":51,"_timestamp":"2019-04-26T06:44:37.985Z","_commandName":"AankoopToevoegenCommand","_aankoopId":51,"_klantId":0,"_productId":3,"_viaOverschrijving":false}
+{"_index":52,"_timestamp":"2019-04-26T06:44:38.141Z","_commandName":"AankoopToevoegenCommand","_aankoopId":52,"_klantId":0,"_productId":3,"_viaOverschrijving":false}
+{"_index":53,"_timestamp":"2019-04-26T06:44:53.295Z","_commandName":"KlantAfrekenenCommand","_klantId":0}
+{"_index":54,"_timestamp":"2019-04-26T06:49:43.041Z","_commandName":"AankoopToevoegenCommand","_aankoopId":54,"_klantId":0,"_productId":3,"_viaOverschrijving":false}

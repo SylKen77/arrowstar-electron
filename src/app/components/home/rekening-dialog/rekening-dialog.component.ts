@@ -87,7 +87,7 @@ export class RekeningDialogComponent implements OnInit {
   berekenTerug() {
     this.heeftGenoegBetaald = false;
     if (this.gegeven) {
-      this.heeftGenoegBetaald = this.gegeven >= this.getAankoopTotaal();
+      this.heeftGenoegBetaald = Math.abs(this.gegeven - this.getAankoopTotaal()) < 0.01;
       this.terug = this.gegeven - this.getAankoopTotaal();
     } else {
       this.terug = null;

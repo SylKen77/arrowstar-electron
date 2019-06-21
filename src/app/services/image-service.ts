@@ -13,6 +13,10 @@ export class ImageService {
     return 'img://img/avatars/' + klantId + '.jpg';
   }
 
+  static getDefaultAvatarUrl(letter: string): string {
+    return 'img://img/' + letter.toUpperCase() + '.png';
+  }
+
   constructor() {
     if (this.isElectron()) {
       this.remote = window.require('electron').remote;
