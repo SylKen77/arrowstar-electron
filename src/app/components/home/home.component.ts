@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   openKlantAanmakenDialog(): void {
     const dialogRef = this.dialog.open(GastAanmakenDialogComponent, {
-      width: '450px'
+      width: '550px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   openKlantDialog(klant: Klant): void {
     const dialogRef = this.dialog.open(RekeningDialogComponent, {
       data: klant,
-      width: '450px'
+      width: '550px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
