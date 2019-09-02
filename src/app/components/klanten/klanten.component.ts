@@ -8,7 +8,7 @@ import {Klant} from '../../model/klant';
 @Component({
   selector: 'app-klanten',
   templateUrl: './klanten.component.html',
-  styleUrls: ['./klanten.component.scss']
+  styleUrls: ['./klanten.component.css']
 })
 export class KlantenComponent implements OnInit {
 

@@ -7,7 +7,7 @@ import {CommandService} from '../../../services/command-service';
 @Component({
   selector: 'app-kassa-afsluiten-dialog',
   templateUrl: './kassa-afsluiten-dialog.component.html',
-  styleUrls: ['./kassa-afsluiten-dialog.component.scss']
+  styleUrls: ['./kassa-afsluiten-dialog.component.css']
 })
 export class KassaAfsluitenDialogComponent implements OnInit {
 

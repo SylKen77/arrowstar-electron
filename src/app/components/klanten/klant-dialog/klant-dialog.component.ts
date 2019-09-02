@@ -10,7 +10,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-klant-dialog',
   templateUrl: './klant-dialog.component.html',
-  styleUrls: ['./klant-dialog.component.scss']
+  styleUrls: ['./klant-dialog.component.css']
 })
 export class KlantDialogComponent implements OnInit {
 

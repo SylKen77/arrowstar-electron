@@ -7,7 +7,7 @@ import {KassaService} from '../../../services/kassa-service';
 @Component({
   selector: 'app-kassa-tellen-dialog',
   templateUrl: './kassa-tellen-dialog.component.html',
-  styleUrls: ['./kassa-tellen-dialog.component.scss']
+  styleUrls: ['./kassa-tellen-dialog.component.css']
 })
 export class KassaTellenDialogComponent implements OnInit {
 

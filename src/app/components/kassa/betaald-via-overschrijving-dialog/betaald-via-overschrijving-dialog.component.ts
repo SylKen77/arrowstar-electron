@@ -7,7 +7,7 @@ import {OnbetaaldeAankoopViaOverschrijving} from '../../../model/onbetaalde-aank
 @Component({
   selector: 'app-betaald-via-overschrijving-dialog',
   templateUrl: './betaald-via-overschrijving-dialog.component.html',
-  styleUrls: ['./betaald-via-overschrijving-dialog.component.scss']
+  styleUrls: ['./betaald-via-overschrijving-dialog.component.css']
 })
 export class BetaaldViaOverschrijvingDialogComponent implements OnInit {
 

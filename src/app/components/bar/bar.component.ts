@@ -10,7 +10,7 @@ import {KlantService} from '../../services/klant-service';
 @Component({
   selector: 'app-bar',
   templateUrl: './bar.component.html',
-  styleUrls: ['./bar.component.scss']
+  styleUrls: ['./bar.component.css']
 })
 export class BarComponent implements OnInit {
 

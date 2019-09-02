@@ -14,7 +14,7 @@ import {BetaaldViaOverschrijvingDialogComponent} from './betaald-via-overschrijv
 @Component({
   selector: 'app-kassa',
   templateUrl: './kassa.component.html',
-  styleUrls: ['./kassa.component.scss']
+  styleUrls: ['./kassa.component.css']
 })
 export class KassaComponent implements OnInit {
 

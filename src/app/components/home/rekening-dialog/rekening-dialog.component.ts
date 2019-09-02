@@ -11,7 +11,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-klant-dialog',
   templateUrl: './rekening-dialog.component.html',
-  styleUrls: ['./rekening-dialog.component.scss']
+  styleUrls: ['./rekening-dialog.component.css']
 })
 export class RekeningDialogComponent implements OnInit {
 
@@ -87,7 +87,7 @@ export class RekeningDialogComponent implements OnInit {
   berekenTerug() {
     this.heeftGenoegBetaald = false;
     if (this.gegeven) {
-      this.heeftGenoegBetaald = Math.abs(this.gegeven - this.getAankoopTotaal()) < 0.01;
+      this.heeftGenoegBetaald = (this.gegeven > this.getAankoopTotaal()) || (Math.abs(this.gegeven - this.getAankoopTotaal()) < 0.01);
       this.terug = this.gegeven - this.getAankoopTotaal();
     } else {
       this.terug = null;

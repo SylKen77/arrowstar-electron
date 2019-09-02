@@ -7,7 +7,7 @@ import {KlantService} from '../../../services/klant-service';
 @Component({
   selector: 'app-product-dialog',
   templateUrl: './product-dialog.component.html',
-  styleUrls: ['./product-dialog.component.scss']
+  styleUrls: ['./product-dialog.component.css']
 })
 export class ProductDialogComponent implements OnInit {
 
