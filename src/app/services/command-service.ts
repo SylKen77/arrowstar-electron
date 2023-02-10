@@ -21,6 +21,7 @@ import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
 import {AankoopWijzigenCommand} from '../commands/aankoop-wijzigen-command';
 import {OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand} from '../commands/onbetaalde-aankoop-via-overschrijving-afrekenen-command';
+import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
 
 
 @Injectable()
@@ -57,6 +58,7 @@ export class CommandService {
     if (data['_commandName'] === 'ProductZetOmhoogCommand') return new ProductZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'DeleteProductCommand') return new DeleteProductCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand') return new OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_productId']);
+    if (data['_commandName'] === 'KassaInitBedragCommand') return new KassaInitBedragCommand(data['_index'], new Date(data['_timestamp']), data['_bedrag']);
 
     throw new Error('Unknown command name: ' + data['_commandName']);
   }
@@ -175,10 +177,6 @@ export class CommandService {
     this.executeCommand(new OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand(this._nextCommandIndex, new Date(), klantId, productId));
   }
 
-
-
-
-
   private saveCommand(command: Command) {
     this.fs.appendFileSync(this.commandsFile, JSON.stringify(command) + '\n');
   }
@@ -291,4 +289,7 @@ export class CommandService {
     this.klantService.onbetaaldeAankopenViaOverschrijvingAfrekenen(command);
   }
 
+  executeKassaInitBedragCommand(command: KassaInitBedragCommand) {
+    this.kassaService.kasaInit(command);
+  }
 }

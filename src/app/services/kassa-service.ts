@@ -5,6 +5,7 @@ import {Aankoop} from '../model/aankoop';
 import {KassaTellenCommand} from '../commands/kassa-tellen-command';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
 import {KlantAfrekenenCommand} from '../commands/klant-afrekenen-command';
+import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
 
 @Injectable()
 export class KassaService extends Store<Kassa> {
@@ -41,4 +42,7 @@ export class KassaService extends Store<Kassa> {
     this.state.afsluitingToevoegen(command.bedrag, command.timestamp, command.opmerking);
   }
 
+  kasaInit(command: KassaInitBedragCommand) {
+    this.state.initBedrag(command.bedrag);
+  }
 }

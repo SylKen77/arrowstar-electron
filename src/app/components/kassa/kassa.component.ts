@@ -10,6 +10,7 @@ import {Telling} from '../../model/telling';
 import {OnbetaaldeAankoopViaOverschrijving} from '../../model/onbetaalde-aankoop-via-overschrijving';
 import {CommandService} from '../../services/command-service';
 import {BetaaldViaOverschrijvingDialogComponent} from './betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
+import {CommandSquasherService} from '../../services/command-squasher.service';
 
 @Component({
   selector: 'app-kassa',
@@ -23,6 +24,7 @@ export class KassaComponent implements OnInit {
   constructor(public kassaService: KassaService,
               public dialog: MatDialog,
               private commandService: CommandService,
+              private commandSquashService: CommandSquasherService,
               public snackBar: MatSnackBar) {
   }
 
@@ -46,6 +48,11 @@ export class KassaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if ('ok' === result) this.openSnackbar('Kassa afgesloten');
     });
+  }
+
+  kassaSquashen() {
+    this.commandSquashService.squash();
+    this.openSnackbar('Kassa gesquashed');
   }
 
 

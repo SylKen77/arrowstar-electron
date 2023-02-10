@@ -132,6 +132,10 @@ export class Kassa {
     this._saldo = this._saldo - bedrag;
   }
 
+  initBedrag(bedrag: number) {
+    this._saldo = bedrag;
+  }
+
   voegToeAanDagAfrekening(datum: Date, bedrag: number) {
     this.getDagAfrekening(datum).voegBedragToe(bedrag);
   }
