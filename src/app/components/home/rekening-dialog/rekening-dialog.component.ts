@@ -44,15 +44,19 @@ export class RekeningDialogComponent implements OnInit {
   ok() {
     this.dialogRef.close('ok');
     if (this.gegeven && this.gegeven >= this.getAankoopTotaal()) {
-      this.commandService.voegKlantAfrekenenToe(this.data.klantId);
+      this.commandService.voegKlantAfrekenenToe(this.data.klantId, false);
     }
+  }
+
+  okViaOverschrijving() {
+    this.dialogRef.close('OkViaOverschrijving');
+    this.commandService.voegKlantAfrekenenToe(this.data.klantId, true);
   }
 
   aankoopToevoegen(productId: number) {
     this.gegeven = null;
     this.berekenTerug();
-    const viaOverschrijving = this.getOnbetaaldeAankopenViaOverschrijving().some(aankoop => aankoop.product.productId === productId);
-    this.commandService.voegAankoopToe(this.data.klantId, productId, viaOverschrijving);
+    this.commandService.voegAankoopToe(this.data.klantId, productId);
   }
 
   aankoopVerwijderen(productId: number) {
@@ -61,16 +65,8 @@ export class RekeningDialogComponent implements OnInit {
     this.commandService.verwijderAankoop(this.data.klantId, productId);
   }
 
-  wijzigViaOverschrijving(productId: number, viaOverschrijving: boolean) {
-    this.commandService.wijzigAankopen(this.data.klantId, productId, viaOverschrijving);
-  }
-
   getOnbetaaldeAankopen() {
     return this.data.aankopen.filter(aankoop => !aankoop.betaald);
-  }
-
-  getOnbetaaldeAankopenViaOverschrijving() {
-    return this.getOnbetaaldeAankopen().filter(aankoop => aankoop.viaOverschrijving);
   }
 
   getRekening() {

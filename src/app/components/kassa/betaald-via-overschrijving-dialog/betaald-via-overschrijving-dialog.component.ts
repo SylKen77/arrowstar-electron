@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {KassaService} from '../../../services/kassa-service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
-import {OnbetaaldeAankoopViaOverschrijving} from '../../../model/onbetaalde-aankoop-via-overschrijving';
+import {AfrekeningViaOverschrijving} from '../../../model/afrekening-via-overschrijving';
 
 @Component({
   selector: 'app-betaald-via-overschrijving-dialog',
@@ -12,7 +12,7 @@ import {OnbetaaldeAankoopViaOverschrijving} from '../../../model/onbetaalde-aank
 export class BetaaldViaOverschrijvingDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<BetaaldViaOverschrijvingDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: OnbetaaldeAankoopViaOverschrijving,
+              @Inject(MAT_DIALOG_DATA) public data: AfrekeningViaOverschrijving,
               private commandService: CommandService,
               public kassaService: KassaService) { }
 
@@ -21,7 +21,7 @@ export class BetaaldViaOverschrijvingDialogComponent implements OnInit {
 
   ok() {
     this.dialogRef.close('ok');
-    this.commandService.onbetaaldeAankoopViaOverschrijvingAfrekenen(this.data.klant.klantId, this.data.product.productId);
+    this.commandService.afrekeningViaOverschrijvingVerifieren(this.data.klant.klantId, this.data.datum, this.data.bedrag);
   }
 
   cancel() {

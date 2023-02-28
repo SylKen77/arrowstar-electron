@@ -58,15 +58,14 @@ export class Klant {
     return this.getOnbetaaldeAankopen().map(aankoop => aankoop.getBedrag()).reduce((p, c) => (p + c), 0);
   }
 
-  heeftOnbetaaldeAankopen(): boolean {
-    return this._aankopen
-      .filter(aankoop => !aankoop.viaOverschrijving)
-      .some(aankoop => !aankoop.betaald);
+  rekenAf(): number {
+    const bedrag = this.getSchuld();
+    this.getOnbetaaldeAankopen().forEach(aankoop => aankoop.setBetaald());
+    return bedrag;
   }
 
-  heeftOnbetaaldeAankopenViaOverschrijving(): boolean {
+  heeftOnbetaaldeAankopen(): boolean {
     return this._aankopen
-      .filter(aankoop => aankoop.viaOverschrijving)
       .some(aankoop => !aankoop.betaald);
   }
 

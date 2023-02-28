@@ -7,10 +7,10 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {KassaTellenDialogComponent} from './kassa-tellen-dialog/kassa-tellen-dialog.component';
 import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
 import {Telling} from '../../model/telling';
-import {OnbetaaldeAankoopViaOverschrijving} from '../../model/onbetaalde-aankoop-via-overschrijving';
 import {CommandService} from '../../services/command-service';
 import {BetaaldViaOverschrijvingDialogComponent} from './betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
 import {CommandSquasherService} from '../../services/command-squasher.service';
+import {AfrekeningViaOverschrijving} from '../../model/afrekening-via-overschrijving';
 
 @Component({
   selector: 'app-kassa',
@@ -68,7 +68,7 @@ export class KassaComponent implements OnInit {
     return 'negatief';
   }
 
-  betaalOnbetaaldeAankopenViaOverschrijving(oavo: OnbetaaldeAankoopViaOverschrijving) {
+  betaalOnbetaaldeAankopenViaOverschrijving(oavo: AfrekeningViaOverschrijving) {
     const dialogRef = this.dialog.open(BetaaldViaOverschrijvingDialogComponent, {
       data: oavo
     });

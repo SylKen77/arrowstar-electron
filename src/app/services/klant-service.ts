@@ -9,7 +9,6 @@ import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
 import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
 import {DeleteKlantCommand} from '../commands/delete-klant-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
-import {OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand} from '../commands/onbetaalde-aankoop-via-overschrijving-afrekenen-command';
 
 @Injectable()
 export class KlantService extends Store<Klant[]> {
@@ -33,30 +32,16 @@ export class KlantService extends Store<Klant[]> {
 
   afrekenen(klantAfrekenenCommand: KlantAfrekenenCommand) {
     const klant = this.getKlant(klantAfrekenenCommand.klantId);
+    const bedrag = klant.rekenAf();
 
-    // Alle aankopen van de klant afrekenen
-    klant.getOnbetaaldeAankopen()
-      .filter(aankoop => !aankoop.viaOverschrijving)
-      .forEach(aankoop => {
-        aankoop.setBetaald();
-        this.kassaService.aankoopAfrekenen(aankoop, klantAfrekenenCommand.timestamp);
-      });
+    // Kassa updaten
+    this.kassaService.klantAfrekenen(klant, klantAfrekenenCommand.timestamp, klantAfrekenenCommand.viaOverschrijving, bedrag);
 
     // Gasten worden verwijderd na het afrekenen
     if (klant.klantType === KlantType.GAST) {
       this.verwijderKlantUitStore(klant);
     }
   }
-
-  onbetaaldeAankopenViaOverschrijvingAfrekenen(command: OnbetaaldeAankoopViaOverschrijvingAfrekenenCommand) {
-    const klant = this.getKlant(command.klantId);
-    klant.getOnbetaaldeAankopen().filter(aankoop => aankoop.product.productId === command.productId)
-      .forEach(aankoop => {
-        aankoop.setBetaald();
-        this.kassaService.aankoopViaOverschrijvingAfrekenen(aankoop);
-      });
-  }
-
 
   zetKlantOmhoog(command: KlantZetOmhoogCommand) {
     const klant = this.getKlant(command.klantId);

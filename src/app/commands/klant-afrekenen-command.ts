@@ -4,10 +4,12 @@ import {CommandService} from '../services/command-service';
 export class KlantAfrekenenCommand extends Command {
 
   private readonly _klantId: number;
+  private readonly _viaOverschrijving: boolean;
 
-  constructor(index: number, timestamp: Date, klantId: number) {
+  constructor(index: number, timestamp: Date, klantId: number, viaOverschrijving: boolean = false) {
     super(index, timestamp, 'KlantAfrekenenCommand');
     this._klantId = klantId;
+    this._viaOverschrijving = viaOverschrijving;
   }
 
   execute(executor: CommandService) {
@@ -16,6 +18,10 @@ export class KlantAfrekenenCommand extends Command {
 
   get klantId(): number {
     return this._klantId;
+  }
+
+  get viaOverschrijving(): boolean {
+    return this._viaOverschrijving;
   }
 
 }

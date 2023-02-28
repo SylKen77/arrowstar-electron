@@ -71,7 +71,7 @@ export class CommandSquasherService {
   toProductToevoegenCommand(product: Product): ProductToevoegenCommand {
     const index = this.getNextIndex();
     this.oldToNewProductId.set(product.productId, index);
-    return new ProductToevoegenCommand(index, new Date(), index, product.omschrijving, product.prijsLid, product.prijsGast, product.betaalbaarViaOverschrijving);
+    return new ProductToevoegenCommand(index, new Date(), index, product.omschrijving, product.prijsLid, product.prijsGast);
   }
 
   toKlantToevoegenCommand(klant: Klant): KlantToevoegenCommand {
@@ -97,10 +97,10 @@ export class CommandSquasherService {
 
   getAankoopToevoegenCommandsPerKlant(klant: Klant): AankoopToevoegenCommand[] {
     return klant.aankopen
-      .filter((a, i) => !a.betaald && !a.viaOverschrijving)
+      .filter((a, i) => !a.betaald)
       .map((a, i) => {
         const index = this.getNextIndex();
-        return new AankoopToevoegenCommand(index, new Date(), index, this.oldToNewKlantId.get(klant.klantId), this.oldToNewProductId.get(a.product.productId), a.viaOverschrijving)
+        return new AankoopToevoegenCommand(index, new Date(), index, this.oldToNewKlantId.get(klant.klantId), this.oldToNewProductId.get(a.product.productId));
       });
   }
 

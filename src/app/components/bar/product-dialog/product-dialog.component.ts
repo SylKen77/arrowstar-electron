@@ -27,7 +27,6 @@ export class ProductDialogComponent implements OnInit {
       this.omschrijving = this.product.omschrijving;
       this.prijsLid = this.product.prijsLid;
       this.prijsGast = this.product.prijsGast;
-      this.betaalbaarViaOverschrijving = this.product.betaalbaarViaOverschrijving;
     } else {
       this.omschrijving = 'Nieuw product';
       this.prijsLid = 1.00;
@@ -39,16 +38,10 @@ export class ProductDialogComponent implements OnInit {
   ok() {
     this.dialogRef.close('ok');
     if (this.product) {
-      this.commandService.wijzigProduct(this.product.productId, this.omschrijving, this.prijsLid, this.prijsGast, this.betaalbaarViaOverschrijving);
+      this.commandService.wijzigProduct(this.product.productId, this.omschrijving, this.prijsLid, this.prijsGast);
     } else {
-      this.commandService.voegProductToe(this.omschrijving, this.prijsLid, this.prijsGast, this.betaalbaarViaOverschrijving);
+      this.commandService.voegProductToe(this.omschrijving, this.prijsLid, this.prijsGast);
     }
-  }
-
-  heeftOnbetaaldeAankopenViaOverschrijving(): boolean {
-    return this.klantService.state.some(klant => klant.getOnbetaaldeAankopen()
-      .filter(aankoop => aankoop.product.productId === this.product.productId)
-      .some(aankoop => aankoop.viaOverschrijving));
   }
 
   cancel() {

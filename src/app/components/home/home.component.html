@@ -17,8 +17,7 @@
       </div>
       <div class="klantNaam">{{klant.naam}}</div>
       <div class="onbetaaldeAankopen klantNotificatie" *ngIf="klant.heeftOnbetaaldeAankopen()" ></div>
-      <div class="onbetaaldeAankopenViaOverschrijving klantNotificatie" *ngIf="!klant.heeftOnbetaaldeAankopen() && klant.heeftOnbetaaldeAankopenViaOverschrijving()" ></div>
-      <div class="geenOnbetaaldeAankopen klantNotificatie" *ngIf="!klant.heeftOnbetaaldeAankopen() && !klant.heeftOnbetaaldeAankopenViaOverschrijving()" ></div>
+      <div class="geenOnbetaaldeAankopen klantNotificatie" *ngIf="!klant.heeftOnbetaaldeAankopen()" ></div>
     </div>
   </ng-container>
 

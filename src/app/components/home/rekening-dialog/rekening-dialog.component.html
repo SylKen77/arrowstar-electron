@@ -17,13 +17,11 @@
     <div class="rekeningLijnen">
       <span class="rekeningLijnOmschrijving rekeningLijnTitle">Product</span>
       <span class="rekeningLijnPrijs rekeningLijnTitle">Prijs</span>
-      <span class="rekeningLijnViaOverschrijving rekeningLijnTitle">Overschrijving</span>
       <span class="rekeningLijnAantal rekeningLijnTitle">Aantal</span>
       <span class="rekeningLijnTotaal rekeningLijnTitle">Totaal</span>
       <ng-container *ngFor="let rekeningLijn of getRekening().rekeningLijnen">
         <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
         <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
-        <span class="rekeningLijnViaOverschrijving"><input *ngIf="rekeningLijn.betaalbaarViaOverschrijving && rekeningLijn.aantal > 0" type="checkbox" [checked]="rekeningLijn._viaOverschrijving" (change)="wijzigViaOverschrijving(rekeningLijn.productId, $event.target.checked)"></span>
         <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
           <img src="img://img/remove.svg">
         </div>
@@ -57,6 +55,7 @@
 
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="ok()" [disabled]="!heeftGenoegBetaald && betalen">Ok</button>
+  <button mat-raised-button color="primary" (click)="okViaOverschrijving()" *ngIf="betalen">Via overschrijving</button>
   <button *ngIf="!betalen" mat-raised-button color="primary" (click)="setBetalen()" [disabled]="getAankoopTotaal() < 0.01">Afrekenen</button>
   <button *ngIf="betalen" mat-raised-button color="primary" (click)="annuleerAfrekenen()">Annuleer afrekenen</button>
 

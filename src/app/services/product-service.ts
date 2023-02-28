@@ -5,8 +5,6 @@ import {ProductToevoegenCommand} from '../commands/product-toevoegen-command';
 import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
 import {ProductZetOmlaagCommand} from '../commands/product-zet-omlaag-command';
 import {ProductZetOmhoogCommand} from '../commands/product-zet-omhoog-command';
-import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
-import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
 import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantService} from './klant-service';
 
@@ -18,7 +16,7 @@ export class ProductService extends Store<Product[]> {
   }
 
   productToevoegen(c: ProductToevoegenCommand) {
-    const product = new Product(c.productId, c.productOmschrijving, c.prijsLid, c.prijsGast, this.state.length, c.betaalbaarViaOverschrijving);
+    const product = new Product(c.productId, c.productOmschrijving, c.prijsLid, c.prijsGast, this.state.length);
     this.setState([...this.state, product]);
   }
 

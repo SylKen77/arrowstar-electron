@@ -4,8 +4,9 @@ import {Injectable} from '@angular/core';
 import {Aankoop} from '../model/aankoop';
 import {KassaTellenCommand} from '../commands/kassa-tellen-command';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
-import {KlantAfrekenenCommand} from '../commands/klant-afrekenen-command';
 import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
+import {Klant} from '../model/klant';
+import {AfrekeningViaOverschrijvingVerifierenCommand} from '../commands/afrekening-via-overschrijving-verifieren-command';
 
 @Injectable()
 export class KassaService extends Store<Kassa> {
@@ -22,16 +23,8 @@ export class KassaService extends Store<Kassa> {
     this.state.aankoopVerwijderen(teVerwijderenAankoop);
   }
 
-  aankopenWijzigen(gewijzigdeAankopen: Aankoop[]) {
-    this.state.aankopenWijzigen(gewijzigdeAankopen);
-  }
-
-  aankoopAfrekenen(afTeRekenenAankoop: Aankoop, datum: Date) {
-    this.state.aankoopAfrekenen(afTeRekenenAankoop, datum);
-  }
-
-  aankoopViaOverschrijvingAfrekenen(afTeRekenenAankoop: Aankoop) {
-    this.state.verwijderOnbetaaldeAankoopViaOverschrijving(afTeRekenenAankoop);
+  klantAfrekenen(klant: Klant, datum: Date, viaOverschrijving: boolean, bedrag: number) {
+    this.state.klantAfrekenen(klant, datum, viaOverschrijving, bedrag);
   }
 
   kassaTellen(command: KassaTellenCommand) {
@@ -44,5 +37,9 @@ export class KassaService extends Store<Kassa> {
 
   kasaInit(command: KassaInitBedragCommand) {
     this.state.initBedrag(command.bedrag);
+  }
+
+  verifieerAfrekeningViaOverschrijving(command: AfrekeningViaOverschrijvingVerifierenCommand) {
+    // TODO find afrekening en markeer als geverifieerd
   }
 }
