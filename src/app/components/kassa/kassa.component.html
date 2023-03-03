@@ -38,18 +38,17 @@
       <div class="onbetaaldeAankopenViaOverschrijving mat-elevation-z8">
         <div class="oavioDatum tellingTitle">Datum</div>
         <div class="oavioKlantNaam tellingTitle">Naam</div>
-        <div class="oavioProductNaam tellingTitle">Product</div>
-        <div class="oavioAantal tellingTitle">Aantal</div>
         <div class="oavioBedrag tellingTitle">Bedrag</div>
-        <div class="oavioBetalen tellingTitle">Betalen</div>
+        <div class="oavioBetalen tellingTitle">Verifieren</div>
 
-        <ng-container *ngFor="let oavo of (kassaService.state$ | async).onbetaaldeAankopenViaOverschrijving">
+        <ng-container *ngFor="let oavo of (kassaService.state$ | async).afrekeningenViaOverschrijving">
           <div class="oavioDatum">{{oavo.datum | date:'dd/MM/yyyy'}}</div>
           <div class="oavioKlantNaam">{{oavo.klant.naam}}</div>
-          <div class="oavioProductNaam ">{{oavo.product.omschrijving}}</div>
-          <div class="oavioAantal">{{oavo.aantal}}</div>
           <div class="oavioBedrag">{{oavo.bedrag | currency : 'EUR'}}</div>
-          <div class="oavioBetalen"><img src="img://img/payment.svg" (click)="betaalOnbetaaldeAankopenViaOverschrijving(oavo)" class="clickable"></div>
+          <div class="oavioBetalen">
+            <img *ngIf="!oavo.geverifieerd" src="img://img/payment.svg" (click)="betaalOnbetaaldeAankopenViaOverschrijving(oavo)" class="clickable">
+            <img *ngIf="oavo.geverifieerd" src="img://img/checked.svg">
+          </div>
         </ng-container>
       </div>
 

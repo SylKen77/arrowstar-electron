@@ -80,7 +80,7 @@ export class Kassa {
     if (!viaOverschrijving) this._saldo += bedrag;
     this._tegoed -= bedrag;
     this.voegToeAanDagAfrekening(datum, bedrag);
-    if (viaOverschrijving) this._afrekeningenViaOverschrijving = [...this._afrekeningenViaOverschrijving, new AfrekeningViaOverschrijving(datum, klant, bedrag)];
+    if (viaOverschrijving) this._afrekeningenViaOverschrijving = [...this._afrekeningenViaOverschrijving, new AfrekeningViaOverschrijving(datum, klant, bedrag, false)];
   }
 
   tellingToevoegen(saldo: number, timestamp: Date, opmerking: string) {

@@ -10,21 +10,14 @@
   font-weight: bold;
 }
 
-
-.klantNaam {
+.datum {
   grid-column: 1;
 }
 
-.productOmschrijving {
+.klantNaam {
   grid-column: 2;
-
-}
-
-.aantal {
-  grid-column: 3;
-
 }
 
 .bedrag {
-  grid-column: 4;
+  grid-column: 3;
 }

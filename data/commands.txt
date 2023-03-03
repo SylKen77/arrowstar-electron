@@ -7220,3 +7220,8 @@
 {"_index":7213,"_timestamp":"2023-02-28T08:06:46.267Z","_commandName":"KlantAfrekenenCommand","_klantId":0,"_viaOverschrijving":true}
 {"_index":7214,"_timestamp":"2023-02-28T08:07:20.819Z","_commandName":"AankoopToevoegenCommand","_aankoopId":7214,"_klantId":0,"_productId":1266}
 {"_index":7215,"_timestamp":"2023-02-28T08:07:28.312Z","_commandName":"KlantAfrekenenCommand","_klantId":0,"_viaOverschrijving":true}
+{"_index":7216,"_timestamp":"2023-03-03T12:57:45.476Z","_commandName":"KlantAfrekenenCommand","_klantId":9,"_viaOverschrijving":true}
+{"_index":7217,"_timestamp":"2023-03-03T13:04:48.432Z","_commandName":"AfrekeningViaOverschrijvingVerifierenCommand","_klantId":9,"_datum":"2023-03-03T12:57:45.476Z","_bedrag":25.59999999999985}
+{"_index":7218,"_timestamp":"2023-03-03T13:16:54.277Z","_commandName":"AankoopToevoegenCommand","_aankoopId":7218,"_klantId":9,"_productId":1266}
+{"_index":7219,"_timestamp":"2023-03-03T13:17:05.436Z","_commandName":"KlantAfrekenenCommand","_klantId":9,"_viaOverschrijving":true}
+{"_index":7220,"_timestamp":"2023-03-03T13:17:15.435Z","_commandName":"AfrekeningViaOverschrijvingVerifierenCommand","_klantId":9,"_datum":"2023-03-03T13:17:05.436Z","_bedrag":1}

@@ -74,7 +74,7 @@ export class KassaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if ('ok' === result) this.openSnackbar('Aankoop via overschrijving is afgerekend');
+      if ('ok' === result) this.openSnackbar('Aankoop via overschrijving geverifiëerd');
     });
   }
 
