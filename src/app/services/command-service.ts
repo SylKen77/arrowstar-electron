@@ -21,6 +21,7 @@ import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
 import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
 import {AfrekeningViaOverschrijvingVerifierenCommand} from '../commands/afrekening-via-overschrijving-verifieren-command';
+import {HistoriekService} from './historiek-service';
 
 
 @Injectable()
@@ -67,7 +68,8 @@ export class CommandService {
   constructor(private klantService: KlantService,
               private productService: ProductService,
               private aankoopService: AankoopService,
-              private kassaService: KassaService) {
+              private kassaService: KassaService,
+              private historiekService: HistoriekService) {
 
     this._expectedCommandIndex = 0;
     this._nextCommandIndex = 0;
@@ -213,20 +215,23 @@ export class CommandService {
 
 
   executeAankoopToevoegenCommand(command: AankoopToevoegenCommand) {
+    this.historiekService.aankoopToevoegen(command);
     this.aankoopService.aankoopToevoegen(command);
   }
 
 
   executeAankoopVerwijderenCommand(command: AankoopVerwijderenCommand) {
+    this.historiekService.aankoopVerwijderen(command);
     this.aankoopService.aankoopVerwijderen(command);
   }
 
   executeKlantAfrekenenCommand(command: KlantAfrekenenCommand) {
+    this.historiekService.afrekenen(command);
     this.klantService.afrekenen(command);
   }
 
-
   executeKassaTellenCommand(command: KassaTellenCommand) {
+    this.historiekService.kassaTellen(command);
     this.kassaService.kassaTellen(command);
   }
 
@@ -252,6 +257,7 @@ export class CommandService {
 
 
   executeKassaAfsluitenCommand(command: KassaAfsluitenCommand) {
+    this.historiekService.kassaAfsluiten(command);
     this.kassaService.kassaAfsluiten(command);
   }
 

@@ -1,0 +1,65 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.historiekScherm {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.jaar {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.historiekJaarTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.jaarOverzicht {
+  display: flex;
+  flex-direction: row;
+
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.jaarOverzichtLinks {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.jaarOverzichtRechts {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.samenvattingTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.jaarSamenvatting {
+  display: grid;
+  grid-gap: 10px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+
+  text-align: center;
+  font-size: 1.5em;
+}
+
+
+
+

@@ -71,6 +71,8 @@ import {KlantDialogComponent} from './components/klanten/klant-dialog/klant-dial
 import {ImageService} from './services/image-service';
 import {BetaaldViaOverschrijvingDialogComponent} from './components/kassa/betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
 import {CommandSquasherService} from './services/command-squasher.service';
+import {HistoriekComponent} from './components/historiek/historiek.component';
+import {HistoriekService} from './services/historiek-service';
 
 
 // AoT requires an exported function for factories
@@ -105,7 +107,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     KassaAfsluitenDialogComponent,
     ProductDialogComponent,
     KlantDialogComponent,
-    BetaaldViaOverschrijvingDialogComponent
+    BetaaldViaOverschrijvingDialogComponent,
+    HistoriekComponent
   ],
   imports: [
     CurrencyMaskModule,
@@ -155,8 +158,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
       }
     })
   ],
-  providers: [InitializeCommandsResolver, CommandService, CommandSquasherService, KlantService, ProductService, AankoopService, KassaService, ImageService, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
-  entryComponents: [GastAanmakenDialogComponent, RekeningDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent, ProductDialogComponent, KlantDialogComponent, BetaaldViaOverschrijvingDialogComponent],
+  providers: [InitializeCommandsResolver, CommandService, CommandSquasherService, KlantService, ProductService, AankoopService, KassaService, ImageService, HistoriekService, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
+  entryComponents: [GastAanmakenDialogComponent, RekeningDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent, ProductDialogComponent, KlantDialogComponent, BetaaldViaOverschrijvingDialogComponent, HistoriekComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

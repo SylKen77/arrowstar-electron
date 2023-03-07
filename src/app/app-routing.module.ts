@@ -5,6 +5,7 @@ import {InitializeCommandsResolver} from './resolvers/initialize-commands-resolv
 import {KassaComponent} from './components/kassa/kassa.component';
 import {BarComponent} from './components/bar/bar.component';
 import {KlantenComponent} from './components/klanten/klanten.component';
+import {HistoriekComponent} from './components/historiek/historiek.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'bar',
     component: BarComponent,
+    resolve: {initialized: InitializeCommandsResolver}
+  },
+  {
+    path: 'historiek',
+    component: HistoriekComponent,
     resolve: {initialized: InitializeCommandsResolver}
   }
 ];
