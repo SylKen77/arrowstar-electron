@@ -8,6 +8,8 @@ import {KlantService} from './klant-service';
 import {KassaTellenCommand} from '../commands/kassa-tellen-command';
 import {KassaService} from './kassa-service';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
+import {HistoriekTelling} from '../model/historiek-telling';
+import {HistoriekAfsluiting} from '../model/historiek-afsluiting';
 
 @Injectable()
 export class HistoriekService extends Store<Historiek> {
@@ -46,8 +48,7 @@ export class HistoriekService extends Store<Historiek> {
 
     const verschil = command.saldo - this.kassaService.state.saldo;
     historiekJaar.samenvatting.saldoTellingen += verschil;
-
-
+    historiekJaar.addTelling(new HistoriekTelling(command.timestamp, command.saldo, this.kassaService.state.saldo, verschil));
   }
 
   kassaAfsluiten(command: KassaAfsluitenCommand) {
@@ -58,5 +59,6 @@ export class HistoriekService extends Store<Historiek> {
 
     historiekJaar.samenvatting.saldoAfsluitingen += command.bedrag;
     historiekJaar.samenvatting.saldoEnd -= command.bedrag;
+    historiekJaar.addAfluiting(new HistoriekAfsluiting(command.timestamp, command.bedrag, command.opmerking));
   }
 }

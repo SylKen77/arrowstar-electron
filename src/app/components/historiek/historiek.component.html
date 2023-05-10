@@ -2,29 +2,56 @@
 
   <div class="historiekScherm">
 
-    <div class="jaar" *ngFor="let jaar of (historiekService.state$ | async).jaren">
+    <div class="jaar" *ngFor="let jaar of (historiekService.state$ | async).jaren.reverse()">
       <div class="historiekJaarTitle">{{jaar.jaar}}</div>
       <div class="jaarOverzicht mat-elevation-z8">
 
         <div class="jaarOverzichtLinks">
+
           <div class="samenvattingTitle">Samenvatting</div>
           <div class="jaarSamenvatting mat-elevation-z8">
             <div class="saldoStart">Saldo start: {{jaar.samenvatting.saldoStart | currency : 'EUR'}}</div>
             <div class="saldoEnd">Saldo end: {{jaar.samenvatting.saldoEnd | currency : 'EUR'}}</div>
-            <div class="saldoAfsluitingen">Saldo afsluitingen: {{jaar.samenvatting.saldoAfsluitingen | currency : 'EUR'}}</div>
+            <div class="saldoAfsluitingen">Saldo
+              afsluitingen: {{jaar.samenvatting.saldoAfsluitingen | currency : 'EUR'}}</div>
             <div class="saldoTellingen">Saldo tellingen: {{jaar.samenvatting.saldoTellingen | currency : 'EUR'}}</div>
             <div class="saldoTellingen">Inkomsten: {{jaar.samenvatting.inkomsten | currency : 'EUR'}}</div>
           </div>
+
+          <div class="afsluitingenTitle">Afsluitingen</div>
+          <div class="afsluitingen mat-elevation-z8">
+            <div class="afsluitingDatum tellingTitle">Datum</div>
+            <div class="afsluitingOpmerking tellingTitle">Opmerking</div>
+            <div class="afsluitingBedrag tellingTitle">Bedrag</div>
+            <ng-container *ngFor="let afsluiting of jaar.afsluitingen">
+              <div class="afsluitingDatum">{{afsluiting.datum | date:'dd/MM/yyyy'}}</div>
+              <div class="afsluitingOpmerking">{{afsluiting.opmerking}}</div>
+              <div class="afsluitingBedrag">{{afsluiting.bedrag | currency : 'EUR'}}</div>
+            </ng-container>
+          </div>
+
+
         </div>
 
         <div class="jaarOverzichtRechts">
-          <div class="samenvattingTitle">Stuff</div>
-          <div class="jaarStuff mat-elevation-z8"></div>
-        </div>
 
+          <div class="tellingenTitle">Tellingen</div>
+          <div class="tellingen mat-elevation-z8">
+            <div class="tellingTimestamp tellingTitle">Tijdstip</div>
+            <div class="theoretischSaldo tellingTitle">Theoretisch bedrag</div>
+            <div class="werkelijkSaldo tellingTitle">Effectief bedrag</div>
+            <div class="verschil tellingTitle">Verschil</div>
+            <ng-container *ngFor="let telling of jaar.tellingen">
+              <div class="tellingTimestamp">{{telling.datum | date:'dd/MM/yyyy HH:mm:ss'}}</div>
+              <div class="theoretischSaldo">{{telling.theoretischBedrag | currency : 'EUR'}}</div>
+              <div class="werkelijkSaldo">{{telling.effectiefBedrag | currency : 'EUR'}}</div>
+              <div class="verschil">{{telling.verschil | currency : 'EUR'}}</div>
+            </ng-container>
+          </div>
+
+        </div>
       </div>
+
     </div>
 
   </div>
-
-</div>

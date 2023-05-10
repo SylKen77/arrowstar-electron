@@ -44,6 +44,7 @@
 }
 
 .samenvattingTitle {
+  margin-top: 20px;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -59,6 +60,78 @@
   text-align: center;
   font-size: 1.5em;
 }
+
+.tellingenTitle {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.tellingen {
+  display: grid;
+  grid-gap: 10px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.tellingTitle {
+  font-weight: bold;
+}
+
+.tellingTimestamp {
+  grid-column: 1;
+}
+
+.theoretischSaldo {
+  grid-column: 2;
+  text-align: right;
+}
+
+.werkelijkSaldo {
+  grid-column: 3;
+  text-align: right;
+}
+
+.verschil {
+  grid-column: 4;
+  text-align: right;
+}
+
+.afsluitingenTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.afsluitingen {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-column-gap: 0px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.afsluitingDatum {
+  padding: 5px;
+  grid-column: 1;
+}
+
+.afsluitingOpmerking {
+  padding: 5px;
+  grid-column: 2;
+}
+
+.afsluitingBedrag {
+  padding: 5px;
+  grid-column: 3;
+  text-align: right;
+}
+
+
 
 
 
