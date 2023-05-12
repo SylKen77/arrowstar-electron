@@ -22,7 +22,7 @@
         <div class="theoretischSaldo tellingTitle">Theoretisch bedrag</div>
         <div class="werkelijkSaldo tellingTitle">Effectief bedrag</div>
         <div class="verschil tellingTitle">Verschil</div>
-        <ng-container *ngFor="let telling of (kassaService.state$ | async).tellingen">
+        <ng-container *ngFor="let telling of ((kassaService.state$ | async).tellingen) ">
           <div class="tellingTimestamp">{{telling.timestamp | date:'dd/MM/yyyy HH:mm:ss'}}</div>
           <div class="theoretischSaldo">{{telling.kassaSaldo | currency : 'EUR'}}</div>
           <div class="werkelijkSaldo">{{telling.tellingSaldo | currency : 'EUR'}}</div>

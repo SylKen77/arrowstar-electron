@@ -83,13 +83,31 @@ export class Kassa {
     if (viaOverschrijving) this._afrekeningenViaOverschrijving = [...this._afrekeningenViaOverschrijving, new AfrekeningViaOverschrijving(datum, klant, bedrag, false)];
   }
 
+  verifieerAfrekeningViaOverschrijving(klantId: number, bedrag: number, datum: Date) {
+    const afrekeningViaOverschrijving = this._afrekeningenViaOverschrijving
+      .filter(avo => !avo.geverifieerd)
+      .filter(avo => klantId === avo.klant.klantId)
+      .find(avo => bedrag - avo.bedrag < 0.01);
+
+    afrekeningViaOverschrijving.setGeverifieerd(true);
+
+    if (datum.getFullYear() !== new Date().getFullYear()) {
+      this._afrekeningenViaOverschrijving = this.afrekeningenViaOverschrijving.filter(avo => avo !== afrekeningViaOverschrijving);
+    }
+  }
+
+
   tellingToevoegen(saldo: number, timestamp: Date, opmerking: string) {
-    this._tellingen = [...this._tellingen, new Telling(this._saldo, saldo, timestamp, opmerking)];
+    if (timestamp.getFullYear() === new Date().getFullYear()) {
+      this._tellingen = [...this._tellingen, new Telling(this._saldo, saldo, timestamp, opmerking)];
+    }
     this._saldo = saldo;
   }
 
   afsluitingToevoegen(bedrag: number, timestamp: Date, opmerking: string) {
-    this._afsluitingen = [...this._afsluitingen, new Afsluiting(bedrag, timestamp, opmerking)];
+    if (timestamp.getFullYear() === new Date().getFullYear()) {
+      this._afsluitingen = [...this._afsluitingen, new Afsluiting(bedrag, timestamp, opmerking)];
+    }
     this._saldo = this._saldo - bedrag;
   }
 
@@ -98,7 +116,9 @@ export class Kassa {
   }
 
   voegToeAanDagAfrekening(datum: Date, bedrag: number) {
-    this.getDagAfrekening(datum).voegBedragToe(bedrag);
+    if (datum.getFullYear() === new Date().getFullYear()) {
+      this.getDagAfrekening(datum).voegBedragToe(bedrag);
+    }
   }
 
   getDagAfrekening(datum: Date): DagAfrekening {

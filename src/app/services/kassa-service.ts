@@ -40,11 +40,7 @@ export class KassaService extends Store<Kassa> {
   }
 
   verifieerAfrekeningViaOverschrijving(command: AfrekeningViaOverschrijvingVerifierenCommand) {
-    this.state.afrekeningenViaOverschrijving
-      .filter(afrekeningViaOverschrijving => !afrekeningViaOverschrijving.geverifieerd)
-      .filter(afrekeningViaOverschrijving => command.klantId === afrekeningViaOverschrijving.klant.klantId)
-      .find(afrekeningViaOverschrijving => command.bedrag - afrekeningViaOverschrijving.bedrag < 0.01)
-      .setGeverifieerd(true);
+    this.state.verifieerAfrekeningViaOverschrijving(command.klantId, command.bedrag, command.timestamp);
   }
 
 }
