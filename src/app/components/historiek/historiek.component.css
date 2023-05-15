@@ -131,8 +131,34 @@
   text-align: right;
 }
 
+.aankopenPerProductTitle {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
 
+.aankopenPerProduct {
+  display: grid;
+  grid-gap: 10px;
+  grid-auto-rows: auto;
+  border: 2px solid #333337;
+  border-radius: 5px;
+  padding: 1em;
+}
 
+.title {
+  font-weight: bold;
+}
 
+.klantNaam {
+  grid-column: 1;
+}
 
+.klantAantal {
+  grid-column: 2;
+}
+
+.klantBedrag {
+  grid-column: 3;
+}
 

@@ -30,6 +30,18 @@
             </ng-container>
           </div>
 
+          <div class="aankopenPerProductTitle">Aankopen per product</div>
+          <div class="aankopenPerProduct mat-elevation-z8">
+            <div class="afsluitingDatum tellingTitle">Product</div>
+            <div class="afsluitingOpmerking tellingTitle">Aantal</div>
+            <div class="afsluitingBedrag tellingTitle">Bedrag</div>
+            <ng-container *ngFor="let verkoopPerProduct of jaar.verkoopPerProduct">
+              <div class="afsluitingDatum">{{verkoopPerProduct.productNaam}}</div>
+              <div class="afsluitingOpmerking">{{verkoopPerProduct.aantalVerkocht}}</div>
+              <div class="afsluitingBedrag">{{verkoopPerProduct.bedrag | currency : 'EUR'}}</div>
+            </ng-container>
+          </div>
+
 
         </div>
 
@@ -48,6 +60,19 @@
               <div class="verschil">{{telling.verschil | currency : 'EUR'}}</div>
             </ng-container>
           </div>
+
+          <div class="aankopenPerProductTitle">Aankopen per klant</div>
+          <div class="aankopenPerProduct mat-elevation-z8">
+            <div class="klantNaam title">Klant</div>
+            <div class="klantAantal title">Aantal</div>
+            <div class="klantBedrag title">Bedrag</div>
+            <ng-container *ngFor="let verkoopPerKlant of jaar.verkoopPerKlant">
+              <div class="klantNaam">{{verkoopPerKlant.klantNaam}}</div>
+              <div class="klantAantal">{{verkoopPerKlant.aantalGekocht}}</div>
+              <div class="klantBedrag">{{verkoopPerKlant.bedrag | currency : 'EUR'}}</div>
+            </ng-container>
+          </div>
+
 
         </div>
       </div>

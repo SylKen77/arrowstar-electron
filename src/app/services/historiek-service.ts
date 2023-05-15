@@ -10,23 +10,41 @@ import {KassaService} from './kassa-service';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
 import {HistoriekTelling} from '../model/historiek-telling';
 import {HistoriekAfsluiting} from '../model/historiek-afsluiting';
+import {ProductService} from './product-service';
 
 @Injectable()
 export class HistoriekService extends Store<Historiek> {
 
   constructor(private klantService: KlantService,
-              private kassaService: KassaService) {
+              private kassaService: KassaService,
+              private productService: ProductService) {
     super(new Historiek());
   }
 
   aankoopToevoegen(command: AankoopToevoegenCommand) {
     const historiekJaar = this.state.getOrCreateJaar(command.timestamp.getFullYear());
-    // TODO
+    const klant = this.klantService.getKlant(command.klantId);
+    const product = this.productService.getProduct(command.productId);
+    const bedrag = product.getPrijs(klant.klantType);
+
+    historiekJaar.getOrCreateVerkoopPerProduct(product).aantalVerkocht++;
+    historiekJaar.getOrCreateVerkoopPerProduct(product).bedrag += bedrag;
+
+    historiekJaar.getOrCreateVerkoopPerKlant(klant).aantalGekocht++;
+    historiekJaar.getOrCreateVerkoopPerKlant(klant).bedrag += bedrag;
   }
 
   aankoopVerwijderen(command: AankoopVerwijderenCommand) {
     const historiekJaar = this.state.getOrCreateJaar(command.timestamp.getFullYear());
-    // TODO
+    const klant = this.klantService.getKlant(command.klantId);
+    const product = this.productService.getProduct(command.productId);
+    const bedrag = product.getPrijs(klant.klantType);
+
+    historiekJaar.getOrCreateVerkoopPerProduct(product).aantalVerkocht--;
+    historiekJaar.getOrCreateVerkoopPerProduct(product).bedrag -= bedrag;
+
+    historiekJaar.getOrCreateVerkoopPerKlant(klant).aantalGekocht--;
+    historiekJaar.getOrCreateVerkoopPerKlant(klant).bedrag -= bedrag;
   }
 
   afrekenen(command: KlantAfrekenenCommand) {
@@ -38,7 +56,6 @@ export class HistoriekService extends Store<Historiek> {
     else historiekJaar.samenvatting.saldoEnd += bedrag;
 
     historiekJaar.samenvatting.inkomsten += bedrag;
-
   }
 
   kassaTellen(command: KassaTellenCommand) {
@@ -56,9 +73,9 @@ export class HistoriekService extends Store<Historiek> {
     if (historiekJaar.samenvatting.saldoStart === 0) historiekJaar.samenvatting.saldoStart = this.kassaService.state.saldo;
     if (historiekJaar.samenvatting.saldoEnd === 0) historiekJaar.samenvatting.saldoEnd = this.kassaService.state.saldo;
 
-
     historiekJaar.samenvatting.saldoAfsluitingen += command.bedrag;
     historiekJaar.samenvatting.saldoEnd -= command.bedrag;
     historiekJaar.addAfluiting(new HistoriekAfsluiting(command.timestamp, command.bedrag, command.opmerking));
   }
+
 }
