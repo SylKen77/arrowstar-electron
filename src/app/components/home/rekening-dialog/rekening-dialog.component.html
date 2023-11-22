@@ -12,51 +12,67 @@
     {{data.naam}}
   </div>
 
-  <div class="rekening">
+  <ng-container *ngIf="!toonViaOverschrijving">
+    <div class="rekening">
 
-    <div class="rekeningLijnen">
-      <span class="rekeningLijnOmschrijving rekeningLijnTitle">Product</span>
-      <span class="rekeningLijnPrijs rekeningLijnTitle">Prijs</span>
-      <span class="rekeningLijnAantal rekeningLijnTitle">Aantal</span>
-      <span class="rekeningLijnTotaal rekeningLijnTitle">Totaal</span>
-      <ng-container *ngFor="let rekeningLijn of getRekening().rekeningLijnen">
-        <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
-        <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
-        <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
-          <img src="img://img/remove.svg">
-        </div>
-        <span class="rekeningLijnAantal">{{rekeningLijn.aantal}}</span>
-        <div class="rekeningLijnToevoegen" (click)="aankoopToevoegen(rekeningLijn.productId)">
-          <img src="img://img/add.svg">
-        </div>
-        <span class="rekeningLijnTotaal">{{rekeningLijn.totaal | currency : 'EUR'}}</span>
-      </ng-container>
+      <div class="rekeningLijnen">
+        <span class="rekeningLijnOmschrijving rekeningLijnTitle">Product</span>
+        <span class="rekeningLijnPrijs rekeningLijnTitle">Prijs</span>
+        <span class="rekeningLijnAantal rekeningLijnTitle">Aantal</span>
+        <span class="rekeningLijnTotaal rekeningLijnTitle">Totaal</span>
+        <ng-container *ngFor="let rekeningLijn of getRekening().rekeningLijnen">
+          <span class="rekeningLijnOmschrijving">{{rekeningLijn.productNaam}}</span>
+          <span class="rekeningLijnPrijs">{{rekeningLijn.prijs | currency : 'EUR'}}</span>
+          <div class="rekeningLijnVerwijderen" (click)="aankoopVerwijderen(rekeningLijn.productId)">
+            <img src="img://img/remove.svg">
+          </div>
+          <span class="rekeningLijnAantal">{{rekeningLijn.aantal}}</span>
+          <div class="rekeningLijnToevoegen" (click)="aankoopToevoegen(rekeningLijn.productId)">
+            <img src="img://img/add.svg">
+          </div>
+          <span class="rekeningLijnTotaal">{{rekeningLijn.totaal | currency : 'EUR'}}</span>
+        </ng-container>
+      </div>
+
+      <div class="rekeningTotaal">
+        <span class="totaalTitle">Totaal:</span> <span class="totaalBedrag">{{getAankoopTotaal() | currency : 'EUR'}}</span>
+      </div>
     </div>
 
-    <div class="rekeningTotaal">
-      <span class="totaalTitle">Totaal:</span> <span class="totaalBedrag">{{getAankoopTotaal() | currency : 'EUR'}}</span>
-    </div>
-  </div>
+    <div class="gegevenTerug" *ngIf="betalen">
+      <div class="gegeven">
+        <span class="gegevenTitle">Gegeven:</span>
+        <span class="gegevenInput"><mat-form-field><input matInput type="text" currencyMask [(ngModel)]="gegeven" (ngModelChange)="berekenTerug()"></mat-form-field></span>
+      </div>
 
-  <div class="gegevenTerug" *ngIf="betalen">
-    <div class="gegeven">
-      <span class="gegevenTitle">Gegeven:</span>
-      <span class="gegevenInput"><mat-form-field><input matInput type="text" currencyMask [(ngModel)]="gegeven" (ngModelChange)="berekenTerug()"></mat-form-field></span>
+      <div class="terug" *ngIf="!errorMessage && terug">
+        <span class="terugTitle">Terug:</span>
+        <span class="terugBedrag">{{terug | currency : 'EUR'}}</span>
+      </div>
     </div>
 
+  </ng-container>
 
-    <div class="terug" *ngIf="!errorMessage && terug">
-      <span class="terugTitle">Terug:</span>
-      <span class="terugBedrag">{{terug | currency : 'EUR'}}</span>
+  <ng-container *ngIf="toonViaOverschrijving">
+    <div class="viaOverschrijving">
+      <div class="totaalBedragViaOverschrijving">
+        Totaal: {{getAankoopTotaal() | currency : 'EUR'}}
+      </div>
+      <div class="qrCode">
+        <qrcode [qrdata]="qr" [level]="'M'" [size]="150"></qrcode>
+      </div>
     </div>
-  </div>
+  </ng-container>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="ok()" [disabled]="!heeftGenoegBetaald && betalen">Ok</button>
-  <button mat-raised-button color="primary" (click)="okViaOverschrijving()" *ngIf="betalen">Via overschrijving</button>
-  <button *ngIf="!betalen" mat-raised-button color="primary" (click)="setBetalen()" [disabled]="getAankoopTotaal() < 0.01">Afrekenen</button>
-  <button *ngIf="betalen" mat-raised-button color="primary" (click)="annuleerAfrekenen()">Annuleer afrekenen</button>
+  <button *ngIf="!toonViaOverschrijving" mat-raised-button color="primary" (click)="ok()" [disabled]="!heeftGenoegBetaald && betalen">Ok</button>
+  <button *ngIf="!toonViaOverschrijving && !betalen" mat-raised-button color="primary" (click)="viaOverschrijving()" [disabled]="getAankoopTotaal() < 0.01">Via overschrijving</button>
+  <button *ngIf="!toonViaOverschrijving && !betalen" mat-raised-button color="primary" (click)="setBetalen()" [disabled]="getAankoopTotaal() < 0.01">Afrekenen</button>
+  <button *ngIf="!toonViaOverschrijving && betalen" mat-raised-button color="primary" (click)="annuleerAfrekenen()">Annuleer</button>
+
+  <button *ngIf="toonViaOverschrijving" mat-raised-button color="primary" (click)="okViaOverschrijving()">Bedrag overgeschreven</button>
+  <button *ngIf="toonViaOverschrijving" mat-raised-button color="primary" (click)="annuleerViaOverschrijving()">Annuleer</button>
 
 </mat-dialog-actions>

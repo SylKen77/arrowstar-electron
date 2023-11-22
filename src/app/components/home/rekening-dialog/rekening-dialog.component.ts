@@ -19,6 +19,18 @@ export class RekeningDialogComponent implements OnInit {
   public terug: number;
   public heeftGenoegBetaald = false;
   public betalen = false;
+  public toonViaOverschrijving = false;
+
+  public qr = 'BCD\n' +
+    '001\n' +
+    '1\n' +
+    'SCT\n' +
+    'GKCCBEBB\n' +
+    'Arrowstar Boogschutters\n' +
+    'BE77778590166142\n' +
+    'EUR15.00\n' +
+    '\n' +
+    'Afrekening Bar ' ;
 
   constructor(public dialogRef: MatDialogRef<RekeningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -51,6 +63,24 @@ export class RekeningDialogComponent implements OnInit {
   okViaOverschrijving() {
     this.dialogRef.close('OkViaOverschrijving');
     this.commandService.voegKlantAfrekenenToe(this.data.klantId, true);
+  }
+
+  viaOverschrijving() {
+    this.qr = 'BCD\n' +
+      '001\n' +
+      '1\n' +
+      'SCT\n' +
+      'GKCCBEBB\n' +
+      'Arrowstar Boogschutters\n' +
+      'BE77778590166142\n' +
+      'EUR' + this.getAankoopTotaal().toFixed(2) + '\n' +
+      '\n' +
+      'Afrekening ' + this.data.naam + ' ' + new Date().toLocaleDateString('nl-BE', { timeZone: 'UTC' });
+    this.toonViaOverschrijving = true;
+  }
+
+  annuleerViaOverschrijving() {
+    this.toonViaOverschrijving = false;
   }
 
   aankoopToevoegen(productId: number) {

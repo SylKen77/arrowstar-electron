@@ -22,6 +22,7 @@ import {InitializeCommandsResolver} from './resolvers/initialize-commands-resolv
 import {ProductService} from './services/product-service';
 import {AankoopService} from './services/aankoop-service';
 import {KassaService} from './services/kassa-service';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import {
   MatAutocompleteModule,
@@ -55,7 +56,7 @@ import {
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 
 import {GastAanmakenDialogComponent} from './components/home/gast-aanmaken-dialog/gast-aanmaken-dialog.component';
@@ -150,6 +151,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    QRCodeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

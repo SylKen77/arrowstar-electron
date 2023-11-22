@@ -35,10 +35,11 @@
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
   "dependencies": {
-    "@angular/animations": "^5.2.11",
+    "@angular/animations": "^5.2.5",
     "@angular/cdk": "^5.2.5",
     "@angular/material": "^5.2.5",
     "angular2-prettyjson": "^3.0.1",
+    "angularx-qrcode": "^1.6.4",
     "buffer": "^5.2.1",
     "electron-log": "^2.2.17",
     "fs-extra": "^5.0.0",

@@ -68,6 +68,9 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 ## Included Commands
 
+To build for window:
+use node 16.0.0 (nvm use 16.0.0)
+
 |Command|Description|
 |--|--|
 |`npm run ng:serve`| Execute the app in the browser |
