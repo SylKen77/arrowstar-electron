@@ -11,13 +11,20 @@ import {KlantService} from './klant-service';
 @Injectable()
 export class ProductService extends Store<Product[]> {
 
+  private nextProductId = 0;
+
   constructor(private klantService: KlantService) {
     super([]);
+  }
+
+  getNextProductId(): number {
+    return this.nextProductId;
   }
 
   productToevoegen(c: ProductToevoegenCommand) {
     const product = new Product(c.productId, c.productOmschrijving, c.prijsLid, c.prijsGast, this.state.length);
     this.setState([...this.state, product]);
+    this.nextProductId = Math.max(this.nextProductId, c.productId + 1);
   }
 
   productWijzigen(productWijzigenCommand: ProductWijzigenCommand) {

@@ -13,13 +13,20 @@ import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
 @Injectable()
 export class KlantService extends Store<Klant[]> {
 
+  private nextKlantId = 0;
+
   constructor(private kassaService: KassaService) {
     super([]);
+  }
+
+  getNextKlantId(): number {
+    return this.nextKlantId;
   }
 
   klantToevoegen(klantToevoegenCommand: KlantToevoegenCommand) {
     const klant = new Klant(klantToevoegenCommand.klantId, klantToevoegenCommand.naam, klantToevoegenCommand.klantType === 'LID' ? KlantType.LID : KlantType.GAST, this.state.length);
     this.setState([...this.state, klant]);
+    this.nextKlantId = Math.max(this.nextKlantId, klantToevoegenCommand.klantId + 1);
   }
 
   getKlant(klantId: number): Klant {

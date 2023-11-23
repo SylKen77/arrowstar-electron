@@ -92,7 +92,7 @@ export class CommandService {
 
   public voegKlantToe(naam: string, type: string): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    const klantId = this._nextCommandIndex;
+    const klantId = this.klantService.getNextKlantId();
     this.executeCommand(new KlantToevoegenCommand(this._nextCommandIndex, new Date(), klantId, naam, type));
     return klantId;
   }
@@ -104,7 +104,7 @@ export class CommandService {
 
   public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    const productId = this._nextCommandIndex;
+    const productId = this.productService.getNextProductId();
     this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), productId, productOmschrijving, prijsLid, prijsGast));
     return productId;
   }

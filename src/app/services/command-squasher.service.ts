@@ -19,8 +19,6 @@ import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
 export class CommandSquasherService {
 
   index: number;
-  oldToNewKlantId: Map<number, number>;
-  oldToNewProductId: Map<number, number>;
 
   private remote;
   private fs;
@@ -33,8 +31,6 @@ export class CommandSquasherService {
               private aankoopService: AankoopService,
               private kassaService: KassaService) {
     this.index = 0;
-    this.oldToNewKlantId = new Map<number, number>();
-    this.oldToNewProductId = new Map<number, number>();
     if (this.isElectron()) {
       this.remote = window.require('electron').remote;
       this.fs = this.remote.require('fs');
@@ -70,14 +66,12 @@ export class CommandSquasherService {
 
   toProductToevoegenCommand(product: Product): ProductToevoegenCommand {
     const index = this.getNextIndex();
-    this.oldToNewProductId.set(product.productId, index);
-    return new ProductToevoegenCommand(index, new Date(), index, product.omschrijving, product.prijsLid, product.prijsGast);
+    return new ProductToevoegenCommand(index, new Date(), product.productId, product.omschrijving, product.prijsLid, product.prijsGast);
   }
 
   toKlantToevoegenCommand(klant: Klant): KlantToevoegenCommand {
     const index = this.getNextIndex();
-    this.oldToNewKlantId.set(klant.klantId, index);
-    return new KlantToevoegenCommand(index, new Date(), index, klant.naam, klant.klantType);
+    return new KlantToevoegenCommand(index, new Date(), klant.klantId, klant.naam, klant.klantType);
   }
 
   getAankoopToevoegenCommands(klanten: Klant[]): AankoopToevoegenCommand[] {
@@ -100,7 +94,7 @@ export class CommandSquasherService {
       .filter((a, i) => !a.betaald)
       .map((a, i) => {
         const index = this.getNextIndex();
-        return new AankoopToevoegenCommand(index, new Date(), index, this.oldToNewKlantId.get(klant.klantId), this.oldToNewProductId.get(a.product.productId));
+        return new AankoopToevoegenCommand(index, new Date(), index, klant.klantId, a.product.productId);
       });
   }
 
