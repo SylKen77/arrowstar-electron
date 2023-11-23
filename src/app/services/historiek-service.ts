@@ -53,8 +53,8 @@ export class HistoriekService extends Store<Historiek> {
 
     if (historiekJaar.samenvatting.saldoStart === 0) historiekJaar.samenvatting.saldoStart = this.kassaService.state.saldo;
     if (historiekJaar.samenvatting.saldoEnd === 0) historiekJaar.samenvatting.saldoEnd = this.kassaService.state.saldo;
-    else historiekJaar.samenvatting.saldoEnd += bedrag;
 
+    historiekJaar.samenvatting.saldoEnd += bedrag;
     historiekJaar.samenvatting.inkomsten += bedrag;
   }
 
@@ -64,7 +64,9 @@ export class HistoriekService extends Store<Historiek> {
     if (historiekJaar.samenvatting.saldoEnd === 0) historiekJaar.samenvatting.saldoEnd = command.saldo;
 
     const verschil = command.saldo - this.kassaService.state.saldo;
+    historiekJaar.samenvatting.saldoEnd += verschil;
     historiekJaar.samenvatting.saldoTellingen += verschil;
+
     historiekJaar.addTelling(new HistoriekTelling(command.timestamp, command.saldo, this.kassaService.state.saldo, verschil));
   }
 
@@ -75,6 +77,7 @@ export class HistoriekService extends Store<Historiek> {
 
     historiekJaar.samenvatting.saldoAfsluitingen += command.bedrag;
     historiekJaar.samenvatting.saldoEnd -= command.bedrag;
+
     historiekJaar.addAfluiting(new HistoriekAfsluiting(command.timestamp, command.bedrag, command.opmerking));
   }
 
