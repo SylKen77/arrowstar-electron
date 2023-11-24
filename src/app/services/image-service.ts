@@ -9,6 +9,10 @@ export class ImageService {
   private fs;
   private readonly workingDir;
 
+  static getDefaultKlantAvatar(): string {
+    return 'img://img/avatarDefault.jpg';
+  }
+
   static getAvatarUrl(klantId: number): string {
     return 'img://img/avatars/' + klantId + '.jpg';
   }
