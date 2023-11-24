@@ -81,7 +81,9 @@ export class KlantDialogComponent implements OnInit {
   }
 
   getDefaultAvatarUrl(klant: Klant): string {
-    return ImageService.getDefaultAvatarUrl(klant.naam.charAt(0));
+    if (klant && klant.naam) return ImageService.getDefaultAvatarUrl(klant.naam.charAt(0));
+    if (this.naam) return ImageService.getDefaultAvatarUrl(this.naam.charAt(0));
+    return ImageService.getDefaultAvatarUrl('A');
   }
 
 
