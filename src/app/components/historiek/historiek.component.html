@@ -10,12 +10,33 @@
 
           <div class="samenvattingTitle">Samenvatting</div>
           <div class="jaarSamenvatting mat-elevation-z8">
-            <div class="saldoStart">Saldo start: {{jaar.samenvatting.saldoStart | currency : 'EUR'}}</div>
-            <div class="saldoEnd">Saldo end: {{jaar.samenvatting.saldoEnd | currency : 'EUR'}}</div>
-            <div class="saldoAfsluitingen">Saldo
-              afsluitingen: {{jaar.samenvatting.saldoAfsluitingen | currency : 'EUR'}}</div>
-            <div class="saldoTellingen">Saldo tellingen: {{jaar.samenvatting.saldoTellingen | currency : 'EUR'}}</div>
-            <div class="saldoTellingen">Inkomsten: {{jaar.samenvatting.inkomsten | currency : 'EUR'}}</div>
+            <div class="samenvattingLabel">Bedrag in kas start {{jaar.jaar}}</div>
+            <div class="samenvattingOperator"></div>
+            <div class="samenvattingValue">{{jaar.samenvatting.saldoStart | currency : 'EUR'}}</div>
+
+            <div class="samenvattingLabel">Tellingen</div>
+            <div class="samenvattingOperator">+</div>
+            <div class="samenvattingValue">{{jaar.samenvatting.saldoTellingen | currency : 'EUR'}}</div>
+
+            <div class="samenvattingLabel">Afrekeningen in cash</div>
+            <div class="samenvattingOperator">+</div>
+            <div class="samenvattingValue">{{jaar.samenvatting.saldoCash | currency : 'EUR'}}</div>
+
+            <div class="samenvattingLabel">Afsluitingen</div>
+            <div class="samenvattingOperator">-</div>
+            <div class="samenvattingValue">{{jaar.samenvatting.saldoAfsluitingen | currency : 'EUR'}}</div>
+
+            <div class="samenvattingLabel">Bedrag in kas eind {{jaar.jaar}}</div>
+            <div class="samenvattingOperator">=</div>
+            <div class="samenvattingValue">{{jaar.samenvatting.saldoEnd | currency : 'EUR'}}</div>
+
+            <div class="samenvattingLabel">Afgerekend door overschrijving</div>
+            <div class="samenvattingOperator"><b></b></div>
+            <div class="samenvattingValue">{{jaar.samenvatting.saldoOverschrijvingen | currency : 'EUR'}}</div>
+
+            <div class="samenvattingLabel">Inkomsten ({{jaar.samenvatting.saldoCash | currency : 'EUR'}} + {{jaar.samenvatting.saldoOverschrijvingen | currency : 'EUR'}} + {{jaar.samenvatting.saldoTellingen | currency : 'EUR'}})</div>
+            <div class="samenvattingOperator"><b></b></div>
+            <div class="samenvattingValue">{{jaar.samenvatting.inkomsten | currency : 'EUR'}}</div>
           </div>
 
           <div class="afsluitingenTitle">Afsluitingen</div>

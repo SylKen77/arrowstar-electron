@@ -54,8 +54,15 @@ export class HistoriekService extends Store<Historiek> {
     if (historiekJaar.samenvatting.saldoStart === 0) historiekJaar.samenvatting.saldoStart = this.kassaService.state.saldo;
     if (historiekJaar.samenvatting.saldoEnd === 0) historiekJaar.samenvatting.saldoEnd = this.kassaService.state.saldo;
 
-    historiekJaar.samenvatting.saldoEnd += bedrag;
     historiekJaar.samenvatting.inkomsten += bedrag;
+    if (command.viaOverschrijving) {
+      historiekJaar.samenvatting.saldoOverschrijvingen += bedrag;
+      console.log('saldoOverschrijvingen: ' + historiekJaar.samenvatting.saldoOverschrijvingen);
+    } else {
+      historiekJaar.samenvatting.saldoCash += bedrag;
+      historiekJaar.samenvatting.saldoEnd += bedrag;
+      console.log('saldoCash: ' + historiekJaar.samenvatting.saldoCash);
+    }
   }
 
   kassaTellen(command: KassaTellenCommand) {
@@ -66,6 +73,7 @@ export class HistoriekService extends Store<Historiek> {
     const verschil = command.saldo - this.kassaService.state.saldo;
     historiekJaar.samenvatting.saldoEnd += verschil;
     historiekJaar.samenvatting.saldoTellingen += verschil;
+    historiekJaar.samenvatting.inkomsten += verschil;
 
     historiekJaar.addTelling(new HistoriekTelling(command.timestamp, command.saldo, this.kassaService.state.saldo, verschil));
   }
