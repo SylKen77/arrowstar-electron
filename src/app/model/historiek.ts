@@ -8,6 +8,10 @@ export class Historiek {
     this._jaren = [];
   }
 
+  set jaren(jaren: HistoriekJaar[]) {
+    this._jaren = jaren;
+  }
+
   get jaren(): HistoriekJaar[] {
     return this._jaren;
   }

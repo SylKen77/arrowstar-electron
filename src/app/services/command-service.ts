@@ -19,9 +19,10 @@ import {ProductZetOmlaagCommand} from '../commands/product-zet-omlaag-command';
 import {ProductZetOmhoogCommand} from '../commands/product-zet-omhoog-command';
 import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
-import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
+import {KassaInitCommand} from '../commands/kassa-init-command';
 import {AfrekeningViaOverschrijvingVerifierenCommand} from '../commands/afrekening-via-overschrijving-verifieren-command';
 import {HistoriekService} from './historiek-service';
+import {HistoriekInitCommand} from '../commands/historiek-init-command';
 
 
 @Injectable()
@@ -56,7 +57,7 @@ export class CommandService {
     if (data['_commandName'] === 'ProductZetOmlaagCommand') return new ProductZetOmlaagCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'ProductZetOmhoogCommand') return new ProductZetOmhoogCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'DeleteProductCommand') return new DeleteProductCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
-    if (data['_commandName'] === 'KassaInitBedragCommand') return new KassaInitBedragCommand(data['_index'], new Date(data['_timestamp']), data['_bedrag']);
+    if (data['_commandName'] === 'KassaInitCommand') return new KassaInitCommand(data['_index'], new Date(data['_timestamp']), data['_bedrag']);
     if (data['_commandName'] === 'AfrekeningViaOverschrijvingVerifierenCommand') return new AfrekeningViaOverschrijvingVerifierenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_datum'], data['_bedrag']);
 
 
@@ -88,7 +89,6 @@ export class CommandService {
   get initialized(): boolean {
     return this._initialized;
   }
-
 
   public voegKlantToe(naam: string, type: string): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
@@ -289,7 +289,11 @@ export class CommandService {
     this.kassaService.verifieerAfrekeningViaOverschrijving(command);
   }
 
-  executeKassaInitBedragCommand(command: KassaInitBedragCommand) {
+  executeKassaInitBedragCommand(command: KassaInitCommand) {
     this.kassaService.kasaInit(command);
+  }
+
+  executeHistoriekInitCommand(command: HistoriekInitCommand) {
+    this.historiekService.init(command);
   }
 }

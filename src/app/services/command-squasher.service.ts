@@ -12,7 +12,7 @@ import {Command} from '../commands/command';
 import {Kassa} from '../model/kassa';
 import {KassaTellenCommand} from '../commands/kassa-tellen-command';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
-import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
+import {KassaInitCommand} from '../commands/kassa-init-command';
 
 
 @Injectable()
@@ -42,6 +42,12 @@ export class CommandSquasherService {
   isElectron = () => (window && window.process && window.process.type);
 
   squash() {
+    // Rework: historiek bewaren zonder huidig jaar
+    // Alle aankoop/afreken/tellen/afsluiten commands van oudere jaren weggooien
+    // Alle commands van dit jaar bewaren
+    // TODO wat met klanten toevoegen / verwijderen
+    // TODO wat met producten toevoegen / verwijderen
+    // TODO ideaal, alles afspelen tot aan begin huidig jaar. die status bewaren als init command
     const productToevoegenCommands = this.productService.state.map((p, i) => this.toProductToevoegenCommand(p));
     const klantToevoegenCommands = this.klantService.state.map((k, i) => this.toKlantToevoegenCommand(k));
     const aankoopToevoegenCommands = this.getAankoopToevoegenCommands(this.klantService.state);
@@ -98,8 +104,8 @@ export class CommandSquasherService {
       });
   }
 
-  getKassaInitBedragCommand(kassa: Kassa): KassaInitBedragCommand {
-    return new KassaInitBedragCommand(this.getNextIndex(), new Date(), kassa.saldo);
+  getKassaInitBedragCommand(kassa: Kassa): KassaInitCommand {
+    return new KassaInitCommand(this.getNextIndex(), new Date(), kassa.saldo);
   }
 
 }

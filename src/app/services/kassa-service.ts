@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {Aankoop} from '../model/aankoop';
 import {KassaTellenCommand} from '../commands/kassa-tellen-command';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
-import {KassaInitBedragCommand} from '../commands/kassa-init-bedrag-command';
+import {KassaInitCommand} from '../commands/kassa-init-command';
 import {Klant} from '../model/klant';
 import {AfrekeningViaOverschrijvingVerifierenCommand} from '../commands/afrekening-via-overschrijving-verifieren-command';
 
@@ -35,7 +35,7 @@ export class KassaService extends Store<Kassa> {
     this.state.afsluitingToevoegen(command.bedrag, command.timestamp, command.opmerking);
   }
 
-  kasaInit(command: KassaInitBedragCommand) {
+  kasaInit(command: KassaInitCommand) {
     this.state.initBedrag(command.bedrag);
   }
 

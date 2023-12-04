@@ -8379,3 +8379,8 @@
 {"_index":8378,"_timestamp":"2023-11-23T13:59:49.621Z","_commandName":"DeleteProductCommand","_productId":305}
 {"_index":8379,"_timestamp":"2023-11-23T13:59:50.381Z","_commandName":"DeleteProductCommand","_productId":219}
 {"_index":8380,"_timestamp":"2023-11-23T13:59:51.037Z","_commandName":"DeleteProductCommand","_productId":218}
+{"_index":8381,"_timestamp":"2023-11-24T15:04:03.453Z","_commandName":"KlantToevoegenCommand","_klantId":5927,"_naam":"Maarten","_klantType":"LID"}
+{"_index":8382,"_timestamp":"2023-11-27T14:51:05.206Z","_commandName":"KlantAfrekenenCommand","_klantId":2195,"_viaOverschrijving":true}
+{"_index":8383,"_timestamp":"2023-11-27T14:51:21.933Z","_commandName":"KlantAfrekenenCommand","_klantId":2717,"_viaOverschrijving":true}
+{"_index":8384,"_timestamp":"2023-11-27T14:51:33.997Z","_commandName":"AfrekeningViaOverschrijvingVerifierenCommand","_klantId":2717,"_datum":"2023-11-27T14:51:21.933Z","_bedrag":20.64999999999999}
+{"_index":8385,"_timestamp":"2023-11-27T14:51:39.436Z","_commandName":"AfrekeningViaOverschrijvingVerifierenCommand","_klantId":2195,"_datum":"2023-11-27T14:51:05.206Z","_bedrag":2.6}

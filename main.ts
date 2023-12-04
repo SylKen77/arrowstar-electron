@@ -1,4 +1,4 @@
-  import {app, BrowserWindow, screen, protocol} from 'electron';
+import {app, BrowserWindow, screen, protocol} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -9,7 +9,7 @@ debug = args.some(val => val === '--debug');
 
 const exeDir = process.env.PORTABLE_EXECUTABLE_DIR;
 
-(global as any).workingDir =  exeDir ? exeDir : __dirname;
+(global as any).workingDir = exeDir ? exeDir : __dirname;
 
 
 try {
@@ -20,6 +20,27 @@ try {
 function createWindow() {
   const log = require('electron-log');
 
+
+//  const splash = new BrowserWindow({
+//    width: 700,
+//    height: 500,
+//    transparent: true,
+//    alwaysOnTop: true,
+//    frame: false
+//  });
+
+//  const splashUrl = url.format({
+//    pathname: path.join(__dirname, 'splash.html'),
+//    protocol: 'file:',
+//    slashes: true
+//  });
+
+//  log.warn('splashUrl: ' + splashUrl);
+
+//  splash.loadURL(splashUrl);
+//  splash.center();
+
+
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -29,11 +50,14 @@ function createWindow() {
   initDirectories();
   createBackup();
 
+//  setTimeout(function () {
+//    splash.close();
+    win.setMenu(null);
+    win.maximize();
+    win.show();
+//  }, 5000);
 
-  win.setMenu(null);
-  win.maximize();
-  win.show();
-
+  log.warn('dirName: ' + __dirname);
   if (serve) {
     require('electron-reload')(__dirname, {});
     log.warn('loadUrl ' + path.join('http://localhost:4200'));
@@ -41,11 +65,13 @@ function createWindow() {
   } else {
     log.warn('loadUrl ' + path.join(__dirname, 'dist/index.html'));
     global.Buffer = global.Buffer || require('buffer').Buffer;
-    win.loadURL(url.format({
+    const indexUrl = url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
       protocol: 'file:',
       slashes: true
-    }));
+    });
+    log.warn('indexUrl ' + indexUrl);
+    win.loadURL(indexUrl);
   }
 
   if (debug) {

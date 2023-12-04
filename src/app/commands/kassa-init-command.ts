@@ -1,12 +1,12 @@
 import {CommandService} from '../services/command-service';
 import {Command} from './command';
 
-export class KassaInitBedragCommand extends Command {
+export class KassaInitCommand extends Command {
 
   private readonly _bedrag: number;
 
   constructor(index: number, timestamp: Date, bedrag: number) {
-    super(index, timestamp, 'KassaInitBedragCommand');
+    super(index, timestamp, 'KassaInitCommand');
     this._bedrag = bedrag;
   }
 

@@ -11,6 +11,7 @@ import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
 import {HistoriekTelling} from '../model/historiek-telling';
 import {HistoriekAfsluiting} from '../model/historiek-afsluiting';
 import {ProductService} from './product-service';
+import {HistoriekInitCommand} from '../commands/historiek-init-command';
 
 @Injectable()
 export class HistoriekService extends Store<Historiek> {
@@ -19,6 +20,10 @@ export class HistoriekService extends Store<Historiek> {
               private kassaService: KassaService,
               private productService: ProductService) {
     super(new Historiek());
+  }
+
+  init(command: HistoriekInitCommand) {
+    this.state.jaren = command.historiek.jaren;
   }
 
   aankoopToevoegen(command: AankoopToevoegenCommand) {
