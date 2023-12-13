@@ -53,7 +53,7 @@ export class BarComponent implements OnInit {
   }
 
   heeftOnbetaaldeAankopen(productId: number): boolean {
-    return this.klantService.state.some(klant => klant.getOnbetaaldeAankopen().some(aankoop => aankoop.product.productId === productId));
+    return this.klantService.state.getKlanten().some(klant => klant.getOnbetaaldeAankopen().some(aankoop => aankoop.product.productId === productId));
   }
 
   moveProductDown(productId: number) {

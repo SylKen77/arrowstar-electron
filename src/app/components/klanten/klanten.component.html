@@ -11,8 +11,7 @@
     <div></div>
     <div></div>
 
-
-    <ng-container *ngFor="let klant of klantService.state$ | async">
+    <ng-container *ngFor="let klant of (klantService.state$ | async).getKlanten()">
       <div class="klantSortOrder tableItem">{{klant.sortOrder}}</div>
       <div class="klantNaam tableItem">{{klant.naam}}</div>
       <div class="klantSchuld tableItem">{{klant.getSchuld() | currency : 'EUR'}}</div>

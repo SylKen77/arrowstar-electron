@@ -9,90 +9,59 @@ import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
 import {KlantZetOmlaagCommand} from '../commands/klant-zet-omlaag-command';
 import {DeleteKlantCommand} from '../commands/delete-klant-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
+import {Klanten} from '../model/klanten';
 
 @Injectable()
-export class KlantService extends Store<Klant[]> {
+export class KlantService extends Store<Klanten> {
 
-  private nextKlantId = 0;
+  private klanten: Klanten = new Klanten();
 
   constructor(private kassaService: KassaService) {
-    super([]);
+    super(new Klanten());
   }
 
   getNextKlantId(): number {
-    return this.nextKlantId;
+    return this.klanten.getNextKlantId();
   }
 
   klantToevoegen(klantToevoegenCommand: KlantToevoegenCommand) {
-    const klant = new Klant(klantToevoegenCommand.klantId, klantToevoegenCommand.naam, klantToevoegenCommand.klantType === 'LID' ? KlantType.LID : KlantType.GAST, this.state.length);
-    this.setState([...this.state, klant]);
-    this.nextKlantId = Math.max(this.nextKlantId, klantToevoegenCommand.klantId + 1);
+    this.klanten.voegKlantToe(klantToevoegenCommand.klantId,  klantToevoegenCommand.naam, klantToevoegenCommand.klantType === 'LID' ? KlantType.LID : KlantType.GAST);
+    this.setState(this.klanten);
   }
 
   getKlant(klantId: number): Klant {
-    return this.state.find(klant => klant.klantId === klantId);
+    return this.klanten.getKlant(klantId);
   }
 
   heeftOnbetaaldeAankopen(productId: number): boolean {
-    return this.state.some(klant => klant.getOnbetaaldeAankopen().some(aankoop => aankoop.product.productId === productId));
+    return this.state.getKlanten().some(klant => klant.getOnbetaaldeAankopen().some(aankoop => aankoop.product.productId === productId));
   }
 
   afrekenen(klantAfrekenenCommand: KlantAfrekenenCommand) {
-    const klant = this.getKlant(klantAfrekenenCommand.klantId);
-    const bedrag = klant.rekenAf();
+    const bedrag = this.klanten.afrekenen(klantAfrekenenCommand.klantId);
+    this.setState(this.klanten);
 
     // Kassa updaten
-    this.kassaService.klantAfrekenen(klant, klantAfrekenenCommand.timestamp, klantAfrekenenCommand.viaOverschrijving, bedrag);
-
-    // Gasten worden verwijderd na het afrekenen
-    if (klant.klantType === KlantType.GAST) {
-      this.verwijderKlantUitStore(klant);
-    }
+    this.kassaService.klantAfrekenen(this.getKlant(klantAfrekenenCommand.klantId), klantAfrekenenCommand.timestamp, klantAfrekenenCommand.viaOverschrijving, bedrag);
   }
 
   zetKlantOmhoog(command: KlantZetOmhoogCommand) {
-    const klant = this.getKlant(command.klantId);
-    const sortOrder = klant.sortOrder;
-    if (sortOrder === 0) return;
-    const klantBoven = this.state[sortOrder - 1];
-    klant.setSortOrder(sortOrder - 1);
-    klantBoven.setSortOrder(sortOrder);
-    this.sortKlanten();
+    this.klanten.zetKlantOmhoog(command.klantId);
+    this.setState(this.klanten);
   }
 
   zetKlantOmlaag(command: KlantZetOmlaagCommand) {
-    const klant = this.getKlant(command.klantId);
-    const sortOrder = klant.sortOrder;
-    if (sortOrder === (this.state.length - 1)) return;
-    const klantOnder = this.state[sortOrder + 1];
-    klant.setSortOrder(sortOrder + 1);
-    klantOnder.setSortOrder(sortOrder);
-    this.sortKlanten();
-
-  }
-
-  sortKlanten() {
-    this.setState(this.state.sort((k1, k2) => k1.sortOrder - k2.sortOrder));
-  }
-
-  verwijderKlantUitStore(klant: Klant) {
-    this.setState(this.state.filter(k => k !== klant));
-    this.setSortorderEqualToIndex();
+    this.klanten.zetKlantOmlaag(command.klantId);
+    this.setState(this.klanten);
   }
 
   deleteKlant(command: DeleteKlantCommand) {
-    const klant = this.getKlant(command.klantId);
-    if (!klant.heeftOnbetaaldeAankopen()) this.verwijderKlantUitStore(klant);
-    this.setSortorderEqualToIndex();
-  }
-
-  setSortorderEqualToIndex() {
-    this.state.forEach((k, i) => k.setSortOrder(i));
+    this.klanten.deleteKlant(command.klantId);
+    this.setState(this.klanten);
   }
 
   klantWijzigen(command: KlantWijzigenCommand) {
-    const klant = this.getKlant(command.klantId);
-    klant.setNaam(command.naam);
+    this.klanten.wijzigKlant(command.klantId, command.naam);
     this.setState(this.state);
   }
 
