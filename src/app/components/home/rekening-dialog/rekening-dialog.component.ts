@@ -100,7 +100,7 @@ export class RekeningDialogComponent implements OnInit {
   }
 
   getRekening() {
-    return new Rekening(this.data.klantId, this.data.naam, this.data.klantType, this.productService.state, this.getOnbetaaldeAankopen());
+    return new Rekening(this.data.klantId, this.data.naam, this.data.klantType, this.productService.state.getProducten(), this.getOnbetaaldeAankopen());
   }
 
   getAankoopTotaal(): number {
