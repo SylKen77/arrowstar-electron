@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {RekeningDialogComponent} from '../../home/rekening-dialog/rekening-dialog.component';
 import {CommandService} from '../../../services/command-service';
-import {KassaService} from '../../../services/kassa-service';
 
 @Component({
   selector: 'app-kassa-tellen-dialog',
@@ -28,8 +27,7 @@ export class KassaTellenDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RekeningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private commandService: CommandService,
-              public kassaService: KassaService) { }
+              private commandService: CommandService) { }
 
   ngOnInit() {
   this.eenCentAantal = 0;

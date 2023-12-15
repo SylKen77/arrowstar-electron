@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
-import {KassaService} from '../../services/kassa-service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {KassaTellenDialogComponent} from './kassa-tellen-dialog/kassa-tellen-dialog.component';
 import {KassaAfsluitenDialogComponent} from './kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
@@ -11,6 +10,8 @@ import {CommandService} from '../../services/command-service';
 import {BetaaldViaOverschrijvingDialogComponent} from './betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
 import {CommandSquasherService} from '../../services/command-squasher.service';
 import {AfrekeningViaOverschrijving} from '../../model/afrekening-via-overschrijving';
+import {StateService} from '../../services/state-service';
+import {CommandCruncherService} from '../../services/command-cruncher.service';
 
 @Component({
   selector: 'app-kassa',
@@ -21,10 +22,9 @@ export class KassaComponent implements OnInit {
 
   public timestamp;
 
-  constructor(public kassaService: KassaService,
+  constructor(public stateService: StateService,
               public dialog: MatDialog,
-              private commandService: CommandService,
-              private commandSquashService: CommandSquasherService,
+              private commandCruchService: CommandCruncherService,
               public snackBar: MatSnackBar) {
   }
 
@@ -51,7 +51,7 @@ export class KassaComponent implements OnInit {
   }
 
   kassaSquashen() {
-    this.commandSquashService.squash();
+    this.commandCruchService.crunch();
     this.openSnackbar('Kassa gesquashed');
   }
 

@@ -2,7 +2,7 @@
 
   <div class="historiekScherm">
 
-    <div class="jaar" *ngFor="let jaar of (historiekService.state$ | async).jaren.reverse()">
+    <div class="jaar" *ngFor="let jaar of (stateService.state$ | async).getHistoriek().jaren.reverse()">
       <div class="historiekJaarTitle">{{jaar.jaar}}</div>
       <div class="jaarOverzicht mat-elevation-z8">
 
@@ -39,6 +39,7 @@
             <div class="samenvattingValue">{{jaar.samenvatting.inkomsten | currency : 'EUR'}}</div>
           </div>
 
+          <ng-container *ngIf="jaar.afsluitingen.length > 0">
           <div class="afsluitingenTitle">Afsluitingen</div>
           <div class="afsluitingen mat-elevation-z8">
             <div class="afsluitingDatum tellingTitle">Datum</div>
@@ -50,7 +51,9 @@
               <div class="afsluitingBedrag">{{afsluiting.bedrag | currency : 'EUR'}}</div>
             </ng-container>
           </div>
+          </ng-container>
 
+          <ng-container *ngIf="jaar.verkoopPerProduct.length > 0">
           <div class="aankopenPerProductTitle">Aankopen per product</div>
           <div class="aankopenPerProduct mat-elevation-z8">
             <div class="afsluitingDatum tellingTitle">Product</div>
@@ -62,12 +65,13 @@
               <div class="afsluitingBedrag">{{verkoopPerProduct.bedrag | currency : 'EUR'}}</div>
             </ng-container>
           </div>
-
+          </ng-container>
 
         </div>
 
         <div class="jaarOverzichtRechts">
 
+          <ng-container *ngIf="jaar.tellingen.length > 0">
           <div class="tellingenTitle">Tellingen</div>
           <div class="tellingen mat-elevation-z8">
             <div class="tellingTimestamp tellingTitle">Tijdstip</div>
@@ -81,7 +85,9 @@
               <div class="verschil">{{telling.verschil | currency : 'EUR'}}</div>
             </ng-container>
           </div>
+          </ng-container>
 
+          <ng-container *ngIf="jaar.verkoopPerKlant.length > 0">
           <div class="aankopenPerProductTitle">Aankopen per klant</div>
           <div class="aankopenPerProduct mat-elevation-z8">
             <div class="klantNaam title">Klant</div>
@@ -93,6 +99,7 @@
               <div class="klantBedrag">{{verkoopPerKlant.bedrag | currency : 'EUR'}}</div>
             </ng-container>
           </div>
+          </ng-container>
 
 
         </div>

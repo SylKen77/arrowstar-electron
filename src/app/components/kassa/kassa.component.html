@@ -7,8 +7,8 @@
       <div class="kassaOverzichtTitle">Overzicht</div>
       <div class="kassaOverzicht mat-elevation-z8">
         <div class="timestamp">{{ timestamp | date:'dd/MM/yyyy' }}</div>
-        <div class="saldo">In kas: {{ kassaService.state.saldo | currency : 'EUR'}}</div>
-        <div class="tegoed">Openstaande rekeningen: {{ kassaService.state.tegoed | currency : 'EUR'}}</div>
+        <div class="saldo">In kas: {{ stateService.state.getKassa().saldo | currency : 'EUR'}}</div>
+        <div class="tegoed">Openstaande rekeningen: {{stateService.state.getKassa().tegoed | currency : 'EUR'}}</div>
         <div class="kassaActies">
           <button mat-raised-button color="primary" (click)="kassaTellen()">kassa tellen</button>
           <button mat-raised-button color="primary" (click)="kassaAfsluiten()">kassa afsluiten</button>
@@ -22,7 +22,7 @@
         <div class="theoretischSaldo tellingTitle">Theoretisch bedrag</div>
         <div class="werkelijkSaldo tellingTitle">Effectief bedrag</div>
         <div class="verschil tellingTitle">Verschil</div>
-        <ng-container *ngFor="let telling of ((kassaService.state$ | async).tellingen) ">
+        <ng-container *ngFor="let telling of ((stateService.state$ | async).getKassa().tellingen) ">
           <div class="tellingTimestamp">{{telling.timestamp | date:'dd/MM/yyyy HH:mm:ss'}}</div>
           <div class="theoretischSaldo">{{telling.kassaSaldo | currency : 'EUR'}}</div>
           <div class="werkelijkSaldo">{{telling.tellingSaldo | currency : 'EUR'}}</div>
@@ -41,7 +41,7 @@
         <div class="oavioBedrag tellingTitle">Bedrag</div>
         <div class="oavioBetalen tellingTitle">Verifieren</div>
 
-        <ng-container *ngFor="let oavo of (kassaService.state$ | async).afrekeningenViaOverschrijving">
+        <ng-container *ngFor="let oavo of (stateService.state$ | async).getKassa().afrekeningenViaOverschrijving">
           <div class="oavioDatum">{{oavo.datum | date:'dd/MM/yyyy'}}</div>
           <div class="oavioKlantNaam">{{oavo.klant.naam}}</div>
           <div class="oavioBedrag">{{oavo.bedrag | currency : 'EUR'}}</div>
@@ -58,7 +58,7 @@
         <div class="afsluitingDatum tellingTitle">Datum</div>
         <div class="afsluitingOpmerking tellingTitle">Opmerking</div>
         <div class="afsluitingBedrag tellingTitle">Bedrag</div>
-        <ng-container *ngFor="let afsluiting of (kassaService.state$ | async).afsluitingen">
+        <ng-container *ngFor="let afsluiting of (stateService.state$ | async).getKassa().afsluitingen">
           <div class="afsluitingDatum">{{afsluiting.timestamp | date:'dd/MM/yyyy'}}</div>
           <div class="afsluitingOpmerking">{{afsluiting.opmerking}}</div>
           <div class="afsluitingBedrag">{{afsluiting.bedrag | currency : 'EUR'}}</div>
@@ -69,7 +69,7 @@
       <div class="dagAfrekeningen mat-elevation-z8">
         <div class="dagAfrekeningDatum tellingTitle">Datum</div>
         <div class="dagAfrekeningBedrag tellingTitle">Bedrag</div>
-        <ng-container *ngFor="let dagAfrekening of (kassaService.state$ | async).dagAfrekeningen">
+        <ng-container *ngFor="let dagAfrekening of (stateService.state$ | async).getKassa().dagAfrekeningen">
           <div class="dagAfrekeningDatum">{{dagAfrekening.datum | date:'dd/MM/yyyy'}}</div>
           <div class="dagAfrekeningBedrag">{{dagAfrekening.bedrag | currency : 'EUR'}}</div>
         </ng-container>

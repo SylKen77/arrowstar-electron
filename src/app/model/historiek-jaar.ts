@@ -9,20 +9,28 @@ import {Klant} from './klant';
 
 export class HistoriekJaar {
 
-  private _jaar: number;
+  _jaar: number;
   private _samenvatting: HistoriekJaarSamenvatting;
   private _tellingen: HistoriekTelling[];
   private _afsluitingen: HistoriekAfsluiting[];
   private _verkoopPerProduct: HistoriekVerkoopPerProduct[];
   private _verkoopPerKlant: HistoriekVerkoopPerKlant[];
 
-  constructor(jaar: number) {
+  constructor(jaar: number, data?: any) {
     this._jaar = jaar;
-    this._samenvatting = new HistoriekJaarSamenvatting();
+    if (data) this._samenvatting = new HistoriekJaarSamenvatting(data._samenvatting);
+    else this._samenvatting = new HistoriekJaarSamenvatting();
     this._tellingen = [];
     this._afsluitingen = [];
     this._verkoopPerProduct = [];
     this._verkoopPerKlant = []
+  }
+
+  clearDetails() {
+    this._tellingen = [];
+    this._afsluitingen = [];
+    this._verkoopPerProduct = [];
+    this._verkoopPerKlant = [];
   }
 
   get jaar(): number {

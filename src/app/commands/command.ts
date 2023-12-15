@@ -1,4 +1,5 @@
 import {CommandService} from '../services/command-service';
+import {CommandExecutor} from '../services/command-executor';
 
 export abstract class Command {
 
@@ -12,7 +13,7 @@ export abstract class Command {
     this._commandName = commandName;
   }
 
-  abstract execute(commandExecutor: CommandService);
+  abstract execute(commandExecutor: CommandExecutor);
 
   get index(): number {
     return this._index;

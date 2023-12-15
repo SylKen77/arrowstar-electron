@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <ng-container *ngFor="let klant of (klantService.state$ | async).getKlanten()">
+  <ng-container *ngFor="let klant of (stateService.state$ | async).getKlanten().getKlanten()">
     <div class="klantBox clickable mat-elevation-z3" (click)="openKlantDialog(klant)" >
       <div class="klantAvatar avatarContainer">
         <img *ngIf="isLid(klant) && heeftAvatar(klant.klantId)" class="avatarKlein" [src]="_DomSanitizationService.bypassSecurityTrustUrl(getAvatarUrl(klant.klantId))">

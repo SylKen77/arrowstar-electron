@@ -1,12 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
-import {ProductService} from '../../../services/product-service';
 import {Rekening} from '../../../model/rekening';
 import {ImageService} from '../../../services/image-service';
 import {Klant} from '../../../model/klant';
 import {KlantType} from '../../../model/klant-type';
 import {DomSanitizer} from '@angular/platform-browser';
+import {StateService} from '../../../services/state-service';
 
 @Component({
   selector: 'app-klant-dialog',
@@ -36,7 +36,7 @@ export class RekeningDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private commandService: CommandService,
               public imageService: ImageService,
-              public productService: ProductService,
+              public stateService: StateService,
               public _DomSanitizationService: DomSanitizer ) {
   }
 
@@ -100,7 +100,7 @@ export class RekeningDialogComponent implements OnInit {
   }
 
   getRekening() {
-    return new Rekening(this.data.klantId, this.data.naam, this.data.klantType, this.productService.state.getProducten(), this.getOnbetaaldeAankopen());
+    return new Rekening(this.data.klantId, this.data.naam, this.data.klantType, this.stateService.state.getProducten().getProducten(), this.getOnbetaaldeAankopen());
   }
 
   getAankoopTotaal(): number {

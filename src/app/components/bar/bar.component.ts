@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductService} from '../../services/product-service';
 import {Product} from '../../model/product';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {CommandService} from '../../services/command-service';
-import {KassaService} from '../../services/kassa-service';
-import {KlantService} from '../../services/klant-service';
+import {StateService} from '../../services/state-service';
 
 @Component({
   selector: 'app-bar',
@@ -14,10 +12,8 @@ import {KlantService} from '../../services/klant-service';
 })
 export class BarComponent implements OnInit {
 
-  constructor(public productService: ProductService,
-              public commandService: CommandService,
-              public kassaService: KassaService,
-              public klantService: KlantService,
+  constructor(public commandService: CommandService,
+              public stateService: StateService,
               public dialog: MatDialog,
               public snackBar: MatSnackBar) {
   }
@@ -53,7 +49,7 @@ export class BarComponent implements OnInit {
   }
 
   heeftOnbetaaldeAankopen(productId: number): boolean {
-    return this.klantService.state.getKlanten().some(klant => klant.getOnbetaaldeAankopen().some(aankoop => aankoop.product.productId === productId));
+    return this.stateService.state.heeftOnbetaaldeAankopen(productId);
   }
 
   moveProductDown(productId: number) {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HistoriekService} from '../../services/historiek-service';
+import {StateService} from '../../services/state-service';
 
 
 @Component({
@@ -9,7 +9,7 @@ import {HistoriekService} from '../../services/historiek-service';
 })
 export class HistoriekComponent implements OnInit {
 
-  constructor(public historiekService: HistoriekService) {
+  constructor(public stateService: StateService) {
   }
 
   ngOnInit() {

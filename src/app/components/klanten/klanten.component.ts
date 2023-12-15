@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {KlantService} from '../../services/klant-service';
 import {CommandService} from '../../services/command-service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {KlantDialogComponent} from './klant-dialog/klant-dialog.component';
 import {Klant} from '../../model/klant';
+import {StateService} from '../../services/state-service';
 
 @Component({
   selector: 'app-klanten',
@@ -12,7 +12,7 @@ import {Klant} from '../../model/klant';
 })
 export class KlantenComponent implements OnInit {
 
-  constructor(public klantService: KlantService,
+  constructor(public stateService: StateService,
               public commandService: CommandService,
               public dialog: MatDialog,
               public snackBar: MatSnackBar) {

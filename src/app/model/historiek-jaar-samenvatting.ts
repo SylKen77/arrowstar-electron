@@ -8,7 +8,7 @@ export class HistoriekJaarSamenvatting {
   private _saldoCash: number;
   private _saldoEnd: number;
 
-  constructor() {
+  constructor(data?: any) {
     this._saldoStart = 0;
     this._saldoEnd = 0;
     this._saldoAfsluitingen = 0;
@@ -16,6 +16,15 @@ export class HistoriekJaarSamenvatting {
     this._inkomsten = 0;
     this._saldoCash = 0;
     this._saldoOverschrijvingen = 0;
+    if (data) {
+      this._saldoStart = data._saldoStart;
+      this._saldoEnd = data._saldoEnd;
+      this._saldoAfsluitingen = data._saldoAfsluitingen;
+      this._saldoTellingen = data._saldoTellingen;
+      this._inkomsten = data._inkomsten;
+      this._saldoCash = data._saldoCash;
+      this._saldoOverschrijvingen = data._saldoOverschrijvingen;
+    }
   }
 
   get saldoStart(): number {

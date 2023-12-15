@@ -6,10 +6,6 @@ import {AankoopVerwijderenCommand} from '../commands/aankoop-verwijderen-command
 import {ProductToevoegenCommand} from '../commands/product-toevoegen-command';
 import {Command} from '../commands/command';
 import {AankoopToevoegenCommand} from '../commands/aankoop-toevoegen-command';
-import {KlantService} from './klant-service';
-import {ProductService} from './product-service';
-import {AankoopService} from './aankoop-service';
-import {KassaService} from './kassa-service';
 import {KassaAfsluitenCommand} from '../commands/kassa-afsluiten-command';
 import {ProductWijzigenCommand} from '../commands/product-wijzigen-command';
 import {KlantZetOmhoogCommand} from '../commands/klant-zet-omhoog-command';
@@ -21,12 +17,14 @@ import {DeleteProductCommand} from '../commands/delete-product-command';
 import {KlantWijzigenCommand} from '../commands/klant-wijzigen-command';
 import {KassaInitCommand} from '../commands/kassa-init-command';
 import {AfrekeningViaOverschrijvingVerifierenCommand} from '../commands/afrekening-via-overschrijving-verifieren-command';
-import {HistoriekService} from './historiek-service';
 import {HistoriekInitCommand} from '../commands/historiek-init-command';
+import {StateService} from './state-service';
+import {CommandExecutor} from './command-executor';
+import {Historiek} from '../model/historiek';
 
 
 @Injectable()
-export class CommandService {
+export class CommandService implements CommandExecutor{
 
   private _nextCommandIndex: number;
   private _initialized = false;
@@ -36,12 +34,12 @@ export class CommandService {
   private workingDir;
   private commandsFile;
 
-  private static isNotEmpty(line: string): boolean {
+  public static isNotEmpty(line: string): boolean {
     return !!line;
   }
 
 
-  private static deserialize(data: any): Command {
+  public static deserialize(data: any): Command {
     if (data['_commandName'] === 'AankoopToevoegenCommand') return new AankoopToevoegenCommand(data['_index'], new Date(data['_timestamp']), data['_aankoopId'], data['_klantId'], data['_productId']);
     if (data['_commandName'] === 'AankoopVerwijderenCommand') return new AankoopVerwijderenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_productId']);
     if (data['_commandName'] === 'KassaTellenCommand') return new KassaTellenCommand(data['_index'], new Date(data['_timestamp']), data['_saldo'], data['_opmerking']);
@@ -59,6 +57,7 @@ export class CommandService {
     if (data['_commandName'] === 'DeleteProductCommand') return new DeleteProductCommand(data['_index'], new Date(data['_timestamp']), data['_productId']);
     if (data['_commandName'] === 'KassaInitCommand') return new KassaInitCommand(data['_index'], new Date(data['_timestamp']), data['_bedrag']);
     if (data['_commandName'] === 'AfrekeningViaOverschrijvingVerifierenCommand') return new AfrekeningViaOverschrijvingVerifierenCommand(data['_index'], new Date(data['_timestamp']), data['_klantId'], data['_datum'], data['_bedrag']);
+    if (data['_commandName'] === 'HistoriekInitCommand') return new HistoriekInitCommand(data['_index'], new Date(data['_timestamp']), new Historiek(data['_historiek']));
 
 
     console.log('Unknown command name: ' + data['_commandName']);
@@ -66,11 +65,7 @@ export class CommandService {
   }
 
 
-  constructor(private klantService: KlantService,
-              private productService: ProductService,
-              private aankoopService: AankoopService,
-              private kassaService: KassaService,
-              private historiekService: HistoriekService) {
+  constructor(private stateService: StateService) {
 
     this._expectedCommandIndex = 0;
     this._nextCommandIndex = 0;
@@ -92,7 +87,7 @@ export class CommandService {
 
   public voegKlantToe(naam: string, type: string): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    const klantId = this.klantService.getNextKlantId();
+    const klantId = this.stateService.state.getKlanten().getNextKlantId();
     this.executeCommand(new KlantToevoegenCommand(this._nextCommandIndex, new Date(), klantId, naam, type));
     return klantId;
   }
@@ -104,7 +99,7 @@ export class CommandService {
 
   public voegProductToe(productOmschrijving: string, prijsLid: number, prijsGast: number): number {
     if (!this.initialized) throw new Error('CommandFactory not initialized');
-    const productId = this.productService.getNextProductId();
+    const productId = this.stateService.state.getProducten().getNextProductId();
     this.executeCommand(new ProductToevoegenCommand(this._nextCommandIndex, new Date(), productId, productOmschrijving, prijsLid, prijsGast));
     return productId;
   }
@@ -215,85 +210,80 @@ export class CommandService {
 
 
   executeAankoopToevoegenCommand(command: AankoopToevoegenCommand) {
-    this.historiekService.aankoopToevoegen(command);
-    this.aankoopService.aankoopToevoegen(command);
+    this.stateService.aankoopToevoegen(command);
   }
 
 
   executeAankoopVerwijderenCommand(command: AankoopVerwijderenCommand) {
-    this.historiekService.aankoopVerwijderen(command);
-    this.aankoopService.aankoopVerwijderen(command);
+    this.stateService.aankoopVerwijderen(command);
   }
 
   executeKlantAfrekenenCommand(command: KlantAfrekenenCommand) {
-    this.historiekService.afrekenen(command);
-    this.klantService.afrekenen(command);
+    this.stateService.afrekenen(command);
   }
 
   executeKassaTellenCommand(command: KassaTellenCommand) {
-    this.historiekService.kassaTellen(command);
-    this.kassaService.kassaTellen(command);
+    this.stateService.kassaTellen(command);
   }
 
 
   executeKlantToevoegenCommand(command: KlantToevoegenCommand) {
-    this.klantService.klantToevoegen(command);
+    this.stateService.klantToevoegen(command);
   }
 
 
   executeKlantWijzigenCommand(command: KlantWijzigenCommand) {
-    this.klantService.klantWijzigen(command);
+    this.stateService.klantWijzigen(command);
   }
 
 
   executeProductToevoegenCommand(command: ProductToevoegenCommand) {
-    this.productService.productToevoegen(command);
+    this.stateService.productToevoegen(command);
   }
 
 
   executeProductWijzigenCommand(command: ProductWijzigenCommand) {
-    this.productService.productWijzigen(command);
+    this.stateService.productWijzigen(command);
   }
 
 
   executeKassaAfsluitenCommand(command: KassaAfsluitenCommand) {
-    this.historiekService.kassaAfsluiten(command);
-    this.kassaService.kassaAfsluiten(command);
+    this.stateService.kassaAfsluiten(command);
   }
 
   executeKlantZetOmhoogCommand(command: KlantZetOmhoogCommand) {
-    this.klantService.zetKlantOmhoog(command);
+    this.stateService.zetKlantOmhoog(command);
   }
 
   executeKlantZetOmlaagCommand(command: KlantZetOmlaagCommand) {
-    this.klantService.zetKlantOmlaag(command);
+    this.stateService.zetKlantOmlaag(command);
   }
 
   executeDeleteKlantCommand(command: DeleteKlantCommand) {
-    this.klantService.deleteKlant(command);
+    this.stateService.deleteKlant(command);
   }
 
   executeProductZetOmlaagCommand(command: ProductZetOmlaagCommand) {
-    this.productService.zetProductOmlaag(command);
+    this.stateService.zetProductOmlaag(command);
   }
 
   executeProductZetOmhoogCommand(command: ProductZetOmhoogCommand) {
-    this.productService.zetProductOmhoog(command);
+    this.stateService.zetProductOmhoog(command);
   }
 
   executeDeleteProductCommand(command: DeleteProductCommand) {
-    this.productService.deleteProduct(command);
+    this.stateService.deleteProduct(command);
   }
 
   executeAfrekeningViaOverschrijvingVerifierenCommand(command: AfrekeningViaOverschrijvingVerifierenCommand) {
-    this.kassaService.verifieerAfrekeningViaOverschrijving(command);
+    this.stateService.verifieerAfrekeningViaOverschrijving(command);
   }
 
   executeKassaInitBedragCommand(command: KassaInitCommand) {
-    this.kassaService.kasaInit(command);
+    this.stateService.kassaInit(command);
   }
 
   executeHistoriekInitCommand(command: HistoriekInitCommand) {
-    this.historiekService.init(command);
+    this.stateService.historiekInit(command);
   }
 }

@@ -1,6 +1,7 @@
 import {CommandService} from '../services/command-service';
 import {Command} from './command';
 import {Historiek} from '../model/historiek';
+import {HistoriekJaarSamenvatting} from '../model/historiek-jaar-samenvatting';
 
 export class HistoriekInitCommand extends Command {
 

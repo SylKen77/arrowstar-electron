@@ -9,8 +9,9 @@ export class Historiek {
 
   private _jaren: HistoriekJaar[];
 
-  constructor() {
-    this._jaren = [];
+  constructor(data?: any) {
+    if (data) this._jaren = data._jaren.map(jaar => new HistoriekJaar(jaar._jaar, jaar));
+    else this._jaren = [];
   }
 
   set jaren(jaren: HistoriekJaar[]) {
@@ -56,9 +57,8 @@ export class Historiek {
     return this;
   }
 
-  klantAfrekenen(timestamp: Date, klant: Klant, kassa: Kassa, viaOverschrijving: boolean): Historiek {
+  klantAfrekenen(timestamp: Date, bedrag: number, kassa: Kassa, viaOverschrijving: boolean): Historiek {
     const historiekJaar = this.getOrCreateJaar(timestamp.getFullYear());
-    const bedrag = klant.getSchuld();
 
     if (historiekJaar.samenvatting.saldoStart === 0) historiekJaar.samenvatting.saldoStart = kassa.saldo;
     if (historiekJaar.samenvatting.saldoEnd === 0) historiekJaar.samenvatting.saldoEnd = kassa.saldo;
@@ -85,7 +85,6 @@ export class Historiek {
     historiekJaar.samenvatting.inkomsten += verschil;
 
     historiekJaar.addTelling(new HistoriekTelling(timestamp, saldo, kassa.saldo, verschil));
-
     return this;
   }
 
@@ -100,6 +99,10 @@ export class Historiek {
     historiekJaar.addAfluiting(new HistoriekAfsluiting(timestamp, bedrag, opmerking));
 
     return this;
+  }
+
+  clearDetails() {
+    this.jaren.forEach(jaar => jaar.clearDetails());
   }
 
 }

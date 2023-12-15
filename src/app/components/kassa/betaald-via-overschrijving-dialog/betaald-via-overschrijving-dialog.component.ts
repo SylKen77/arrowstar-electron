@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {KassaService} from '../../../services/kassa-service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
 import {AfrekeningViaOverschrijving} from '../../../model/afrekening-via-overschrijving';
@@ -13,8 +12,7 @@ export class BetaaldViaOverschrijvingDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<BetaaldViaOverschrijvingDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: AfrekeningViaOverschrijving,
-              private commandService: CommandService,
-              public kassaService: KassaService) { }
+              private commandService: CommandService) { }
 
   ngOnInit() {
   }

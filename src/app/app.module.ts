@@ -12,17 +12,13 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {WebviewDirective} from './directives/webview.directive';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig} from 'ng2-currency-mask/src/currency-mask.config';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
-import {KlantService} from './services/klant-service';
 import {CommandService} from './services/command-service';
 import {InitializeCommandsResolver} from './resolvers/initialize-commands-resolver';
-import {ProductService} from './services/product-service';
-import {AankoopService} from './services/aankoop-service';
-import {KassaService} from './services/kassa-service';
-import { QRCodeModule } from 'angularx-qrcode';
+import {QRCodeModule} from 'angularx-qrcode';
 
 import {
   MatAutocompleteModule,
@@ -65,15 +61,15 @@ import {RekeningDialogComponent} from './components/home/rekening-dialog/rekenin
 import {KassaComponent} from './components/kassa/kassa.component';
 import {BarComponent} from './components/bar/bar.component';
 import {KassaTellenDialogComponent} from './components/kassa/kassa-tellen-dialog/kassa-tellen-dialog.component';
-import { KassaAfsluitenDialogComponent } from './components/kassa/kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
-import { ProductDialogComponent } from './components/bar/product-dialog/product-dialog.component';
+import {KassaAfsluitenDialogComponent} from './components/kassa/kassa-afsluiten-dialog/kassa-afsluiten-dialog.component';
+import {ProductDialogComponent} from './components/bar/product-dialog/product-dialog.component';
 import {KlantenComponent} from './components/klanten/klanten.component';
 import {KlantDialogComponent} from './components/klanten/klant-dialog/klant-dialog.component';
 import {ImageService} from './services/image-service';
 import {BetaaldViaOverschrijvingDialogComponent} from './components/kassa/betaald-via-overschrijving-dialog/betaald-via-overschrijving-dialog.component';
-import {CommandSquasherService} from './services/command-squasher.service';
 import {HistoriekComponent} from './components/historiek/historiek.component';
-import {HistoriekService} from './services/historiek-service';
+import {StateService} from './services/state-service';
+import {CommandCruncherService} from './services/command-cruncher.service';
 
 
 // AoT requires an exported function for factories
@@ -160,7 +156,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
       }
     })
   ],
-  providers: [InitializeCommandsResolver, CommandService, CommandSquasherService, KlantService, ProductService, AankoopService, KassaService, ImageService, HistoriekService, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
+  providers: [InitializeCommandsResolver, CommandService, CommandCruncherService, StateService, ImageService, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   entryComponents: [GastAanmakenDialogComponent, RekeningDialogComponent, KassaTellenDialogComponent, KassaAfsluitenDialogComponent, ProductDialogComponent, KlantDialogComponent, BetaaldViaOverschrijvingDialogComponent, HistoriekComponent],
   bootstrap: [AppComponent]
 })

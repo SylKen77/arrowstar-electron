@@ -1,8 +1,4 @@
 import {Injectable} from '@angular/core';
-import {KlantService} from './klant-service';
-import {ProductService} from './product-service';
-import {AankoopService} from './aankoop-service';
-import {KassaService} from './kassa-service';
 import {Klant} from '../model/klant';
 import {KlantToevoegenCommand} from '../commands/klant-toevoegen-command';
 import {AankoopToevoegenCommand} from '../commands/aankoop-toevoegen-command';
@@ -26,10 +22,7 @@ export class CommandSquasherService {
   private commandsFile;
 
 
-  constructor(private klantService: KlantService,
-              private productService: ProductService,
-              private aankoopService: AankoopService,
-              private kassaService: KassaService) {
+  constructor() {
     this.index = 0;
     if (this.isElectron()) {
       this.remote = window.require('electron').remote;
@@ -48,6 +41,7 @@ export class CommandSquasherService {
     // TODO wat met klanten toevoegen / verwijderen
     // TODO wat met producten toevoegen / verwijderen
     // TODO ideaal, alles afspelen tot aan begin huidig jaar. die status bewaren als init command
+    /**
     const productToevoegenCommands = this.productService.state.map((p, i) => this.toProductToevoegenCommand(p));
     const klantToevoegenCommands = this.klantService.state.map((k, i) => this.toKlantToevoegenCommand(k));
     const aankoopToevoegenCommands = this.getAankoopToevoegenCommands(this.klantService.state);
@@ -106,6 +100,7 @@ export class CommandSquasherService {
 
   getKassaInitBedragCommand(kassa: Kassa): KassaInitCommand {
     return new KassaInitCommand(this.getNextIndex(), new Date(), kassa.saldo);
+      **/
   }
 
 }

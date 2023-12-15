@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CommandService} from '../../../services/command-service';
 import {Product} from '../../../model/product';
-import {KlantService} from '../../../services/klant-service';
 
 @Component({
   selector: 'app-product-dialog',
@@ -18,8 +17,7 @@ export class ProductDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ProductDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public product: Product,
-              private commandService: CommandService,
-              public klantService: KlantService) {
+              private commandService: CommandService) {
   }
 
   ngOnInit() {

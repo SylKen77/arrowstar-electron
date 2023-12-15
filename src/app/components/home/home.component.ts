@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {KlantService} from '../../services/klant-service';
-import {ProductService} from '../../services/product-service';
-import {KassaService} from '../../services/kassa-service';
 import {MatDialog} from '@angular/material';
 import {GastAanmakenDialogComponent} from './gast-aanmaken-dialog/gast-aanmaken-dialog.component';
 import {RekeningDialogComponent} from './rekening-dialog/rekening-dialog.component';
 import {Klant} from '../../model/klant';
 import {ImageService} from '../../services/image-service';
 import {KlantType} from '../../model/klant-type';
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
+import {StateService} from '../../services/state-service';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public klantService: KlantService,
-              public productService: ProductService,
-              public kassaService: KassaService,
+  constructor(public stateService: StateService,
               public imageService: ImageService,
               public dialog: MatDialog,
               public _DomSanitizationService: DomSanitizer ) {
@@ -60,12 +56,14 @@ export class HomeComponent implements OnInit {
   }
 
   laatsteTelling(): Date {
-    if (this.kassaService.state && this.kassaService.state.tellingen && this.kassaService.state.tellingen.length > 0) return this.kassaService.state.tellingen[this.kassaService.state.tellingen.length - 1].timestamp;
+    const aantalTellingen = this.stateService.state.getKassa().tellingen.length;
+    if (aantalTellingen  > 0) return this.stateService.state.getKassa().tellingen[aantalTellingen - 1].timestamp;
     return new Date();
   }
 
   laatsteAfsluiting(): Date {
-    if (this.kassaService.state && this.kassaService.state.afsluitingen && this.kassaService.state.afsluitingen.length > 0) return this.kassaService.state.afsluitingen[this.kassaService.state.afsluitingen.length - 1].timestamp;
+    const aantalAfsluitingen = this.stateService.state.getKassa().afsluitingen.length;
+    if (aantalAfsluitingen > 0) return this.stateService.state.getKassa().tellingen[aantalAfsluitingen - 1].timestamp;
     return new Date();
   }
 
